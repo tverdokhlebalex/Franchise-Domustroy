@@ -73,4 +73,52 @@
 </header>
 
 
-  
+    <main>
+      <section
+        class="container"
+        x-data="{ 
+        royalty_3: 100000,
+        start_plus_royalty_1: 150000,
+        one_time_payment: 300000,
+        personnel: 30000,
+        marketingSupport: 35000
+      }"
+      >
+        <h1>Редактирование цен</h1>
+        <p>Пример. Сюда можно добавить логику сохранения на сервер.</p>
+
+        <form @submit.prevent="alert('Сохраняем в базу...');">
+          <h2>Франшизы</h2>
+          <label>Роялти (3 года)</label><br />
+          <input type="number" x-model.number="royalty_3" /><br /><br />
+
+          <label>Старт + Роялти (1 год)</label><br />
+          <input
+            type="number"
+            x-model.number="start_plus_royalty_1"
+          /><br /><br />
+
+          <label>Единоразовая оплата</label><br />
+          <input type="number" x-model.number="one_time_payment" /><br /><br />
+
+          <h2>Доп. услуги</h2>
+          <label>Подбор персонала</label><br />
+          <input type="number" x-model.number="personnel" /><br /><br />
+
+          <label>Маркетинг</label><br />
+          <input type="number" x-model.number="marketingSupport" /><br /><br />
+
+          <button class="btn" type="submit">Сохранить</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+  <div class="container">
+    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
+    <p>Телефон: +7 (987) 827-67-34</p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -36,4 +36,56 @@
           height="24"
           fill="none"
           stroke="#fff"
-          stroke-wid
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M22 16.92V20a2 2 0 0 1-2.18 2A19.86 
+                     19.86 0 0 1 2 4.18 2 2 0 0 1 4 2h3.09
+                     a2 2 0 0 1 2 1.72 13.31 13.31 0 0 0 
+                     .7 2.88 2 2 0 0 1-.45 2.11L8.09 9.91
+                     a16 16 0 0 0 6.37 6.37l1.2-1.2 
+                     a2 2 0 0 1 2.11-.45 13.31 13.31 
+                     0 0 0 2.88.7 2 2 0 0 1 1.72 2z"
+          />
+        </svg>
+      </a>
+
+      <!-- Бургер-иконка -->
+      <div class="icon-menu-mobile" @click="openMobileMenu = !openMobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Меню, выезжающее справа (шторка) -->
+    <div class="main-menu" :class="{ 'opened': openMobileMenu }">
+      <button class="close-menu" @click="openMobileMenu = false">×</button>
+      <ul class="mobile-nav">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="franchise.html">О франшизе</a></li>
+        <li><a href="calc.html">Калькулятор</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+    <main>
+      <section class="container">
+        <h1>Спасибо за заявку!</h1>
+        <p>Мы свяжемся с вами в ближайшее время.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+  <div class="container">
+    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
+    <p>Телефон: +7 (987) 827-67-34</p>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -53,4 +53,19 @@ export function serve() {
       baseDir: paths.dist.base,
     },
     port: 3000,
-    open
+    open: false, // или true, если хотите, чтобы браузер сам открывался
+  });
+
+  watch(paths.src.html, html);
+  watch(paths.src.partials, html);
+  watch(paths.src.assets, copyAssets);
+}
+
+// 5. Общая сборка (очищаем, потом параллельно собираем html и копируем ассеты)
+export const build = series(clean, parallel(html, copyAssets));
+
+// 6. Задача по умолчанию
+export default build;
+
+// 7. Задача serve (сначала build, потом сервер)
+export const dev = series(build, serve);
