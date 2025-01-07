@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Калькулятор – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    @@include('partials/header.html')
+
+    <main>
+      <section class="container" x-data="calcData()">
+        <h1>Онлайн-калькулятор</h1>
+
+        <!-- 1. Выбор тарифа -->
+        <div>
+          <label>
+            <input type="radio" x-model="selectedTariff" value="royalty_3" />
+            Роялти на 3 года </label
+          ><br />
+          <label>
+            <input
+              type="radio"
+              x-model="selectedTariff"
+              value="start_plus_royalty_1"
+            />
+            Оплата за старт + роялти на 1 год </label
+          ><br />
+          <label>
+            <input
+              type="radio"
+              x-model="selectedTariff"
+              value="one_time_payment"
+            />
+            Единоразовая оплата
+          </label>
+        </div>
+
+        <!-- 2. Доп. услуги -->
+        <div>
+          <h2>Доп. услуги</h2>
+          <label>
+            <input type="checkbox" x-model="services" value="personnel" />
+            Подбор персонала </label
+          ><br />
+          <label>
+            <input
+              type="checkbox"
+              x-model="services"
+              value="expensesOptimization"
+            />
+            Оптимизация расходов </label
+          ><br />
+          <label>
+            <input
+              type="checkbox"
+              x-model="services"
+              value="advertisementSetup"
+            />
+            Настройка рекламы </label
+          ><br />
+          <label>
+            <input
+              type="checkbox"
+              x-model="services"
+              value="marketingSupport"
+            />
+            Маркетинговое сопровождение
+          </label>
+        </div>
+
+        <button class="btn" @click="calculateTotal">Рассчитать</button>
+
+        <!-- Отображение результата -->
+        <div x-show="showResult" style="margin-top: 20px">
+          <h3>Итоговая стоимость: <span x-text="totalPrice"></span> руб.</h3>
+
+          <!-- Форма заявки -->
+          <div>
+            <label>Ваше имя</label><br />
+            <input type="text" x-model="userName" /><br /><br />
+
+            <label>Ваш телефон</label><br />
+            <input type="text" x-model="userPhone" /><br /><br />
+
+            <button class="btn" @click="sendRequest">Отправить заявку</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    @@include('partials/footer.html')
+
+    <script type="module">
+      import { sendToTelegram } from "./assets/js/telegram.js";
+
+      function calcData() {
+        return {
+          // Исходные данные
+          selectedTariff: "royalty_3",
+          services: [],
+          totalPrice: 0,
+          showResult: false,
+          userName: "",
+          userPhone: "",
+
+          // Прейскурант (пример)
+          prices: {
+            franchises: {
+              royalty_3: 100000,
+              start_plus_royalty_1: 150000,
+              one_time_payment: 300000,
+            },
+            additionalServices: {
+              personnel: 30000,
+              expensesOptimization: 20000,
+              advertisementSetup: 25000,
+              marketingSupport: 35000,
+            },
+          },
+
+          calculateTotal() {
+            let total = this.prices.franchises[this.selectedTariff];
+
+            this.services.forEach((service) => {
+              total += this.prices.additionalServices[service] || 0;
+            });
+
+            this.totalPrice = total;
+            this.showResult = true;
+          },
+
+          sendRequest() {
+            const data = {
+              name: this.userName,
+              phone: this.userPhone,
+              tariff: this.selectedTariff,
+              services: this.services,
+            };
+            sendToTelegram(data)
+              .then(() => {
+                alert("Заявка отправлена! Скоро мы с вами свяжемся.");
+                this.showResult = false;
+              })
+              .catch((err) => {
+                console.error(err);
+                alert("Ошибка при отправке. Проверьте настройки Telegram.");
+              });
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

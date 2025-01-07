@@ -1,0 +1,350 @@
+/* =====================================
+   1) БАЗОВЫЕ СТИЛИ / СБРОС
+   ===================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000; /* или другой фон */
+  color: #fff;
+  padding-top: 60px; /* Чтобы контент не лез под фиксированный хедер */
+}
+
+/* Контейнер */
+.container-upgrade {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* =====================================
+      2) ХЕДЕР (полупрозрачный, фиксированный)
+      ===================================== */
+.header-upgrade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.6); /* полупрозрачный */
+  backdrop-filter: blur(
+    4px
+  ); /* эффект «матового стекла», не везде поддерживается */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+}
+.header-upgrade__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo -- nav -- phone/burger */
+  height: 60px;
+  width: 100%;
+}
+
+/* Логотип слева */
+.logo_new {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Навигация по центру на десктопе */
+.header-upgrade__nav-desktop {
+  flex: 1; /* тянется, чтобы занять пространство между логотипом и блоком справа */
+  display: flex;
+  justify-content: center;
+}
+.menu-desktop {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+.menu-desktop li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Блок справа (телефон + бургер) */
+.header-upgrade__right {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* при желании можно увеличить/уменьшить */
+}
+
+/* Телефон */
+.phone {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.phone svg {
+  stroke: #fff;
+  width: 24px;
+  height: 24px;
+}
+
+/* Бургер (по умолчанию скрыт, показываем на мобильном) */
+.icon-menu-mobile {
+  display: none;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+.icon-menu-mobile span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  margin-bottom: 4px;
+  border-radius: 2px;
+}
+
+/* =====================================
+      3) МОБИЛЬНОЕ МЕНЮ (ШТОРКА СПРАВА)
+      ===================================== */
+.main-menu {
+  position: fixed;
+  top: 0;
+  right: -100%; /* спрятано за экраном */
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transition: 0.3s ease;
+  z-index: 10000;
+}
+.main-menu.opened {
+  right: 0; /* когда класс .opened, появляется */
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  float: right;
+  color: #000;
+}
+
+/* Список мобильной навигации */
+.mobile-nav {
+  margin-top: 60px; /* чтобы пункты шли ниже кнопки закрытия */
+  list-style: none;
+  padding: 0;
+}
+.mobile-nav li a {
+  display: block;
+  padding: 15px 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+}
+
+/* =====================================
+      4) АДАПТИВНЫЕ НАСТРОЙКИ
+      ===================================== */
+/*
+      При ширине <= 1024px:
+      - Скрываем десктопное меню,
+      - Показываем бургер.
+   */
+@media (max-width: 1024px) {
+  .header-upgrade__nav-desktop {
+    display: none; /* скрываем горизонтальное меню */
+  }
+  .icon-menu-mobile {
+    display: block; /* показываем бургер */
+  }
+  /* Можно уменьшить gap справа, чтобы телефон ближе к бургеру */
+  .header-upgrade__right {
+    gap: 10px;
+  }
+}
+
+/* =====================================
+      7) БАННЕР (HERO)
+      ===================================== */
+
+/*
+     hero-banner        — блок с фоном,
+     hero-content       — контентная обёртка (заголовок, подзаголовок, кнопки),
+     cta-scroll         — единый блок для кнопки «Начать свой бизнес» и стрелки,
+     cta-button         — сама кнопка,
+     scroll-icon        — иконка (стрелка).
+   */
+
+/* Пример баннера (если вы используете background-image). 
+      Если у вас своя структура, адаптируйте названия классов.
+   */
+.hero-banner {
+  position: relative;
+  background: url("assets/images/banner-bg.jpg") center/cover no-repeat;
+  min-height: 80vh; /* или 100vh, если хотите во весь экран */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 700px;
+  margin: 0 20px; /* небольшой отступ по бокам */
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ddd; /* чуть более светлый, чтобы отличался от h1 */
+}
+
+/* Блок с кнопкой и стрелкой */
+.cta-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* между кнопкой и стрелкой */
+}
+
+/* Кнопка «Начать свой бизнес» (оранжевая) */
+.cta-button {
+  background-color: rgb(255, 126, 33); /* оранжевый */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.cta-button:hover {
+  background-color: rgba(255, 126, 33, 0.8);
+}
+
+/* Стрелка */
+.scroll-icon {
+  width: 32px;
+  height: 32px;
+  animation: scroll-bounce 1.5s infinite;
+}
+
+/* Анимация более заметной «амплитуды» */
+@keyframes scroll-bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(
+      10px
+    ); /* регулируйте величину на свой вкус (10-15px) */
+  }
+  60% {
+    transform: translateY(6px);
+  }
+}
+
+/* Адаптив баннера */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Блок преимуществ (белый фон) */
+.advantages-section {
+  background-color: #fff;
+  padding: 60px 0; /* отступы сверху/снизу */
+}
+
+/* Заголовок секции */
+.section-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* Сетка карточек */
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Карточка */
+.advantage-card {
+  position: relative;
+  background: #f8fafc; /* чуть-чуть сероватый/голубоватый фон (по желанию) */
+  border: 1px solid #cce0dd; /* или #ddd; не яркая обводка */
+  border-radius: 6px;
+  padding: 20px;
+  overflow: hidden;
+  min-height: 180px; /* чтобы карточки были примерно одной высоты */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Заголовок внутри карточки */
+.advantage-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+  color: #333;
+}
+
+/* Текст описания */
+.advantage-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Крупный номер на фоне */
+.card-number {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.1); /* очень светлый, полупрозрачный */
+  pointer-events: none; /* чтобы номер не мешал выделять текст */
+}
+
+/* Адаптивность: для совсем узких экранов можно уменьшить отступы */
+@media (max-width: 576px) {
+  .advantages-section {
+    padding: 40px 0;
+  }
+  .advantage-card {
+    padding: 15px;
+  }
+  .advantage-card h3 {
+    font-size: 1rem;
+  }
+  .card-number {
+    font-size: 2.5rem;
+  }
+}

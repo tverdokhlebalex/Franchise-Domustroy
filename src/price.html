@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Редактирование цен – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    @@include('partials/header.html')
+
+    <main>
+      <section
+        class="container"
+        x-data="{ 
+        royalty_3: 100000,
+        start_plus_royalty_1: 150000,
+        one_time_payment: 300000,
+        personnel: 30000,
+        marketingSupport: 35000
+      }"
+      >
+        <h1>Редактирование цен</h1>
+        <p>Пример. Сюда можно добавить логику сохранения на сервер.</p>
+
+        <form @submit.prevent="alert('Сохраняем в базу...');">
+          <h2>Франшизы</h2>
+          <label>Роялти (3 года)</label><br />
+          <input type="number" x-model.number="royalty_3" /><br /><br />
+
+          <label>Старт + Роялти (1 год)</label><br />
+          <input
+            type="number"
+            x-model.number="start_plus_royalty_1"
+          /><br /><br />
+
+          <label>Единоразовая оплата</label><br />
+          <input type="number" x-model.number="one_time_payment" /><br /><br />
+
+          <h2>Доп. услуги</h2>
+          <label>Подбор персонала</label><br />
+          <input type="number" x-model.number="personnel" /><br /><br />
+
+          <label>Маркетинг</label><br />
+          <input type="number" x-model.number="marketingSupport" /><br /><br />
+
+          <button class="btn" type="submit">Сохранить</button>
+        </form>
+      </section>
+    </main>
+
+    @@include('partials/footer.html')
+  </body>
+</html>

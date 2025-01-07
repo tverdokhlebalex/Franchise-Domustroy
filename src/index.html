@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Главная – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Стили -->
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Alpine.js (через CDN) -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    @@include('partials/header.html')
+
+    <main>
+      <section class="page franchise-upgrade">
+        <!-- Баннер -->
+        <div class="hero-banner">
+          <div class="hero-content">
+            <h1>Франшиза ДомУстрой</h1>
+            <p>
+              Полное сопровождение • Надежные поставщики • Современные
+              инструменты маркетинга
+            </p>
+
+            <!-- Кнопка + стрелка (объединено в класс "cta-scroll") -->
+            <div class="cta-scroll">
+              <a class="cta-button" href="#calc-block">Начать свой бизнес</a>
+              <img
+                class="scroll-icon"
+                src="assets/images/scroll.svg"
+                alt="Scroll down"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Доп. контент... -->
+      </section>
+      <section class="advantages-section">
+        <div class="container-upgrade">
+          <h2 class="section-title">Преимущества</h2>
+          <div class="advantages-grid">
+            <!-- 1 -->
+            <div class="advantage-card">
+              <h3>Надёжные поставщики</h3>
+              <p>
+                Высококачественные товары, налаженная логистика и выгодные цены.
+              </p>
+              <div class="card-number">01</div>
+            </div>
+
+            <!-- 2 -->
+            <div class="advantage-card">
+              <h3>Собственные IT-решения</h3>
+              <p>Максимальная автоматизация процессов и удобная аналитика.</p>
+              <div class="card-number">02</div>
+            </div>
+
+            <!-- 3 -->
+            <div class="advantage-card">
+              <h3>Маркетинговая поддержка</h3>
+              <p>
+                Рекламные материалы и консультации по продвижению для партнёров.
+              </p>
+              <div class="card-number">03</div>
+            </div>
+
+            <!-- 4 -->
+            <div class="advantage-card">
+              <h3>Обучение</h3>
+              <p>
+                Школа франчайзи-партнёров и всесторонняя подготовка персонала.
+              </p>
+              <div class="card-number">04</div>
+            </div>
+
+            <!-- 5 -->
+            <div class="advantage-card">
+              <h3>Прозрачные условия</h3>
+              <p>
+                Честная финансовая модель и открытая отчётность для партнёров.
+              </p>
+              <div class="card-number">05</div>
+            </div>
+
+            <!-- 6 -->
+            <div class="advantage-card">
+              <h3>Индивидуальное сопровождение</h3>
+              <p>
+                Персональный менеджер, маркетолог и бизнес-тренер на всех
+                этапах.
+              </p>
+              <div class="card-number">06</div>
+            </div>
+
+            <!-- 7 -->
+            <div class="advantage-card">
+              <h3>Минимальные риски</h3>
+              <p>
+                Экспертная поддержка, бизнес-анализ и помощь в принятии решений.
+              </p>
+              <div class="card-number">07</div>
+            </div>
+            <!-- 8 -->
+            <div class="advantage-card">
+              <h3>Расширенный ассортимент</h3>
+              <p>
+                Широкий выбор товаров для дома и строительства, регулярно
+                обновляемый под тренды рынка.
+              </p>
+              <div class="card-number">08</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Далее другие секции... -->
+
+      <!-- Секция с калькулятором (например) -->
+      <section id="calc-block" class="calc-section">
+        <!-- Весь код калькулятора -->
+      </section>
+    </main>
+
+    @@include('partials/footer.html')
+
+    <!-- JS -->
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>
