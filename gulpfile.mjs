@@ -25,7 +25,7 @@ const paths = {
 
 // Задача 1: Очистка папки dist
 export function clean(done) {
-  console.log("Cleaning dist folder...");
+  console.log("Cleaning docs folder...");
   deleteAsync([paths.dist.base]).then(() => done());
 }
 
