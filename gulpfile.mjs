@@ -15,9 +15,9 @@ const paths = {
     assets: "src/assets/**/*.*", // Все ассеты
   },
   dist: {
-    base: "dist/", // Корневая папка для сборки
-    images: "dist/assets/images/", // Папка для изображений
-    assets: "dist/assets/", // Папка для всех ассетов
+    base: "docs/", // Изменено с "dist/" на "docs/"
+    images: "docs/assets/images/", // Папка для изображений
+    assets: "docs/assets/", // Папка для всех ассетов
   },
 };
 

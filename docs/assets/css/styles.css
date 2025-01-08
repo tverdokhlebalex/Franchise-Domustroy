@@ -1,0 +1,579 @@
+/* =====================================
+   1) БАЗОВЫЕ СТИЛИ / СБРОС
+   ===================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000; /* Можно заменить на любой другой фон */
+  color: #fff;
+  /* Отступ сверху, чтобы контент не лез под фиксированный хедер */
+  padding-top: 60px;
+}
+
+/* =====================================
+      2) КОНТЕЙНЕР ДЛЯ ВЕРСТКИ
+      ===================================== */
+.container-upgrade {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* =====================================
+      3) ХЕДЕР (полупрозрачный, фиксированный)
+      ===================================== */
+.header-upgrade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.6); /* полупрозрачный фон */
+  backdrop-filter: blur(
+    4px
+  ); /* эффект «матового стекла» (не все браузеры поддерживают) */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+}
+
+.header-upgrade__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* logo -- nav -- phone/burger */
+  height: 60px;
+  width: 100%;
+}
+
+/* Лого слева */
+.logo_new {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Навигация по центру (только на десктопе) */
+.header-upgrade__nav-desktop {
+  flex: 1;
+  display: flex; /* на десктопе меню видно */
+  justify-content: center;
+}
+
+.menu-desktop {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+/* Активная ссылка */
+.menu-desktop .active {
+  border-bottom: 2px solid #ff7e21;
+}
+
+.menu-desktop li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Блок справа (телефон + бургер) */
+.header-upgrade__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Телефон */
+.phone {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.phone svg {
+  stroke: #fff;
+  width: 24px;
+  height: 24px;
+}
+
+/* Бургер (по умолчанию скрыт, показывается в медиазапросе) */
+.icon-menu-mobile {
+  display: none;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+.icon-menu-mobile span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  margin-bottom: 4px;
+  border-radius: 2px;
+}
+/* Анимация бургера */
+.icon-menu-mobile.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.icon-menu-mobile.active span:nth-child(2) {
+  opacity: 0;
+}
+.icon-menu-mobile.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+/* =====================================
+      4) МОБИЛЬНОЕ МЕНЮ (ШТОРКА СПРАВА)
+      ===================================== */
+.main-menu {
+  position: fixed;
+  top: 0;
+  right: -100%; /* спрятано за экраном */
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transition: 0.3s ease;
+  z-index: 10000;
+}
+
+.main-menu.opened {
+  right: 0; /* при добавлении класса .opened меню выезжает */
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  float: right;
+  color: #000;
+}
+
+/* Список мобильной навигации */
+.mobile-nav {
+  margin-top: 60px; /* чтобы пункты шли ниже кнопки закрытия */
+  list-style: none;
+  padding: 0;
+}
+.mobile-nav li a {
+  display: block;
+  padding: 15px 0;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+}
+
+/* =====================================
+      5) АДАПТИВНОСТЬ (МЕДИАЗАПРОСЫ)
+      ===================================== */
+
+/* 
+      При ширине <= 1024px:
+      - Прячем десктопное меню (.header-upgrade__nav-desktop),
+      - Показываем бургер (.icon-menu-mobile).
+   */
+@media (max-width: 1024px) {
+  .header-upgrade__nav-desktop {
+    display: none;
+  }
+  .icon-menu-mobile {
+    display: block;
+  }
+  .header-upgrade__right {
+    gap: 10px; /* телефон ближе к бургеру */
+  }
+}
+
+/* @media (max-width: 768px): планшеты и небольшие устройства */
+@media (max-width: 768px) {
+  .logo_new {
+    font-size: 1.1rem; /* немного уменьшим логотип */
+  }
+  .menu-desktop li a {
+    font-size: 0.95rem;
+  }
+  .icon-menu-mobile {
+    width: 26px;
+    height: 20px;
+  }
+}
+
+/* @media (max-width: 576px): крупные телефоны (Galaxy S, iPhone 11 и т.д.) */
+@media (max-width: 576px) {
+  .logo_new {
+    font-size: 1rem;
+  }
+  .header-upgrade {
+    height: 50px; /* уменьшаем высоту хедера */
+  }
+  .header-upgrade__wrapper {
+    height: 50px;
+  }
+  body {
+    padding-top: 50px; /* чтобы контент не налез под хедер */
+  }
+  .close-menu {
+    font-size: 1.8rem;
+  }
+  .mobile-nav li a {
+    font-size: 0.9rem;
+  }
+}
+
+/* @media (max-width: 375px): iPhone X/mini и т.п. */
+@media (max-width: 375px) {
+  .logo_new {
+    font-size: 0.95rem;
+  }
+  .header-upgrade__right {
+    gap: 6px;
+  }
+  .close-menu {
+    font-size: 1.6rem;
+  }
+  .mobile-nav li a {
+    font-size: 0.88rem;
+    padding: 12px 0;
+  }
+}
+
+/* @media (max-width: 320px): iPhone SE (320x568) и ещё более узкие */
+@media (max-width: 320px) {
+  .logo_new {
+    font-size: 0.9rem;
+  }
+  .header-upgrade {
+    height: 46px;
+  }
+  .header-upgrade__wrapper {
+    height: 46px;
+  }
+  body {
+    padding-top: 46px; /* синхронизировано с высотой хедера */
+  }
+  .icon-menu-mobile {
+    width: 24px;
+    height: 18px;
+  }
+  .close-menu {
+    font-size: 1.5rem;
+  }
+  .mobile-nav li a {
+    font-size: 0.85rem;
+    padding: 10px 0;
+  }
+}
+
+/* =====================================
+      6) БАННЕР (HERO)
+      ===================================== */
+
+/*
+      hero-banner:      блок с фоном,
+      hero-content:     обёртка с заголовком, подзаголовком, кнопками,
+      cta-scroll:       объединяет кнопку «Начать свой бизнес» и стрелку,
+      cta-button:       сама кнопка,
+      scroll-icon:      иконка (стрелка).
+   */
+.hero-banner {
+  position: relative;
+  background: url("assets/images/banner-bg.jpg") center/cover no-repeat;
+  min-height: 80vh; /* или 100vh, если хотите во весь экран */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 700px;
+  margin: 0 20px; /* небольшой отступ по бокам */
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ddd; /* чуть более светлый, чтобы отличался от h1 */
+}
+
+/* Блок с кнопкой и стрелкой */
+.cta-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* между кнопкой и стрелкой */
+}
+
+/* Кнопка «Начать свой бизнес» (оранжевая) */
+.cta-button {
+  background-color: rgb(255, 126, 33);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Анимация кнопок */
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 126, 33, 0.8);
+}
+
+/* Стрелка (иконка) */
+.scroll-icon {
+  width: 32px;
+  height: 32px;
+  animation: scroll-bounce 1.5s infinite;
+}
+
+/* Анимация более заметной «амплитуды» */
+@keyframes scroll-bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(10px);
+  }
+  60% {
+    transform: translateY(6px);
+  }
+}
+
+/* Адаптив баннера */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Секция преимуществ */
+.advantages-section {
+  background-color: #fff;
+  padding: 60px 0;
+  color: #333;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.advantage-card {
+  position: relative;
+  background: #f8fafc;
+  border: 1px solid #cce0dd;
+  border-radius: 6px;
+  padding: 20px;
+  overflow: hidden;
+  min-height: 180px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, z-index 0.3s ease, opacity 0.3s ease;
+}
+
+.advantage-card h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.advantage-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.card-number {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .advantages-grid {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+
+  .advantage-card {
+    margin-bottom: -20px;
+    z-index: 1;
+  }
+
+  .advantage-card.active {
+    transform: translateY(-10px);
+    z-index: 100;
+  }
+}
+
+/* Секция "Как работает бизнес франчайзи" */
+.franchise-how-it-works {
+  background-color: #ffffff;
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+  font-weight: 700;
+}
+
+.work__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto; /* Левая колонка, правая колонка, изображение */
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.work-card {
+  max-width: 100%;
+}
+
+.work-card__title {
+  font-size: 1.5rem;
+  color: #ff7e21; /* Оранжевый цвет заголовка */
+  margin-bottom: 20px;
+}
+
+.work-card__list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.work-card__list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  position: relative;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #333;
+}
+
+.work-card__list li span {
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.work-card__list li span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000; /* Черное подчеркивание */
+}
+
+.check-icon {
+  width: 30px;
+  height: 30px;
+  fill: #ff7e21; /* Оранжевые галочки */
+}
+
+.work__image {
+  max-width: 600px;
+  justify-self: end; /* Отправляет изображение вправо */
+  animation: fade-in-right 1s ease-out;
+}
+
+.work__image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* Анимации */
+@keyframes fade-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .work__row {
+    grid-template-columns: 1fr; /* Все блоки по одной колонке */
+    gap: 40px;
+  }
+
+  .work__image {
+    justify-self: center;
+    animation: fade-in-bottom 1s ease-out;
+  }
+
+  @keyframes fade-in-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/* Анимация "Наверх" */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #ff7e21;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 50%;
+  display: none;
+  transition: transform 0.3s ease;
+}
+.back-to-top:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Главная – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Стили -->
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <!-- Alpine.js (через CDN) -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <header x-data="{ openMobileMenu: false }" class="header-upgrade">
+  <div class="container-upgrade">
+    <div class="header-upgrade__wrapper">
+      <!-- Лого слева -->
+      <a class="logo logo_new" href="index.html">ДомУстрой</a>
+
+      <!-- Навигация по центру (только на десктопе) -->
+      <nav class="header-upgrade__nav-desktop">
+        <ul class="menu-desktop">
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="franchise.html">О франшизе</a></li>
+          <li><a href="calc.html">Калькулятор</a></li>
+        </ul>
+      </nav>
+
+      <!-- Блок справа (phone + burger) -->
+      <div class="header-upgrade__right">
+        <a class="phone" href="tel:+78003334130" rel="nofollow">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92V20a2 2 0 0 1-2.18 2
+                       A19.86 19.86 0 0 1 2 4.18
+                       2 2 0 0 1 4 2h3.09
+                       a2 2 0 0 1 2 1.72 
+                       13.31 13.31 0 0 0 .7 2.88
+                       2 2 0 0 1-.45 2.11L8.09 9.91
+                       a16 16 0 0 0 6.37 6.37
+                       l1.2-1.2 a2 2 0 0 1 2.11-.45
+                       13.31 13.31 0 0 0 2.88.7
+                       2 2 0 0 1 1.72 2z"
+            />
+          </svg>
+        </a>
+
+        <!-- Бургер -->
+        <div
+          class="icon-menu-mobile"
+          @click="openMobileMenu = !openMobileMenu"
+          :class="{ 'active': openMobileMenu }"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Выезжающая шторка справа -->
+    <div class="main-menu" :class="{ 'opened': openMobileMenu }">
+      <button class="close-menu" @click="openMobileMenu = false">×</button>
+      <ul class="mobile-nav">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="franchise.html">О франшизе</a></li>
+        <li><a href="calc.html">Калькулятор</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+    <main>
+      <section class="page franchise-upgrade">
+        <!-- Баннер -->
+        <div class="hero-banner">
+          <div class="hero-content">
+            <h1>Франшиза ДомУстрой</h1>
+            <p>
+              Полное сопровождение • Надежные поставщики • Современные
+              инструменты маркетинга
+            </p>
+
+            <!-- Кнопка + стрелка (объединено в класс "cta-scroll") -->
+            <div class="cta-scroll">
+              <a class="cta-button" href="#calc-block">Начать свой бизнес</a>
+              <img
+                class="scroll-icon"
+                src="assets/images/scroll.svg"
+                alt="Scroll down"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- ПРЕИМУЩЕСТВА -->
+        <section class="advantages-section">
+          <div class="container-upgrade">
+            <h2 class="section-title">Преимущества</h2>
+            <div class="advantages-grid">
+              <!-- Карточка 1 -->
+              <div class="advantage-card" data-order="1">
+                <h3>Надёжные поставщики</h3>
+                <p>Высококачественные товары, налаженная логистика и выгодные цены.</p>
+                <div class="card-number">01</div>
+              </div>
+              <!-- Карточка 2 -->
+              <div class="advantage-card" data-order="2">
+                <h3>Собственные IT-решения</h3>
+                <p>Максимальная автоматизация процессов и удобная аналитика.</p>
+                <div class="card-number">02</div>
+              </div>
+              <!-- Карточка 3 -->
+              <div class="advantage-card" data-order="3">
+                <h3>Маркетинговая поддержка</h3>
+                <p>Рекламные материалы и консультации по продвижению для партнёров.</p>
+                <div class="card-number">03</div>
+              </div>
+              <!-- Карточка 4 -->
+              <div class="advantage-card" data-order="4">
+                <h3>Обучение</h3>
+                <p>Школа франчайзи-партнёров и всесторонняя подготовка персонала.</p>
+                <div class="card-number">04</div>
+              </div>
+              <!-- Карточка 5 -->
+              <div class="advantage-card" data-order="5">
+                <h3>Прозрачные условия</h3>
+                <p>Честная финансовая модель и открытая отчётность для партнёров.</p>
+                <div class="card-number">05</div>
+              </div>
+              <!-- Карточка 6 -->
+              <div class="advantage-card" data-order="6">
+                <h3>Индивидуальное сопровождение</h3>
+                <p>Персональный менеджер, маркетолог и бизнес-тренер на всех этапах.</p>
+                <div class="card-number">06</div>
+              </div>
+              <!-- Карточка 7 -->
+              <div class="advantage-card" data-order="7">
+                <h3>Минимальные риски</h3>
+                <p>Экспертная поддержка, бизнес-анализ и помощь в принятии решений.</p>
+                <div class="card-number">07</div>
+              </div>
+              <!-- Карточка 8 -->
+              <div class="advantage-card" data-order="8">
+                <h3>Расширенный ассортимент</h3>
+                <p>
+                  Широкий выбор товаров для дома и строительства, регулярно обновляемый
+                  под тренды рынка.
+                </p>
+                <div class="card-number">08</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        
+        
+        
+        
+        
+
+        <!-- HOW IT -->
+        <section class="franchise-how-it-works">
+          <div class="container-upgrade">
+            <h2 class="section-title">Как работает бизнес франчайзи?</h2>
+        
+            <div class="work__row">
+              <!-- Левая колонка -->
+              <div class="work-card">
+                <h5 class="work-card__title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+                  МЫ ПРЕДОСТАВЛЯЕМ ВАМ:
+                </h5>
+                <ul class="work-card__list">
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+                    <span>Товары по сниженным ценам</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+                    <span>Настроенную экосистему (1С+CRM Битрикс)</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+                    <span>Аналитику продаж и рекомендации</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+                    <span>Подбор и обучение персонала</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+                    <span>Маркетинговую поддержку</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="500">
+                    <span>Автоматизацию аналитики</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
+                    <span>Техническую поддержку</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="700">
+                    <span>Рекламные материалы для продвижения</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                </ul>
+              </div>
+        
+              <!-- Правая колонка -->
+              <div class="work-card">
+                <h5 class="work-card__title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+                  ВЫ ОБЕСПЕЧИВАЕТЕ:
+                </h5>
+                <ul class="work-card__list">
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+                    <span>Выбор и оформление помещения</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+                    <span>Контроль продаж и клиентского сервиса</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+                    <span>Управление персоналом</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                  <li data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+                    <span>Выполнение маркетинговых акций</span>
+                    <svg class="check-icon"><use xlink:href="assets/images/sprite.svg"></use></svg>
+                  </li>
+                </ul>
+              </div>
+        
+              <!-- Изображение -->
+              <div class="work__image" data-aos="fade-left" data-aos-duration="700" data-aos-delay="300">
+                <figure>
+                  <img decoding="async" loading="lazy" src="assets/images/how-to.png" alt="Работа франчайзи" />
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+      <!-- Далее другие секции... -->
+
+      <!-- Секция с калькулятором (например) -->
+      <section id="calc-block" class="calc-section">
+        <!-- Весь код калькулятора -->
+      </section>
+    </main>
+
+    <footer class="footer">
+  <div class="container">
+    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
+    <p>Телефон: +7 (987) 827-67-34</p>
+    <a href="#top" class="back-to-top">Наверх</a>
+  </div>
+</footer>
+
+
+    <!-- JS -->
+    <script type="module" src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
+  </body>
+  <script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll("[data-animate]");
+  
+    function handleScroll() {
+      const windowHeight = window.innerHeight;
+  
+      elements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= windowHeight - 50) {
+          el.classList.add("visible");
+        } else {
+          el.classList.remove("visible");
+        }
+      });
+    }
+  
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+  });
+</script>
+</html>

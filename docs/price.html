@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Редактирование цен – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <header x-data="{ openMobileMenu: false }" class="header-upgrade">
+  <div class="container-upgrade">
+    <div class="header-upgrade__wrapper">
+      <!-- Лого слева -->
+      <a class="logo logo_new" href="index.html">ДомУстрой</a>
+
+      <!-- Навигация по центру (только на десктопе) -->
+      <nav class="header-upgrade__nav-desktop">
+        <ul class="menu-desktop">
+          <li><a href="index.html" class="active">Главная</a></li>
+          <li><a href="franchise.html">О франшизе</a></li>
+          <li><a href="calc.html">Калькулятор</a></li>
+        </ul>
+      </nav>
+
+      <!-- Блок справа (phone + burger) -->
+      <div class="header-upgrade__right">
+        <a class="phone" href="tel:+78003334130" rel="nofollow">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92V20a2 2 0 0 1-2.18 2
+                       A19.86 19.86 0 0 1 2 4.18
+                       2 2 0 0 1 4 2h3.09
+                       a2 2 0 0 1 2 1.72 
+                       13.31 13.31 0 0 0 .7 2.88
+                       2 2 0 0 1-.45 2.11L8.09 9.91
+                       a16 16 0 0 0 6.37 6.37
+                       l1.2-1.2 a2 2 0 0 1 2.11-.45
+                       13.31 13.31 0 0 0 2.88.7
+                       2 2 0 0 1 1.72 2z"
+            />
+          </svg>
+        </a>
+
+        <!-- Бургер -->
+        <div
+          class="icon-menu-mobile"
+          @click="openMobileMenu = !openMobileMenu"
+          :class="{ 'active': openMobileMenu }"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Выезжающая шторка справа -->
+    <div class="main-menu" :class="{ 'opened': openMobileMenu }">
+      <button class="close-menu" @click="openMobileMenu = false">×</button>
+      <ul class="mobile-nav">
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="franchise.html">О франшизе</a></li>
+        <li><a href="calc.html">Калькулятор</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+    <main>
+      <section
+        class="container"
+        x-data="{ 
+        royalty_3: 100000,
+        start_plus_royalty_1: 150000,
+        one_time_payment: 300000,
+        personnel: 30000,
+        marketingSupport: 35000
+      }"
+      >
+        <h1>Редактирование цен</h1>
+        <p>Пример. Сюда можно добавить логику сохранения на сервер.</p>
+
+        <form @submit.prevent="alert('Сохраняем в базу...');">
+          <h2>Франшизы</h2>
+          <label>Роялти (3 года)</label><br />
+          <input type="number" x-model.number="royalty_3" /><br /><br />
+
+          <label>Старт + Роялти (1 год)</label><br />
+          <input
+            type="number"
+            x-model.number="start_plus_royalty_1"
+          /><br /><br />
+
+          <label>Единоразовая оплата</label><br />
+          <input type="number" x-model.number="one_time_payment" /><br /><br />
+
+          <h2>Доп. услуги</h2>
+          <label>Подбор персонала</label><br />
+          <input type="number" x-model.number="personnel" /><br /><br />
+
+          <label>Маркетинг</label><br />
+          <input type="number" x-model.number="marketingSupport" /><br /><br />
+
+          <button class="btn" type="submit">Сохранить</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+  <div class="container">
+    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
+    <p>Телефон: +7 (987) 827-67-34</p>
+    <a href="#top" class="back-to-top">Наверх</a>
+  </div>
+</footer>
+
+  </body>
+</html>
