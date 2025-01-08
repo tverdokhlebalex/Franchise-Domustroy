@@ -6,66 +6,108 @@ import browserSyncLib from "browser-sync";
 const browserSync = browserSyncLib.create();
 const { src, dest, watch, series, parallel } = gulp;
 
-// Пути к папкам
+// Пути к файлам
 const paths = {
   src: {
-    html: "src/**/*.html", // все HTML в src (кроме partials)
-    partials: "src/partials/*.html", // partials
-    assets: "src/assets/**/*.*", // все файлы в assets
+    html: "src/*.html", // Все HTML-файлы
+    partials: "src/partials/*.html", // Частичные HTML
+    images: "src/assets/images/**/*.{png,jpg,jpeg,svg,webp}", // Только изображения
+    assets: "src/assets/**/*.*", // Все ассеты
   },
   dist: {
-    base: "dist/",
-    assets: "dist/assets/",
+    base: "dist/", // Корневая папка для сборки
+    images: "dist/assets/images/", // Папка для изображений
+    assets: "dist/assets/", // Папка для всех ассетов
   },
 };
 
-// 1. Очистка dist
-export async function clean() {
-  // deleteAsync возвращает Promise
-  await deleteAsync([paths.dist.base]);
+// === Задачи ===
+
+// Задача 1: Очистка папки dist
+export function clean(done) {
+  console.log("Cleaning dist folder...");
+  deleteAsync([paths.dist.base]).then(() => done());
 }
 
-// 2. Сборка HTML с include
+// Задача 2: Обработка HTML с fileInclude
 export function html() {
-  // Берём все .html из src, кроме partials
-  return src(["src/*.html", "!src/partials/**"])
+  console.log("Processing HTML...");
+  return src([paths.src.html, "!src/partials/**"])
     .pipe(
       fileInclude({
-        prefix: "@@",
+        prefix: "@@", // Префикс для include
         basepath: "@file",
       })
     )
-    .pipe(dest(paths.dist.base))
-    .pipe(browserSync.stream());
+    .on("error", (err) => console.error("HTML Error:", err))
+    .pipe(dest(paths.dist.base));
 }
 
-// 3. Копирование ассетов (CSS, JS, images) в dist
+// Задача 3: Копирование изображений
+export function copyImages() {
+  console.log("Copying images...");
+  return src(paths.src.images).pipe(dest(paths.dist.images));
+}
+
+// Задача 4: Копирование других ассетов
 export function copyAssets() {
-  return src(paths.src.assets)
-    .pipe(dest(paths.dist.assets))
-    .pipe(browserSync.stream());
+  console.log("Copying assets...");
+  return src([paths.src.assets, `!${paths.src.images}`]) // Копируем всё, кроме изображений
+    .pipe(dest(paths.dist.assets));
 }
 
-// 4. Локальный сервер + слежка
-export function serve() {
+// Задача 5: Локальный сервер (browser-sync)
+export function serve(done) {
+  console.log("Starting server...");
   browserSync.init({
     server: {
-      baseDir: paths.dist.base,
+      baseDir: paths.dist.base, // Папка для сервера
     },
-    port: 3000,
-    open: false, // или true, если хотите, чтобы браузер сам открывался
+    port: 3000, // Порт
+    open: true, // Открывать автоматически браузер
   });
-
-  watch(paths.src.html, html);
-  watch(paths.src.partials, html);
-  watch(paths.src.assets, copyAssets);
+  done();
 }
 
-// 5. Общая сборка (очищаем, потом параллельно собираем html и копируем ассеты)
-export const build = series(clean, parallel(html, copyAssets));
+// Задача 6: Слежка за файлами
+export function watchFiles() {
+  console.log("Watching files for changes...");
+  watch(paths.src.html, series(html, reloadBrowser));
+  watch(paths.src.partials, series(html, reloadBrowser));
+  watch(paths.src.images, series(copyImages, reloadBrowser));
+  watch(paths.src.assets, series(copyAssets, reloadBrowser));
+}
 
-// 6. Задача по умолчанию
+// Вспомогательная задача для обновления браузера
+function reloadBrowser(done) {
+  console.log("Reloading browser...");
+  browserSync.reload();
+  done();
+}
+
+// === Общие задачи ===
+
+// Задача сборки (очистка, сборка HTML, копирование ассетов)
+export const build = series(
+  clean,
+  parallel(html, copyImages, copyAssets),
+  (done) => {
+    console.log("Build completed!");
+    done();
+  }
+);
+
+// Режим разработки: сборка + сервер + слежка
+export const dev = series(build, serve, watchFiles, (done) => {
+  console.log("Development environment is running!");
+  done();
+});
+
+// Задача по умолчанию: только сборка
 export default build;
 
-// 7. Задача serve (сначала build, потом сервер)
-export const dev = series(build, serve);
+// Дополнительная задача: только сервер без слежки
+export const serveOne = series(build, serve, (done) => {
+  console.log("Serve without watching is running!");
+  done();
+});

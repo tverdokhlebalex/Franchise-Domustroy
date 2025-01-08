@@ -1,14 +1,25 @@
 {
   "name": "franchise-domustroy",
   "version": "1.0.0",
-  "main": "gulpfile.js",
+  "description": "Франшиза ДомУстрой: проект для сборки лендинга и автоматизации процессов разработки",
+  "main": "gulpfile.mjs",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp build",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "dev": "gulp dev"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "author": "Ваше Имя",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^3.0.3",
+    "del": "^8.0.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-file-include": "^2.3.0"
+  },
+  "dependencies": {
+    "aos": "^2.3.4"
+  }
 }
