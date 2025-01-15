@@ -20,6 +20,7 @@
     "gulp-file-include": "^2.3.0"
   },
   "dependencies": {
-    "aos": "^2.3.4"
+    "aos": "^2.3.4",
+    "chart.js": "^4.4.7"
   }
 }
