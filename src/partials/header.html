@@ -2,14 +2,17 @@
   <div class="container-upgrade">
     <div class="header-upgrade__wrapper">
       <!-- Лого слева -->
-      <a class="logo logo_new" href="index.html">ДомУстрой</a>
+      <a class="logo logo_new" href="index.html"> ДомУстрой </a>
 
       <!-- Навигация по центру только на десктопе -->
       <nav class="header-upgrade__nav-desktop">
         <ul class="menu-desktop">
-          <li><a href="index.html" class="active">Главная</a></li>
-          <li><a href="franchise.html">О франшизе</a></li>
-          <li><a href="calc.html">Калькулятор</a></li>
+          <!-- Пример: если мы на index.html, ставим active -->
+          <li><a href="index.html" class="">Главная</a></li>
+          <!-- Пример: если мы на franchise.html, ставим active -->
+          <li><a href="franchise.html" class="">О франшизе</a></li>
+          <!-- Калькулятор может вести на отдельную страницу ИЛИ на #calc-block главной -->
+          <li><a href="index.html#calc-block">Калькулятор</a></li>
         </ul>
       </nav>
 
@@ -27,15 +30,15 @@
           >
             <path
               d="M22 16.92V20a2 2 0 0 1-2.18 2
-                       A19.86 19.86 0 0 1 2 4.18
-                       2 2 0 0 1 4 2h3.09
-                       a2 2 0 0 1 2 1.72 
-                       13.31 13.31 0 0 0 .7 2.88
-                       2 2 0 0 1-.45 2.11L8.09 9.91
-                       a16 16 0 0 0 6.37 6.37
-                       l1.2-1.2 a2 2 0 0 1 2.11-.45
-                       13.31 13.31 0 0 0 2.88.7
-                       2 2 0 0 1 1.72 2z"
+                 A19.86 19.86 0 0 1 2 4.18
+                 2 2 0 0 1 4 2h3.09
+                 a2 2 0 0 1 2 1.72 
+                 13.31 13.31 0 0 0 .7 2.88
+                 2 2 0 0 1-.45 2.11L8.09 9.91
+                 a16 16 0 0 0 6.37 6.37
+                 l1.2-1.2 a2 2 0 0 1 2.11-.45
+                 13.31 13.31 0 0 0 2.88.7
+                 2 2 0 0 1 1.72 2z"
             />
           </svg>
         </a>
@@ -57,9 +60,19 @@
     <div class="main-menu" :class="{ 'opened': openMobileMenu }">
       <button class="close-menu" @click="openMobileMenu = false">×</button>
       <ul class="mobile-nav">
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="franchise.html">О франшизе</a></li>
-        <li><a href="calc.html">Калькулятор</a></li>
+        <li>
+          <a href="index.html" @click="openMobileMenu = false">Главная</a>
+        </li>
+        <li>
+          <a href="franchise.html" @click="openMobileMenu = false"
+            >О франшизе</a
+          >
+        </li>
+        <li>
+          <a href="index.html#calc-block" @click="openMobileMenu = false"
+            >Калькулятор</a
+          >
+        </li>
       </ul>
     </div>
   </div>

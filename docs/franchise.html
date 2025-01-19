@@ -2,10 +2,28 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>О франшизе – ДомУстрой</title>
+    <title>О Франшизе – ДомУстрой</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Подключаем стили (reset и основной) -->
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- AOS для анимаций -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+    />
+
+    <!-- Google Fonts (Inter, Rubik) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rubik:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Alpine.js (через CDN), если нужно -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
@@ -16,14 +34,17 @@
   <div class="container-upgrade">
     <div class="header-upgrade__wrapper">
       <!-- Лого слева -->
-      <a class="logo logo_new" href="index.html">ДомУстрой</a>
+      <a class="logo logo_new" href="index.html"> ДомУстрой </a>
 
-      <!-- Навигация по центру (только на десктопе) -->
+      <!-- Навигация по центру только на десктопе -->
       <nav class="header-upgrade__nav-desktop">
         <ul class="menu-desktop">
-          <li><a href="index.html" class="active">Главная</a></li>
-          <li><a href="franchise.html">О франшизе</a></li>
-          <li><a href="calc.html">Калькулятор</a></li>
+          <!-- Пример: если мы на index.html, ставим active -->
+          <li><a href="index.html" class="">Главная</a></li>
+          <!-- Пример: если мы на franchise.html, ставим active -->
+          <li><a href="franchise.html" class="">О франшизе</a></li>
+          <!-- Калькулятор может вести на отдельную страницу ИЛИ на #calc-block главной -->
+          <li><a href="index.html#calc-block">Калькулятор</a></li>
         </ul>
       </nav>
 
@@ -41,15 +62,15 @@
           >
             <path
               d="M22 16.92V20a2 2 0 0 1-2.18 2
-                       A19.86 19.86 0 0 1 2 4.18
-                       2 2 0 0 1 4 2h3.09
-                       a2 2 0 0 1 2 1.72 
-                       13.31 13.31 0 0 0 .7 2.88
-                       2 2 0 0 1-.45 2.11L8.09 9.91
-                       a16 16 0 0 0 6.37 6.37
-                       l1.2-1.2 a2 2 0 0 1 2.11-.45
-                       13.31 13.31 0 0 0 2.88.7
-                       2 2 0 0 1 1.72 2z"
+                 A19.86 19.86 0 0 1 2 4.18
+                 2 2 0 0 1 4 2h3.09
+                 a2 2 0 0 1 2 1.72 
+                 13.31 13.31 0 0 0 .7 2.88
+                 2 2 0 0 1-.45 2.11L8.09 9.91
+                 a16 16 0 0 0 6.37 6.37
+                 l1.2-1.2 a2 2 0 0 1 2.11-.45
+                 13.31 13.31 0 0 0 2.88.7
+                 2 2 0 0 1 1.72 2z"
             />
           </svg>
         </a>
@@ -71,35 +92,211 @@
     <div class="main-menu" :class="{ 'opened': openMobileMenu }">
       <button class="close-menu" @click="openMobileMenu = false">×</button>
       <ul class="mobile-nav">
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="franchise.html">О франшизе</a></li>
-        <li><a href="calc.html">Калькулятор</a></li>
+        <li>
+          <a href="index.html" @click="openMobileMenu = false">Главная</a>
+        </li>
+        <li>
+          <a href="franchise.html" @click="openMobileMenu = false"
+            >О франшизе</a
+          >
+        </li>
+        <li>
+          <a href="index.html#calc-block" @click="openMobileMenu = false"
+            >Калькулятор</a
+          >
+        </li>
       </ul>
     </div>
   </div>
 </header>
 
 
-    <main>
-      <section class="container">
-        <h1>Франшиза ДомУстрой</h1>
-        <p>
-          Здесь — подробная информация о форматах сотрудничества, преимуществах,
-          дополнительной поддержке и т.д.
+    <main class="main-franchise">
+      <!-- Заголовок страницы -->
+      <section class="page-header container-upgrade" data-aos="fade-up">
+        <h1>О Франшизе «ДомУстрой»</h1>
+        <p class="subtitle">
+          Узнайте больше о нашем формате магазинов, ассортименте и возможностях
+          для партнёров.
         </p>
+      </section>
 
-        <h2>1. Форматы договора</h2>
-        <p>
-          Роялти на 3 года, оплата за старт + роялти, единоразовая оплата...
-        </p>
+      <!-- Блок с информацией (матовые карточки) -->
+      <section class="franchise-info-block container-upgrade">
+        <!-- Карточка 1: "Что такое ДомУстрой" -->
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+          <h2>Что такое «ДомУстрой»?</h2>
+          <p class="large-desktop">
+            <strong>«ДомУстрой»</strong> — это широкая товарная матрица:
+            <strong
+              >от товаров ежедневного потребления до узконаправленных
+              категорий</strong
+            >. Свыше 5000 наименований в офлайне и более 100 000 заказных
+            позиций. Такой формат позволяет
+            <span class="orange">закрыть максимум потребностей</span> клиентов,
+            учитывая специфику и локацию каждого магазина.
+          </p>
+        </div>
 
-        <h2>2. Преимущества</h2>
-        <ul>
-          <li>Полная поддержка на старте</li>
-          <li>Готовая бизнес-модель</li>
-          <li>Маркетинговая и техническая поддержка</li>
-          <li>Аналитика и оптимизация</li>
-        </ul>
+        <!-- Карточка 2: Категории (разделили на виды) -->
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+          <h2>Категории товаров</h2>
+          <!-- Виды товаров (для дома, ухода, строительства, электрика) -->
+          <div class="category-section">
+            <h3>● Товары для дома</h3>
+            <ul class="categories-list">
+              <li>Сантехника</li>
+              <li>Мебель для ванных комнат</li>
+              <li>Замки, скобяные изделия</li>
+            </ul>
+          </div>
+          <div class="category-section">
+            <h3>● Средства для ухода</h3>
+            <ul class="categories-list">
+              <li>Средства защиты растений, удобрения</li>
+              <li>Лаки, краски</li>
+            </ul>
+          </div>
+          <div class="category-section">
+            <h3>● Строительство</h3>
+            <ul class="categories-list">
+              <li>Стройматериалы, отделочные материалы</li>
+              <li>Крепёж, кабель, провод</li>
+              <li>Погонажные изделия</li>
+              <li>Оборудование для очистки воды</li>
+            </ul>
+          </div>
+          <div class="category-section">
+            <h3>● Электрика</h3>
+            <ul class="categories-list">
+              <li>Светотехника, электротехника</li>
+              <li>Электроустановочные изделия</li>
+              <li>Слесарно-монтажный инструмент</li>
+              <li>Отопление, водоснабжение, канализация</li>
+            </ul>
+
+            <!-- Здесь блок с изображением -->
+            <div
+              class="category-franch__image"
+              data-aos="fade-left"
+              data-aos-duration="700"
+              data-aos-delay="300"
+            >
+              <figure>
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src="assets/images/category.webp"
+                  alt="Работа франчайзи"
+                />
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!-- Карточка 3: Форматы и инвестиции (разделено на подблоки) -->
+        <div class="glass-card" data-aos="fade-up" data-aos-delay="300">
+          <h2>Форматы и инвестиции</h2>
+          <p>
+            Мы предлагаем несколько вариантов сотрудничества, в зависимости от
+            <strong>площади магазина</strong> и желаемого уровня инвестиций:
+          </p>
+          <div class="formats-grid">
+            <!-- Формат 1 -->
+            <div class="format-block">
+              <h3>От 150–200 м<sup>2</sup></h3>
+              <p>
+                Инвестиции: <span class="orange">7–9 млн ₽</span> (с учётом
+                паушального взноса). Оборот:
+                <span class="orange">2.1–3 млн ₽</span>/мес. Прибыль:
+                <span class="orange">350–400 тыс. ₽</span>/мес.
+              </p>
+            </div>
+            <!-- Формат 2 -->
+            <div class="format-block">
+              <h3>От 250–500 м<sup>2</sup></h3>
+              <p>
+                Инвестиции: <span class="orange">10–14 млн ₽</span>. Оборот:
+                <span class="orange">3.5–5 млн ₽</span>/мес. Прибыль:
+                <span class="orange">500–750 тыс. ₽</span>/мес.
+              </p>
+            </div>
+            <!-- Формат 3 -->
+            <div class="format-block">
+              <h3>От 600–1000 м<sup>2</sup></h3>
+              <p>
+                Инвестиции: <span class="orange">17–35 млн ₽</span>.
+                Пропорциональный рост оборота и прибыли по мере увеличения
+                площади.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Слайдер (со стрелками и точками) -->
+      <section
+        class="slider-section container-upgrade"
+        data-aos="fade-up"
+        data-aos-delay="400"
+      >
+        <h2>Фотографии наших магазинов</h2>
+
+        <div class="slider-wrapper">
+          <!-- Кнопки "влево/вправо" -->
+          <button class="slider-arrow left-arrow" id="prevSlide">
+            &#10094;
+          </button>
+          <button class="slider-arrow right-arrow" id="nextSlide">
+            &#10095;
+          </button>
+
+          <div class="slider-container" id="sliderContainer">
+            <!-- Слайды (пример: 5 штук) -->
+            <div
+              class="slide"
+              style="background-image: url('assets/images/shop-day.jpg')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('assets/images/shop-night.jpg')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('assets/images/svet.jpg')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('assets/images/instrumenti.jpg')"
+            ></div>
+            <div
+              class="slide"
+              style="background-image: url('assets/images/trubi.jpg')"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Точки (нижняя навигация) -->
+        <div class="slider-dots" id="sliderDots">
+          <div class="dot active" data-index="0"></div>
+          <div class="dot" data-index="1"></div>
+          <div class="dot" data-index="2"></div>
+          <div class="dot" data-index="3"></div>
+          <div class="dot" data-index="4"></div>
+        </div>
+      </section>
+
+      <!-- CTA-блок внизу с кнопкой -->
+      <section class="cta-bottom" data-aos="fade-up" data-aos-delay="500">
+        <div class="container-upgrade">
+          <h2>Готовы стать партнёром?</h2>
+          <p>
+            Рассчитайте стоимость франшизы и получите подробный бизнес-план!
+          </p>
+          <a class="cta-calc-button" href="index.html#calc-block">
+            Рассчитать стоимость франшизы
+          </a>
+        </div>
       </section>
     </main>
 
@@ -111,5 +308,79 @@
   </div>
 </footer>
 
+
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Инициализируем AOS -->
+    <script>
+      AOS.init({
+        duration: 1000,
+        offset: 100,
+      });
+    </script>
+
+    <!-- Слайдер JS -->
+    <script>
+      const sliderContainer = document.getElementById("sliderContainer");
+      const slides = Array.from(sliderContainer.children);
+      const dotsContainer = document.getElementById("sliderDots");
+      const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+
+      const prevSlideBtn = document.getElementById("prevSlide");
+      const nextSlideBtn = document.getElementById("nextSlide");
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      const slideWidth = 100;
+      const intervalTime = 4000;
+      let autoSlideInterval;
+
+      function updateSlide(index) {
+        currentIndex = index;
+        const offset = -(slideWidth * currentIndex);
+        sliderContainer.style.transform = "translateX(" + offset + "%)";
+        dots.forEach((dot) => dot.classList.remove("active"));
+        dots[currentIndex].classList.add("active");
+      }
+
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          let nextIndex = currentIndex + 1;
+          if (nextIndex >= totalSlides) nextIndex = 0;
+          updateSlide(nextIndex);
+        }, intervalTime);
+      }
+
+      function resetAutoSlide() {
+        clearInterval(autoSlideInterval);
+        startAutoSlide();
+      }
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const i = parseInt(dot.getAttribute("data-index"));
+          updateSlide(i);
+          resetAutoSlide();
+        });
+      });
+
+      if (prevSlideBtn && nextSlideBtn) {
+        prevSlideBtn.addEventListener("click", () => {
+          let newIndex = currentIndex - 1;
+          if (newIndex < 0) newIndex = totalSlides - 1;
+          updateSlide(newIndex);
+          resetAutoSlide();
+        });
+        nextSlideBtn.addEventListener("click", () => {
+          let newIndex = currentIndex + 1;
+          if (newIndex >= totalSlides) newIndex = 0;
+          updateSlide(newIndex);
+          resetAutoSlide();
+        });
+      }
+
+      updateSlide(0);
+      startAutoSlide();
+    </script>
   </body>
 </html>
