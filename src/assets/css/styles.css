@@ -14,7 +14,7 @@ body {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, "Inter", "Rubik", sans-serif;
   background-color: #000; /* Можно заменить на любой другой фон */
   color: #fff;
   /* Отступ сверху, чтобы контент не лез под фиксированный хедер */
@@ -620,4 +620,112 @@ body {
   font-size: 20px;
   font-weight: bold;
   color: #444;
+}
+
+.franchise-page {
+  margin-top: 60px; /* отодвигаем от фиксированного хедера, если нужно */
+  padding: 40px 0;
+  color: #fff;
+  background: #000; /* общий фон, как на главной */
+}
+
+/* =========================================
+   Страница "О Франшизе" 
+   =========================================*/
+
+.franchise-page h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.franchise-page p {
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: #eee;
+  max-width: 800px;
+}
+
+/* Секция с текстом */
+.franchise-info {
+  margin-bottom: 50px;
+}
+.franchise-info p strong {
+  color: #ff7e21; /* выделяем ключевые моменты оранжевым */
+}
+
+/* Блок с инвестициями */
+.investment-block {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 6px;
+}
+.investment-block h3 {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+.investment-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.6;
+}
+.investment-block li {
+  margin-bottom: 10px;
+}
+
+/* =========================================
+   Слайдер (фиксированная высота, автопрокрут)
+   =========================================*/
+.slider-section {
+  margin-top: 60px;
+}
+.slider-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.slider-container {
+  display: flex;
+  transition: transform 0.5s ease;
+  /* ширина зависит от кол-ва слайдов */
+}
+.slide {
+  min-width: 100%; /* один слайд = ширина контейнера */
+  height: 400px; /* фикс. высота (можно менять) */
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* Пример стилей для навигации (точки) */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #555;
+  cursor: pointer;
+}
+.dot.active {
+  background-color: #fff;
+}
+
+/* Адаптивность (пример) */
+@media (max-width: 768px) {
+  .slide {
+    height: 300px;
+  }
+}
+@media (max-width: 576px) {
+  .slide {
+    height: 240px;
+  }
 }

@@ -2,10 +2,22 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>О франшизе – ДомУстрой</title>
+    <title>О Франшизе – ДомУстрой</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Подключаем стили (reset и основной) -->
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Подключаем Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Rubik:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Alpine.js (через CDN), если нужно -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
@@ -15,28 +27,138 @@
     @@include('partials/header.html')
 
     <main>
-      <section class="container">
-        <h1>Франшиза ДомУстрой</h1>
-        <p>
-          Здесь — подробная информация о форматах сотрудничества, преимуществах,
-          дополнительной поддержке и т.д.
-        </p>
+      <section class="page franchise-page container-upgrade">
+        <h1>О Франшизе</h1>
 
-        <h2>1. Форматы договора</h2>
-        <p>
-          Роялти на 3 года, оплата за старт + роялти, единоразовая оплата...
-        </p>
+        <!-- Текстовая часть (блок с информацией) -->
+        <div class="franchise-info">
+          <p>
+            Товарная матрица содержит <strong>широкий ассортимент</strong>.
+            Более 100 000 наименований заказных позиций и свыше 5000
+            наименований и 15 категорий в офлайн магазинах!
+          </p>
+          <p>
+            Отличие от конкурентов – это формат, в котором покупатель может
+            закрыть максимум своих потребностей как за счет товаров ежедневного
+            потребления, так и более узко направленных и специфичных категорий
+            товаров!
+          </p>
+          <p>
+            Наше отличие от существующих на рынке франшиз заключается в
+            <strong>гибкости</strong> при формировании конкурентного формата
+            магазина, это позволяет с учётом особенностей локации точнее
+            попадать в рынок!
+          </p>
+        </div>
 
-        <h2>2. Преимущества</h2>
-        <ul>
-          <li>Полная поддержка на старте</li>
-          <li>Готовая бизнес-модель</li>
-          <li>Маркетинговая и техническая поддержка</li>
-          <li>Аналитика и оптимизация</li>
-        </ul>
+        <!-- Блок инвестиций -->
+        <div class="investment-block">
+          <h3>Начальные инвестиции</h3>
+          <p>Зависят от выбранного формата магазина и квадратуры.</p>
+          <ul>
+            <li>
+              <strong>От 150кв до 200кв:</strong> инвестиций 7–9 млн (с учётом
+              паушального взноса). Средний оборот в месяц: 2.1–3 млн, чистая
+              прибыль: 350–400 тыс. ₽.
+            </li>
+            <li>
+              <strong>От 250кв до 500кв:</strong> инвестиций 10–14 млн (с учётом
+              паушального взноса). Средний оборот: 3.5–5 млн, чистая прибыль:
+              500–750 тыс. ₽.
+            </li>
+            <li>
+              <strong>От 600кв до 1000кв:</strong> инвестиций 17–35 млн (с
+              учётом паушального взноса). Средний оборот и прибыль зависят от
+              региона и дополнительных факторов.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Слайдер с автопрокруткой (фиксированная высота) -->
+      <section class="slider-section container-upgrade">
+        <h2>Фотографии магазинов</h2>
+
+        <div class="slider-wrapper">
+          <div class="slider-container" id="sliderContainer">
+            <!-- 1 -->
+            <div
+              class="slide"
+              style="background-image: url('assets/images/slider1.jpg')"
+            ></div>
+            <!-- 2 -->
+            <div
+              class="slide"
+              style="background-image: url('assets/images/slider2.jpg')"
+            ></div>
+            <!-- 3 -->
+            <div
+              class="slide"
+              style="background-image: url('assets/images/slider3.jpg')"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Точки (необязательно) -->
+        <div class="slider-dots" id="sliderDots">
+          <div class="dot active" data-index="0"></div>
+          <div class="dot" data-index="1"></div>
+          <div class="dot" data-index="2"></div>
+        </div>
       </section>
     </main>
 
     @@include('partials/footer.html')
+
+    <script>
+      const sliderContainer = document.getElementById("sliderContainer");
+      const slides = Array.from(sliderContainer.children);
+      const dotsContainer = document.getElementById("sliderDots");
+      const dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      const slideWidth = 100; // % (каждый слайд занимает 100%)
+      const intervalTime = 3000; // автопрокрутка каждые 3 секунды
+      let autoSlideInterval;
+
+      // Функция обновления слайда
+      function updateSlide(index) {
+        currentIndex = index;
+        const offset = -(slideWidth * currentIndex);
+        sliderContainer.style.transform = "translateX(" + offset + "%)";
+        // Обновляем точки
+        if (dots.length) {
+          dots.forEach((dot) => dot.classList.remove("active"));
+          dots[currentIndex].classList.add("active");
+        }
+      }
+
+      // Автопрокрутка
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          let nextIndex = currentIndex + 1;
+          if (nextIndex >= totalSlides) {
+            nextIndex = 0;
+          }
+          updateSlide(nextIndex);
+        }, intervalTime);
+      }
+
+      // Ставим обработчики на точки (если есть)
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const i = parseInt(dot.getAttribute("data-index"));
+          updateSlide(i);
+          // Перезапустить авто
+          clearInterval(autoSlideInterval);
+          startAutoSlide();
+        });
+      });
+
+      // Запускаем
+      updateSlide(0);
+      startAutoSlide();
+    </script>
   </body>
 </html>
