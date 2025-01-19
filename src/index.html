@@ -232,9 +232,65 @@
       <!-- Далее другие секции... -->
 
       <!-- Секция с калькулятором (например) -->
-      <section id="calc-block" class="calc-section">
-        <!-- Весь код калькулятора -->
-      </section>
+        <section id="calc-block" class="calc-section">
+          <div class="container-upgrade">
+            <h2 class="section-title">Калькулятор расчета стоимости франшизы</h2>
+        
+            <!-- Toggle переключатель выбора типа франшизы -->
+            <div class="toggle-container">
+              <div class="toggle">
+                <input type="radio" id="start" name="franchiseType" value="start" checked />
+                <label for="start">Старт</label>
+                <input type="radio" id="standard" name="franchiseType" value="standard" />
+                <label for="standard">Стандарт</label>
+                <input type="radio" id="business" name="franchiseType" value="business" />
+                <label for="business">Бизнес</label>
+                <div class="toggle-bg"></div>
+              </div>
+            </div>
+        
+            <!-- Контент блоки для каждого типа франшизы -->
+            <div class="franchise-content" id="start-content">
+              <h3>Роялти на 3 года</h3>
+              <p>Оплата в виде процента от прибыли в течение 3 лет...</p>
+              <ul>
+                <li>Поставка товаров по сниженной цене</li>
+                <li>Экосистема 1С + CRM Битрикс</li>
+                <li>Консультации по открытию магазина</li>
+              </ul>
+              <p><strong>Примерные сроки окупаемости:</strong> 18 месяцев</p>
+              <canvas id="profitChartStart"></canvas>
+              <button class="next-btn">Далее</button>
+            </div>
+        
+            <div class="franchise-content hidden" id="standard-content">
+              <h3>Оплата за старт + роялти на 1 год</h3>
+              <p>Фиксированная оплата за старт, а затем роялти в течение первого года...</p>
+              <ul>
+                <li>Подбор персонала</li>
+                <li>Автоматизация аналитики с Telegram-ботом</li>
+                <li>Оптимизация расходов</li>
+              </ul>
+              <p><strong>Примерные сроки окупаемости:</strong> 12 месяцев</p>
+              <canvas id="profitChartStandard"></canvas>
+              <button class="next-btn">Далее</button>
+            </div>
+        
+            <div class="franchise-content hidden" id="business-content">
+              <h3>Единоразовая оплата</h3>
+              <p>Полная оплата франшизы одним платежом...</p>
+              <ul>
+                <li>Техническая поддержка на 1 год</li>
+                <li>Автоматизация аналитики с Telegram-ботом</li>
+                <li>Настройка Яндекс.Директ</li>
+              </ul>
+              <p><strong>Примерные сроки окупаемости:</strong> 10 месяцев</p>
+              <canvas id="profitChartBusiness"></canvas>
+              <button class="next-btn">Далее</button>
+            </div>
+          </div>
+        </section>
+        
 
 
     </main>
@@ -332,4 +388,81 @@
     });
   });
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const franchiseTypes = document.querySelectorAll('input[name="franchiseType"]');
+    const contents = document.querySelectorAll(".franchise-content");
+    const nextButtons = document.querySelectorAll(".next-btn");
+
+    let currentStep = 0;
+
+    // Функция переключения франшизы по toggle
+    franchiseTypes.forEach((input) => {
+      input.addEventListener("change", function () {
+        currentStep = 0; // Сброс шага при смене франшизы
+        showStep(0);
+        contents.forEach((content) => content.classList.add("hidden"));
+        document.getElementById(`${this.value}-content`).classList.remove("hidden");
+      });
+    });
+
+    // Переключение шагов калькулятора
+    function showStep(step) {
+      contents.forEach((content) => content.classList.add("hidden"));
+      contents[step].classList.remove("hidden");
+    }
+
+    nextButtons.forEach((button, index) => {
+      button.addEventListener("click", function () {
+        if (currentStep < contents.length - 1) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      });
+    });
+
+    // Функция отрисовки графиков
+    function createChart(canvasId, data) {
+      new Chart(document.getElementById(canvasId).getContext("2d"), {
+        type: "bar",
+        data: {
+          labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+          datasets: [
+            {
+              label: "Прибыль, ₽",
+              data: data,
+              backgroundColor: "#ff6600",
+              borderRadius: 5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            y: {
+              ticks: {
+                callback: (value) => value.toLocaleString("ru-RU") + " ₽",
+              },
+            },
+          },
+        },
+      });
+    }
+
+    // Инициализация графиков
+    createChart("profitChartStart", [50000, 60000, 70000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000]);
+    createChart("profitChartStandard", [60000, 70000, 80000, 90000, 100000, 105000, 110000, 120000, 125000, 135000, 145000, 155000]);
+    createChart("profitChartBusiness", [80000, 90000, 100000, 110000, 120000, 125000, 130000, 140000, 150000, 160000, 170000, 180000]);
+
+    // Инициализация первого шага
+    showStep(0);
+  });
+</script>
+
+
 </html>
