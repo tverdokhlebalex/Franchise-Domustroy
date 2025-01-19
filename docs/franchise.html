@@ -108,6 +108,54 @@
       </ul>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Получаем текущий URL страницы без домена
+      const currentPage =
+        window.location.pathname.split("/").pop() || "index.html";
+      const currentHash = window.location.hash;
+
+      // Функция для установки активного класса
+      function setActiveLink(selector) {
+        document.querySelectorAll(selector).forEach((link) => {
+          const linkHref = link.getAttribute("href");
+
+          // Логика для калькулятора
+          if (linkHref.includes("#calc-block")) {
+            if (currentPage === "index.html" && currentHash === "#calc-block") {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          }
+          // Логика для остальных ссылок
+          else if (linkHref === currentPage && !currentHash) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+
+      // Устанавливаем активный класс для desktop и mobile меню
+      setActiveLink(".menu-desktop a");
+      setActiveLink(".mobile-nav a");
+
+      // Устанавливаем класс при клике на калькулятор
+      document
+        .querySelectorAll('a[href="index.html#calc-block"]')
+        .forEach((link) => {
+          link.addEventListener("click", function () {
+            document
+              .querySelectorAll(".menu-desktop a, .mobile-nav a")
+              .forEach((item) => {
+                item.classList.remove("active");
+              });
+            link.classList.add("active");
+          });
+        });
+    });
+  </script>
 </header>
 
 
@@ -141,41 +189,44 @@
         <!-- Карточка 2: Категории (разделили на виды) -->
         <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
           <h2>Категории товаров</h2>
-          <!-- Виды товаров (для дома, ухода, строительства, электрика) -->
-          <div class="category-section">
-            <h3>● Товары для дома</h3>
-            <ul class="categories-list">
-              <li>Сантехника</li>
-              <li>Мебель для ванных комнат</li>
-              <li>Замки, скобяные изделия</li>
-            </ul>
-          </div>
-          <div class="category-section">
-            <h3>● Средства для ухода</h3>
-            <ul class="categories-list">
-              <li>Средства защиты растений, удобрения</li>
-              <li>Лаки, краски</li>
-            </ul>
-          </div>
-          <div class="category-section">
-            <h3>● Строительство</h3>
-            <ul class="categories-list">
-              <li>Стройматериалы, отделочные материалы</li>
-              <li>Крепёж, кабель, провод</li>
-              <li>Погонажные изделия</li>
-              <li>Оборудование для очистки воды</li>
-            </ul>
-          </div>
-          <div class="category-section">
-            <h3>● Электрика</h3>
-            <ul class="categories-list">
-              <li>Светотехника, электротехника</li>
-              <li>Электроустановочные изделия</li>
-              <li>Слесарно-монтажный инструмент</li>
-              <li>Отопление, водоснабжение, канализация</li>
-            </ul>
+          <div class="category-container">
+            <div class="categories-listing">
+              <div class="category-section">
+                <ul class="categories-list">
+                  <li><strong>Товары для дома</strong></li>
+                  <li>Сантехника</li>
+                  <li>Мебель для ванных комнат</li>
+                  <li>Замки, скобяные изделия</li>
+                </ul>
+              </div>
+              <div class="category-section">
+                <ul class="categories-list">
+                  <li><strong>Средства для ухода</strong></li>
+                  <li>Средства личной гигиены</li>
+                  <li>Косметические средства</li>
+                </ul>
+              </div>
+              <div class="category-section">
+                <ul class="categories-list">
+                  <li><strong>Строительство</strong></li>
+                  <li>Стройматериалы, отделочные материалы</li>
+                  <li>Крепёж, кабель, провод</li>
+                  <li>Погонажные изделия</li>
+                  <li>Оборудование для очистки воды</li>
+                </ul>
+              </div>
+              <div class="category-section">
+                <ul class="categories-list">
+                  <li><strong>Электрика</strong></li>
+                  <li>Светотехника, электротехника</li>
+                  <li>Электроустановочные изделия</li>
+                  <li>Слесарно-монтажный инструмент</li>
+                  <li>Отопление, водоснабжение, канализация</li>
+                </ul>
+              </div>
+            </div>
 
-            <!-- Здесь блок с изображением -->
+            <!-- Блок с изображением справа -->
             <div
               class="category-franch__image"
               data-aos="fade-left"
