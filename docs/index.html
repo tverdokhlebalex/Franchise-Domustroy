@@ -315,7 +315,6 @@
           </div>
         </section>
       <!-- Блок финансовых показателей -->
-        <!-- Блок финансовых показателей -->
         <section class="financial-performance" data-aos="fade-up" data-aos-duration="700">
           <div class="container-upgrade">
             <h2 class="section-title">Финансовые показатели</h2>
@@ -358,65 +357,232 @@
 
       <!-- Далее другие секции... -->
 
-      <!-- Секция с калькулятором (например) -->
-        <section id="calc-block" class="calc-section">
-          <div class="container-upgrade">
-            <h2 class="section-title">Калькулятор расчета стоимости франшизы</h2>
-        
-            <!-- Toggle переключатель выбора типа франшизы -->
-            <div class="toggle-container">
-              <div class="toggle">
-                <input type="radio" id="start" name="franchiseType" value="start" checked />
-                <label for="start">Старт</label>
-                <input type="radio" id="standard" name="franchiseType" value="standard" />
-                <label for="standard">Стандарт</label>
-                <input type="radio" id="business" name="franchiseType" value="business" />
-                <label for="business">Бизнес</label>
-                <div class="toggle-bg"></div>
-              </div>
-            </div>
-        
-            <!-- Контент блоки для каждого типа франшизы -->
-            <div class="franchise-content" id="start-content">
-              <h3>Роялти на 3 года</h3>
-              <p>Оплата в виде процента от прибыли в течение 3 лет...</p>
-              <ul>
-                <li>Поставка товаров по сниженной цене</li>
-                <li>Экосистема 1С + CRM Битрикс</li>
-                <li>Консультации по открытию магазина</li>
-              </ul>
-              <p><strong>Примерные сроки окупаемости:</strong> 18 месяцев</p>
-              <canvas id="profitChartStart"></canvas>
-              <button class="next-btn">Далее</button>
-            </div>
-        
-            <div class="franchise-content hidden" id="standard-content">
-              <h3>Оплата за старт + роялти на 1 год</h3>
-              <p>Фиксированная оплата за старт, а затем роялти в течение первого года...</p>
-              <ul>
-                <li>Подбор персонала</li>
-                <li>Автоматизация аналитики с Telegram-ботом</li>
-                <li>Оптимизация расходов</li>
-              </ul>
-              <p><strong>Примерные сроки окупаемости:</strong> 12 месяцев</p>
-              <canvas id="profitChartStandard"></canvas>
-              <button class="next-btn">Далее</button>
-            </div>
-        
-            <div class="franchise-content hidden" id="business-content">
-              <h3>Единоразовая оплата</h3>
-              <p>Полная оплата франшизы одним платежом...</p>
-              <ul>
-                <li>Техническая поддержка на 1 год</li>
-                <li>Автоматизация аналитики с Telegram-ботом</li>
-                <li>Настройка Яндекс.Директ</li>
-              </ul>
-              <p><strong>Примерные сроки окупаемости:</strong> 10 месяцев</p>
-              <canvas id="profitChartBusiness"></canvas>
-              <button class="next-btn">Далее</button>
+      <!-- =======================
+     Калькулятор Франшизы
+     ======================= -->
+
+        <section 
+        id="franchise-calc"
+        class="franchise-calc-section"
+        x-data="franchiseCalculatorV2()"
+        x-cloak
+        >
+        <!-- Заголовок большой над всем калькулятором -->
+        <h2 class="franchise-calc__main-title">Расчёт стоимости франшизы</h2>
+
+        <!-- (1) Форма контактных данных -->
+        <div 
+          class="franchise-calc__contact-form"
+          x-show="!calcVisible"
+          x-transition
+        >
+          <h3 class="form-subtitle">Шаг 1: Введите контактные данные</h3>
+          <p>Чтобы начать расчёт, пожалуйста, укажите имя и телефон.</p>
+
+          <label class="form-label">
+            Ваше имя <span>*</span>
+            <input 
+              type="text"
+              class="form-input"
+              x-model="contactName"
+              placeholder="Иван"
+            />
+          </label>
+
+          <label class="form-label">
+            Телефон <span>*</span>
+            <input 
+              type="text" 
+              class="form-input"
+              x-model="contactPhone"
+              placeholder="+7 (999) 999-99-99"
+            />
+          </label>
+
+          <p class="policy-note">
+            Нажимая на кнопку «Рассчитать», вы соглашаетесь на обработку своих персональных данных.
+          </p>
+
+          <button 
+            class="btn-primary"
+            @click="startCalculation"
+          >
+            Рассчитать
+          </button>
+        </div>
+
+        <!-- (2) Основные слайды калькулятора -->
+        <div
+          class="franchise-calc__inner"
+          x-show="calcVisible"
+          x-transition
+        >
+          <!-- Переключатель типа франшизы -->
+          <div class="calc-switch-container">
+            <div class="calc-switch">
+              <!-- Радиокнопки + лейблы -->
+              <input 
+                type="radio" 
+                id="calcStart_v2" 
+                name="calcSwitchOption" 
+                value="start"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcStart_v2">Старт</label>
+
+              <input 
+                type="radio" 
+                id="calcStandard_v2" 
+                name="calcSwitchOption"
+                value="standard"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcStandard_v2">Стандарт</label>
+
+              <input 
+                type="radio" 
+                id="calcBusiness_v2" 
+                name="calcSwitchOption"
+                value="business"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcBusiness_v2">Бизнес</label>
+
+              <!-- Подвижный ползунок -->
+              <div class="calc-switch-bg"></div>
             </div>
           </div>
+
+          <!-- Слайд 1: информация о франшизе -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 1"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
+            <p class="slide-text" x-text="currentFranchiseData.description"></p>
+
+            <div class="slide-info">
+              <strong>Примерные сроки окупаемости:</strong>
+              <span x-text="currentFranchiseData.approximatePaybackPeriod"></span>
+            </div>
+
+            <div class="slide-info">
+              <strong>Примерная ежемесячная чистая прибыль:</strong>
+              <span x-text="formatPrice(currentFranchiseData.estimatedMonthlyNetProfit)"></span> ₽
+            </div>
+
+            <button class="btn-next" @click="nextSlide">Далее</button>
+          </div>
+
+          <!-- Слайд 2: Доп. услуги (без иконок «?») -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 2"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title">Дополнительные услуги</h3>
+            <p class="slide-text">Отметьте, что хотите включить (стоимость не плюсуется в базовую):</p>
+
+            <!-- "Старт" -->
+            <template x-if="selectedFranchiseType === 'start'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.start" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <!-- "Стандарт" -->
+            <template x-if="selectedFranchiseType === 'standard'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.standard" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <!-- "Бизнес" -->
+            <template x-if="selectedFranchiseType === 'business'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.business" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <button class="btn-next" @click="nextSlide">Далее</button>
+          </div>
+
+          <!-- Слайд 3: Итоговая стоимость и выбранные услуги -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 3"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
+
+            <div class="final-cost-block">
+              <p>
+                <strong>Базовая стоимость:</strong>
+                <span x-text="formatPrice(currentFranchiseData.baseCost)"></span> ₽
+              </p>
+              <p>Выбранные услуги (оплата отдельно):</p>
+              <ul class="services-chosen">
+                <template x-for="(service, idx) in chosenServices" :key="idx">
+                  <li>
+                    <span x-text="service.name"></span> —
+                    <span x-text="formatPrice(service.price)"></span> ₽
+                  </li>
+                </template>
+              </ul>
+              <p class="note">*Доп. услуги не складываются с базовой стоимостью</p>
+            </div>
+
+            <button class="btn-primary" @click="submitFinalRequest">Оставить заявку на звонок</button>
+          </div>
+        </div>
+
         </section>
+
+          
+        
         
 
 
@@ -542,77 +708,122 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const franchiseTypes = document.querySelectorAll('input[name="franchiseType"]');
-    const contents = document.querySelectorAll(".franchise-content");
-    const nextButtons = document.querySelectorAll(".next-btn");
+/**
+ * Улучшенный калькулятор франшизы (версия 2)
+ * - Показ формы контактов
+ * - 3 слайда с анимацией "перелистывания"
+ * - Переключатель (toggle) с уникальными классами
+ */
+ function franchiseCalculatorV2() {
+  return {
+    // (A) Видимость калькулятора
+    calcVisible: false,
+    contactName: '',
+    contactPhone: '',
 
-    let currentStep = 0;
+    // (B) Слайдов всего 3
+    currentSlide: 1,
+    totalSlides: 3,
 
-    // Функция переключения франшизы по toggle
-    franchiseTypes.forEach((input) => {
-      input.addEventListener("change", function () {
-        currentStep = 0; // Сброс шага при смене франшизы
-        showStep(0);
-        contents.forEach((content) => content.classList.add("hidden"));
-        document.getElementById(`${this.value}-content`).classList.remove("hidden");
-      });
-    });
+    // (C) Тип франшизы (radio toggle)
+    selectedFranchiseType: 'start',
 
-    // Переключение шагов калькулятора
-    function showStep(step) {
-      contents.forEach((content) => content.classList.add("hidden"));
-      contents[step].classList.remove("hidden");
+    // (D) Данные по франшизам
+    franchises: {
+      start: {
+        title: 'Франшиза: Роялти на 3 года (Старт)',
+        description: 'Оплата в виде процента от прибыли в течение 3 лет. Оптимально для снижения стартовых затрат и долгосрочной поддержки.',
+        approximatePaybackPeriod: '9–12 месяцев',
+        estimatedMonthlyNetProfit: 80000,
+        baseCost: 150000
+      },
+      standard: {
+        title: 'Франшиза: Оплата за старт + роялти (Стандарт)',
+        description: 'Фиксированная оплата за старт и роялти в течение 1 года. Быстрый запуск с поддержкой франчайзера.',
+        approximatePaybackPeriod: '8–10 месяцев',
+        estimatedMonthlyNetProfit: 120000,
+        baseCost: 300000
+      },
+      business: {
+        title: 'Франшиза: Единоразовая оплата (Бизнес)',
+        description: 'Полная оплата разовым платежом, без ежемесячных взносов. Максимальный контроль над бизнесом.',
+        approximatePaybackPeriod: '10–12 месяцев',
+        estimatedMonthlyNetProfit: 150000,
+        baseCost: 500000
+      }
+    },
+
+    // (E) Доп. услуги (не плюсуются к baseCost)
+    additionalServices: {
+      start: [
+        { name: 'Подбор персонала', price: 30000, selected: false },
+        { name: 'Оптимизация расходов', price: 20000, selected: false },
+        { name: 'Подбор помещений', price: 25000, selected: false },
+        { name: 'Настройка Яндекс.Директ', price: 15000, selected: false },
+        { name: 'Маркетинговое сопровождение', price: 25000, selected: false }
+      ],
+      standard: [
+        { name: 'Настройка Яндекс.Директ', price: 15000, selected: false },
+        { name: 'Маркетинговое сопровождение', price: 25000, selected: false }
+      ],
+      business: [
+        { name: 'Маркетинговое сопровождение', price: 30000, selected: false }
+      ]
+    },
+
+    /**
+     * (1) Начало расчёта (проверка контактных полей)
+     */
+    startCalculation() {
+      if (!this.contactName.trim() || !this.contactPhone.trim()) {
+        alert('Пожалуйста, введите имя и телефон.');
+        return;
+      }
+      // Если нужно, тут можно отправить контактные данные на сервер
+      this.calcVisible = true;
+    },
+
+    /**
+     * (2) Доступ к данным текущего типа франшизы
+     */
+    get currentFranchiseData() {
+      return this.franchises[this.selectedFranchiseType];
+    },
+
+    /**
+     * (3) Следующий слайд
+     */
+    nextSlide() {
+      if (this.currentSlide < this.totalSlides) {
+        this.currentSlide++;
+      }
+    },
+
+    /**
+     * (4) Список выбраных услуг
+     */
+    get chosenServices() {
+      return this.additionalServices[this.selectedFranchiseType].filter(item => item.selected);
+    },
+
+    /**
+     * (5) Формат рублёвых значений
+     */
+    formatPrice(value) {
+      return new Intl.NumberFormat('ru-RU').format(value);
+    },
+
+    /**
+     * (6) Завершение (на 3-м слайде)
+     */
+    submitFinalRequest() {
+      // Отправить данные, показать всплывающее окно...
+      alert('Заявка отправлена! Ожидайте звонка менеджера.');
     }
+  };
+}
 
-    nextButtons.forEach((button, index) => {
-      button.addEventListener("click", function () {
-        if (currentStep < contents.length - 1) {
-          currentStep++;
-          showStep(currentStep);
-        }
-      });
-    });
 
-    // Функция отрисовки графиков
-    function createChart(canvasId, data) {
-      new Chart(document.getElementById(canvasId).getContext("2d"), {
-        type: "bar",
-        data: {
-          labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
-          datasets: [
-            {
-              label: "Прибыль, ₽",
-              data: data,
-              backgroundColor: "#ff6600",
-              borderRadius: 5,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-          },
-          scales: {
-            y: {
-              ticks: {
-                callback: (value) => value.toLocaleString("ru-RU") + " ₽",
-              },
-            },
-          },
-        },
-      });
-    }
-
-    // Инициализация графиков
-    createChart("profitChartStart", [50000, 60000, 70000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000]);
-    createChart("profitChartStandard", [60000, 70000, 80000, 90000, 100000, 105000, 110000, 120000, 125000, 135000, 145000, 155000]);
-    createChart("profitChartBusiness", [80000, 90000, 100000, 110000, 120000, 125000, 130000, 140000, 150000, 160000, 170000, 180000]);
-
-    // Инициализация первого шага
-    showStep(0);
-  });
 </script>
 
 
