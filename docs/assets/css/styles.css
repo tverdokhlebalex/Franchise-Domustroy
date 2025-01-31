@@ -62,11 +62,12 @@ body {
 }
 
 /* Лого слева */
-.logo_new {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  font-size: 1.2rem;
+.header_logo {
+  display: block;
+
+  width: 200px; /* подберите сами */
+  height: auto;
+  transition: transform 0.1s linear;
 }
 
 /* Навигация по центру (только на десктопе) */
@@ -297,21 +298,30 @@ body {
 .hero-banner {
   position: relative;
   background: black;
-  min-height: 80vh; /* или 100vh, если хотите во весь экран */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden; /* чтобы лого не вылезало */
 }
 
 .hero-content {
   max-width: 700px;
   margin: 0 20px; /* небольшой отступ по бокам */
+  position: relative; /* чтобы контент был в потоке */
+  z-index: 1;
 }
 
-.hero-content h1 {
+.hero-title {
   font-size: 3rem;
+  color: #fff;
   margin-bottom: 1rem;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #ddd;
+  margin-bottom: 2rem;
 }
 
 .hero-content p {
@@ -369,6 +379,23 @@ body {
     transform: translateY(6px);
   }
 }
+/* ==== Логотип (пока в потоке) ==== */
+#heroLogo {
+  margin: 0 auto 1rem auto;
+  width: 600px; /* подберите нужную ширину */
+  max-width: 90%;
+  height: auto;
+  z-index: 9999999999;
+  position: relative;
+}
+
+/* Класс для зафиксированного логотипа */
+
+.advantages-section {
+  background: #fff;
+  padding: 60px 0;
+  color: #333;
+}
 
 /* Адаптив баннера */
 @media (max-width: 768px) {
@@ -385,6 +412,8 @@ body {
   background-color: #fff;
   padding: 60px 0;
   color: #333;
+  position: relative;
+  z-index: -99;
 }
 
 .section-title {
@@ -447,6 +476,19 @@ body {
   .advantage-card.active {
     transform: translateY(-10px);
     z-index: 100;
+  }
+}
+/* ==== Адаптив  ==== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  .hero-logo-inline {
+    width: 460px;
+    margin-bottom: 0.8rem;
   }
 }
 

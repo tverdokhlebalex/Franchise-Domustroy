@@ -13,13 +13,21 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <!-- GSAP + ScrollTrigger (для анимации логотипа) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   </head>
   <body>
     <header x-data="{ openMobileMenu: false }" class="header-upgrade">
   <div class="container-upgrade">
     <div class="header-upgrade__wrapper">
       <!-- Лого слева -->
-      <a class="logo logo_new" href="index.html"> ДомУстрой </a>
+      <img
+        src="assets/images/logo-domustroi.svg"
+        alt="Логотип ДомУстрой"
+        class="header_logo"
+      />
 
       <!-- Навигация по центру только на десктопе -->
       <nav class="header-upgrade__nav-desktop">
@@ -147,17 +155,24 @@
     <main>
       <section class="page franchise-upgrade">
         <!-- Баннер -->
-        <div class="hero-banner">
+        <div class="hero-banner" id="heroBanner">
           <div class="hero-content">
-            <h1>Франшиза ДомУстрой</h1>
-            <p>
+            <h1 class="hero-title">Франшиза</h1>
+            <img 
+              id="heroLogo" 
+              src="assets/images/logo-domustroi.svg" 
+              alt="Логотип ДомУстрой"
+              class="hero-logo-inline"
+            />
+      
+            <p class="hero-subtitle">
               Полное сопровождение • Надежные поставщики • Современные
               инструменты маркетинга
             </p>
-
-            <!-- Кнопка + стрелка (объединено в класс "cta-scroll") -->
+      
+            <!-- Кнопка + стрелка -->
             <div class="cta-scroll">
-              <a class="cta-button" href="#calc-block">Начать свой бизнес</a>
+              <a class="cta-button" id="autoScrollBtn" href="javascript:void(0)">Начать свой бизнес</a>
               <img
                 class="scroll-icon"
                 src="assets/images/scroll.svg"
@@ -168,7 +183,7 @@
         </div>
 
         <!-- ПРЕИМУЩЕСТВА -->
-        <section class="advantages-section">
+        <section class="advantages-section " id="advantagesBlock">
           <div class="container-upgrade">
             <h2 class="section-title">Преимущества</h2>
             <div class="advantages-grid">
@@ -617,13 +632,130 @@
     <!-- JS -->
     <script type="module" src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<!-- JS: Логика фиксации логотипа при скролле -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroBanner = document.getElementById("heroBanner");
+    const heroLogo   = document.getElementById("heroLogo");
+  
+    if (!heroBanner || !heroLogo) return;
+  
+    // Насколько пикселей логотип опустится в конечной точке
+    // (чем больше, тем ниже лого окажется).
+    const finalOffset = 50;
+  
+    // Запоминаем начальные данные
+    let bannerTop    = heroBanner.offsetTop;
+    let bannerHeight = heroBanner.offsetHeight;
+  
+    // Функция, которая вызывается при скролле
+    function handleScroll() {
+      // Текущая прокрутка
+      const scrollY = window.scrollY || window.pageYOffset;
+  
+      // Если пользователь ещё не дошёл до баннера
+      if (scrollY < bannerTop) {
+        heroLogo.style.transform = "translateY(0)";
+        return;
+      }
+  
+      // Если пользователь прокрутил дальше конца баннера
+      if (scrollY >= (bannerTop + bannerHeight)) {
+        // ставим логотип в конечную позицию
+        heroLogo.style.transform = `translateY(${finalOffset}px)`;
+        return;
+      }
+  
+      // Иначе мы "внутри" баннера
+      // Считаем долю прокрутки (0..1)
+      const ratio = (scrollY - bannerTop) / bannerHeight;
+      // Интерполируем
+      const currentY = ratio * finalOffset;
+      heroLogo.style.transform = `translateY(${currentY}px)`;
+    }
+  
+    // Слушаем прокрутку
+    window.addEventListener("scroll", handleScroll);
+  
+    // При загрузке или resize пересчитываем размеры
+    function recalc() {
+      bannerTop    = heroBanner.offsetTop;
+      bannerHeight = heroBanner.offsetHeight;
+      handleScroll();
+    }
+    window.addEventListener("resize", recalc);
+  
+    // Первоначальный вызов
+    recalc();
+  });
+  </script>
 
 <script>
   AOS.init();
 </script>
 
   </body>
+   <!-- кнопка "начать свой бизнес (скролл)" -->
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const autoScrollBtn = document.getElementById("autoScrollBtn");
+      if (!autoScrollBtn) return;
+    
+      let scrollInterval = null;
+      let isScrolling = false; // флаг: идёт ли автопрокрутка
+    
+      // Функция запуска автоматической прокрутки
+      function startAutoScroll() {
+        // Большее intervalDelay и меньший scrollStep -> медленнее
+        const scrollStep = 2;       // пикселей за "шаг"
+        const intervalDelay = 20;   // каждые 20 мс
+    
+        // Включаем интервал прокрутки
+        scrollInterval = setInterval(() => {
+          window.scrollBy(0, scrollStep);
+    
+          // Если достигли низа страницы — останавливаем
+          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            stopAutoScroll();
+          }
+        }, intervalDelay);
+    
+        // Вешаем «слушатели пользовательских действий», чтобы остановить, 
+        // если пользователь сам скроллит / двигает колесо / жмёт клавиши
+        document.addEventListener("wheel", handleUserScroll, { once: true });
+        document.addEventListener("touchstart", handleUserScroll, { once: true });
+        document.addEventListener("keydown", handleUserScroll, { once: true });
+    
+        isScrolling = true;
+      }
+    
+      // Функция остановки прокрутки
+      function stopAutoScroll() {
+        clearInterval(scrollInterval);
+        isScrolling = false;
+        // Снимаем слушатели
+        document.removeEventListener("wheel", handleUserScroll, { once: true });
+        document.removeEventListener("touchstart", handleUserScroll, { once: true });
+        document.removeEventListener("keydown", handleUserScroll, { once: true });
+      }
+    
+      // Служебная: при любом "ручном" действии — останавливаем
+      function handleUserScroll() {
+        stopAutoScroll();
+      }
+    
+      // Клик по кнопке
+      autoScrollBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (!isScrolling) {
+          startAutoScroll();
+        } else {
+          stopAutoScroll();
+        }
+      });
+    });
+    </script>
+    
   <script>
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -825,6 +957,108 @@
 
 
 </script>
-
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroBanner      = document.getElementById("heroBanner");
+    const advantagesBlock = document.getElementById("advantagesBlock");
+    const heroLogo        = document.getElementById("heroLogo");
+  
+    if (!heroBanner || !advantagesBlock || !heroLogo) {
+      return; // если каких-то элементов нет, не продолжаем
+    }
+  
+    // ===== ПАРАМЕТРЫ ДЛЯ НАСТРОЙКИ =====
+    // Можно tweak-нуть, если нужно «дочинить» позицию
+    // (например, хотите остановить лого чуть выше / ниже середины).
+    const extraOffsetPx = 0; // (+) сдвинет точку остановки ниже, (-) выше
+  
+    // Easing-функция (чтобы движение было чуть плавнее, чем линейное)
+    // Можно заменить на другую – например easeOutQuad / easeInOutCubic и т.п.
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+  
+    // Глобальные переменные для расчёта
+    let bannerBottom = 0;      // y-координата низа баннера
+    let advTop       = 0;      // y-координата верха Advantages
+    let finalStopY   = 0;      // абсолютная y-координата, где центр логотипа должен встать
+    let logoStartY   = 0;      // начальная y-координата центра лого
+    let maxTranslate = 0;      // на сколько px надо сдвинуть лого
+    let startScroll  = 0;      // скролл, с которого начинаем двигать (верх баннера)
+    let endScroll    = 0;      // скролл, на котором закончим движение (точка середины)
+  
+    // Функция, считающая все ключевые точки, вызывается на старте + resize
+    function recalcPositions() {
+      const bannerRect = heroBanner.getBoundingClientRect();
+      const advRect    = advantagesBlock.getBoundingClientRect();
+      const logoRect   = heroLogo.getBoundingClientRect();
+  
+      // Абсолютные координаты (добавляем текущую прокрутку)
+      const scrollY = window.scrollY || window.pageYOffset;
+  
+      bannerBottom = scrollY + bannerRect.top + bannerRect.height;
+      advTop       = scrollY + advRect.top;
+  
+      // Середина между нижней границей баннера и верхней границей Advantages
+      const mid = (bannerBottom + advTop) / 2;
+      // Добавим небольшой ручной сдвиг, если надо (extraOffsetPx)
+      finalStopY = mid + extraOffsetPx;
+  
+      // Центр логотипа при старте (абсолютная координата)
+      logoStartY = (scrollY + logoRect.top) + (logoRect.height / 2);
+  
+      // Насколько нужно сдвинуть центр логотипа
+      // (Если финальная точка ниже начального центра, получим положительный offset)
+      maxTranslate = finalStopY - logoStartY;
+  
+      // Начало движения: верх баннера
+      startScroll = scrollY + bannerRect.top;
+      // Окончание движения: когда скролл достиг middle
+      endScroll   = finalStopY - (logoRect.height / 2);
+      // endScroll – это та точка прокрутки, при которой лого окажется в mid
+      // (учитываем что лого смещается «своим центром»)
+    }
+  
+    // Функция, которая будет «каждый кадр» плавно двигать лого
+    function onScrollRaf() {
+      const currentScroll = window.scrollY || window.pageYOffset;
+  
+      // Если мы вообще «выше» баннера – лого не двигаем
+      if (currentScroll <= startScroll) {
+        heroLogo.style.transform = `translateY(0px)`;
+      }
+      // Если мы «прошли» конечную точку (середину) – держим финальное положение
+      else if (currentScroll >= endScroll) {
+        heroLogo.style.transform = `translateY(${maxTranslate}px)`;
+      }
+      else {
+        // Скролл между startScroll и endScroll
+        // Найдём прогресс от 0 до 1
+        const scrollFraction = (currentScroll - startScroll) / (endScroll - startScroll);
+  
+        // Применим easing
+        const eased = easeOutCubic(scrollFraction);
+  
+        // Интерполируем текущее смещение
+        const currentTranslate = maxTranslate * eased;
+        heroLogo.style.transform = `translateY(${currentTranslate}px)`;
+      }
+  
+      // После этого снова подписываемся на следующий кадр
+      requestAnimationFrame(onScrollRaf);
+    }
+  
+    // Инициализация
+    recalcPositions();
+    // Запускаем цикл (кадр за кадром) слежения:
+    requestAnimationFrame(onScrollRaf);
+  
+    // Пересчитываем при ресайзе (чтобы на мобильных/повороте экрана всё было корректно)
+    window.addEventListener("resize", () => {
+      recalcPositions();
+    });
+  });
+  </script>
+  
 
 </html>
