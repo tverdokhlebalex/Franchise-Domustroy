@@ -153,7 +153,7 @@
 
 
     <main>
-      <section class="page franchise-upgrade">
+      <div class="page franchise-upgrade">
         <!-- Баннер -->
         <div class="hero-banner" id="heroBanner">
           <div class="hero-content">
@@ -183,7 +183,7 @@
         </div>
 
         <!-- ПРЕИМУЩЕСТВА -->
-        <section class="advantages-section " id="advantagesBlock">
+        <div class="advantages-section " id="advantagesBlock">
           <div class="container-upgrade">
             <h2 class="section-title">Преимущества</h2>
             <div class="advantages-grid">
@@ -240,7 +240,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </div>
         
         
         
@@ -981,7 +981,7 @@
     // Глобальные переменные для расчёта
     let bannerBottom = 0;      // y-координата низа баннера
     let advTop       = 0;      // y-координата верха Advantages
-    let finalStopY   = 0;      // абсолютная y-координата, где центр логотипа должен встать
+    let finalStopY   = advTop + 200;      // абсолютная y-координата, где центр логотипа должен встать
     let logoStartY   = 0;      // начальная y-координата центра лого
     let maxTranslate = 0;      // на сколько px надо сдвинуть лого
     let startScroll  = 0;      // скролл, с которого начинаем двигать (верх баннера)

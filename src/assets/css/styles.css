@@ -48,7 +48,7 @@ body {
   backdrop-filter: blur(
     4px
   ); /* эффект «матового стекла» (не все браузеры поддерживают) */
-  z-index: 9999;
+  z-index: 99;
   display: flex;
   align-items: center;
 }
@@ -152,7 +152,7 @@ body {
   box-shadow: -3px 0 6px rgba(0, 0, 0, 0.3);
   padding: 20px;
   transition: 0.3s ease;
-  z-index: 10000;
+  z-index: 111;
 }
 
 .main-menu.opened {
@@ -310,7 +310,6 @@ body {
   max-width: 700px;
   margin: 0 20px; /* небольшой отступ по бокам */
   position: relative; /* чтобы контент был в потоке */
-  z-index: 1;
 }
 
 .hero-title {
@@ -385,8 +384,9 @@ body {
   width: 600px; /* подберите нужную ширину */
   max-width: 90%;
   height: auto;
-  z-index: 9999999999;
+  z-index: 999;
   position: relative;
+  transform: translateZ(0);
 }
 
 /* Класс для зафиксированного логотипа */
@@ -396,7 +396,10 @@ body {
   padding: 60px 0;
   color: #333;
 }
-
+#advantagesBlock {
+  z-index: 1;
+  position: relative;
+}
 /* Адаптив баннера */
 @media (max-width: 768px) {
   .hero-content h1 {
@@ -475,7 +478,7 @@ body {
 
   .advantage-card.active {
     transform: translateY(-10px);
-    z-index: 100;
+    z-index: 99;
   }
 }
 /* ==== Адаптив  ==== */
