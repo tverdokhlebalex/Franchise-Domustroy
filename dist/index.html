@@ -13,90 +13,35 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <!-- GSAP + ScrollTrigger (для анимации логотипа) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
   </head>
   <body>
-    <header x-data="{ openMobileMenu: false }" class="header-upgrade">
-  <div class="container-upgrade">
-    <div class="header-upgrade__wrapper">
-      <!-- Лого слева -->
-      <a class="logo logo_new" href="index.html">ДомУстрой</a>
-
-      <!-- Навигация по центру (только на десктопе) -->
-      <nav class="header-upgrade__nav-desktop">
-        <ul class="menu-desktop">
-          <li><a href="index.html" class="active">Главная</a></li>
-          <li><a href="franchise.html">О франшизе</a></li>
-          <li><a href="calc.html">Калькулятор</a></li>
-        </ul>
-      </nav>
-
-      <!-- Блок справа (phone + burger) -->
-      <div class="header-upgrade__right">
-        <a class="phone" href="tel:+78003334130" rel="nofollow">
-          <svg
-            width="24"
-            height="24"
-            fill="none"
-            stroke="#fff"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M22 16.92V20a2 2 0 0 1-2.18 2
-                       A19.86 19.86 0 0 1 2 4.18
-                       2 2 0 0 1 4 2h3.09
-                       a2 2 0 0 1 2 1.72 
-                       13.31 13.31 0 0 0 .7 2.88
-                       2 2 0 0 1-.45 2.11L8.09 9.91
-                       a16 16 0 0 0 6.37 6.37
-                       l1.2-1.2 a2 2 0 0 1 2.11-.45
-                       13.31 13.31 0 0 0 2.88.7
-                       2 2 0 0 1 1.72 2z"
-            />
-          </svg>
-        </a>
-
-        <!-- Бургер -->
-        <div
-          class="icon-menu-mobile"
-          @click="openMobileMenu = !openMobileMenu"
-          :class="{ 'active': openMobileMenu }"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Выезжающая шторка справа -->
-    <div class="main-menu" :class="{ 'opened': openMobileMenu }">
-      <button class="close-menu" @click="openMobileMenu = false">×</button>
-      <ul class="mobile-nav">
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="franchise.html">О франшизе</a></li>
-        <li><a href="calc.html">Калькулятор</a></li>
-      </ul>
-    </div>
-  </div>
-</header>
-
+    @@include('partials/header.html')
 
     <main>
-      <section class="page franchise-upgrade">
+      <div class="page franchise-upgrade">
         <!-- Баннер -->
-        <div class="hero-banner">
+        <div class="hero-banner" id="heroBanner">
           <div class="hero-content">
-            <h1>Франшиза ДомУстрой</h1>
-            <p>
+            <h1 class="hero-title">Франшиза</h1>
+            <img 
+              id="heroLogo" 
+              src="assets/images/logo-domustroi.svg" 
+              alt="Логотип ДомУстрой"
+              class="hero-logo-inline"
+            />
+      
+            <p class="hero-subtitle">
               Полное сопровождение • Надежные поставщики • Современные
               инструменты маркетинга
             </p>
-
-            <!-- Кнопка + стрелка (объединено в класс "cta-scroll") -->
+      
+            <!-- Кнопка + стрелка -->
             <div class="cta-scroll">
-              <a class="cta-button" href="#calc-block">Начать свой бизнес</a>
+              <a class="cta-button" id="autoScrollBtn" href="javascript:void(0)">Начать свой бизнес</a>
               <img
                 class="scroll-icon"
                 src="assets/images/scroll.svg"
@@ -107,7 +52,7 @@
         </div>
 
         <!-- ПРЕИМУЩЕСТВА -->
-        <section class="advantages-section">
+        <div class="advantages-section " id="advantagesBlock">
           <div class="container-upgrade">
             <h2 class="section-title">Преимущества</h2>
             <div class="advantages-grid">
@@ -164,7 +109,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </div>
         
         
         
@@ -253,16 +198,29 @@
             </div>
           </div>
         </section>
-              <!-- Блок финансовых показателей -->
+      <!-- Блок финансовых показателей -->
         <section class="financial-performance" data-aos="fade-up" data-aos-duration="700">
           <div class="container-upgrade">
-            <h2 class="section-title">Финансовые показатели (пример)</h2>
-            
+            <h2 class="section-title">Финансовые показатели</h2>
+
+            <!-- Toggle для выбора года -->
+            <div class="toggle-container">
+              <div class="toggle">
+                <input type="radio" id="year2022" name="yearToggle" value="2022" checked />
+                <label for="year2022">2022</label>
+                <input type="radio" id="year2023" name="yearToggle" value="2023" />
+                <label for="year2023">2023</label>
+                <input type="radio" id="year2024" name="yearToggle" value="2024" />
+                <label for="year2024">2024</label>
+                <div class="toggle-bg"></div>
+              </div>
+            </div>
+
             <!-- Контейнер для Canvas-графика -->
             <div class="chart-container">
               <canvas id="financialChart"></canvas>
             </div>
-            
+
             <!-- Основные цифры и окупаемость -->
             <div class="financial-stats" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
               <div class="stat-item">
@@ -280,32 +238,369 @@
             </div>
           </div>
         </section>
-        
+
       <!-- Далее другие секции... -->
 
-      <!-- Секция с калькулятором (например) -->
-      <section id="calc-block" class="calc-section">
-        <!-- Весь код калькулятора -->
-      </section>
+      <!-- =======================
+     Калькулятор Франшизы
+     ======================= -->
+
+        <section 
+        id="franchise-calc"
+        class="franchise-calc-section"
+        x-data="franchiseCalculatorV2()"
+        x-cloak
+        >
+        <!-- Заголовок большой над всем калькулятором -->
+        <h2 class="franchise-calc__main-title">Расчёт стоимости франшизы</h2>
+
+        <!-- (1) Форма контактных данных -->
+        <div 
+          class="franchise-calc__contact-form"
+          x-show="!calcVisible"
+          x-transition
+        >
+          <h3 class="form-subtitle">Шаг 1: Введите контактные данные</h3>
+          <p>Чтобы начать расчёт, пожалуйста, укажите имя и телефон.</p>
+
+          <label class="form-label">
+            Ваше имя <span>*</span>
+            <input 
+              type="text"
+              class="form-input"
+              x-model="contactName"
+              placeholder="Иван"
+            />
+          </label>
+
+          <label class="form-label">
+            Телефон <span>*</span>
+            <input 
+              type="text" 
+              class="form-input"
+              x-model="contactPhone"
+              placeholder="+7 (999) 999-99-99"
+            />
+          </label>
+
+          <p class="policy-note">
+            Нажимая на кнопку «Рассчитать», вы соглашаетесь на обработку своих персональных данных.
+          </p>
+
+          <button 
+            class="btn-primary"
+            @click="startCalculation"
+          >
+            Рассчитать
+          </button>
+        </div>
+
+        <!-- (2) Основные слайды калькулятора -->
+        <div
+          class="franchise-calc__inner"
+          x-show="calcVisible"
+          x-transition
+        >
+          <!-- Переключатель типа франшизы -->
+          <div class="calc-switch-container">
+            <div class="calc-switch">
+              <!-- Радиокнопки + лейблы -->
+              <input 
+                type="radio" 
+                id="calcStart_v2" 
+                name="calcSwitchOption" 
+                value="start"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcStart_v2">Старт</label>
+
+              <input 
+                type="radio" 
+                id="calcStandard_v2" 
+                name="calcSwitchOption"
+                value="standard"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcStandard_v2">Стандарт</label>
+
+              <input 
+                type="radio" 
+                id="calcBusiness_v2" 
+                name="calcSwitchOption"
+                value="business"
+                x-model="selectedFranchiseType"
+              />
+              <label for="calcBusiness_v2">Бизнес</label>
+
+              <!-- Подвижный ползунок -->
+              <div class="calc-switch-bg"></div>
+            </div>
+          </div>
+
+          <!-- Слайд 1: информация о франшизе -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 1"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
+            <p class="slide-text" x-text="currentFranchiseData.description"></p>
+
+            <div class="slide-info">
+              <strong>Примерные сроки окупаемости:</strong>
+              <span x-text="currentFranchiseData.approximatePaybackPeriod"></span>
+            </div>
+
+            <div class="slide-info">
+              <strong>Примерная ежемесячная чистая прибыль:</strong>
+              <span x-text="formatPrice(currentFranchiseData.estimatedMonthlyNetProfit)"></span> ₽
+            </div>
+
+            <button class="btn-next" @click="nextSlide">Далее</button>
+          </div>
+
+          <!-- Слайд 2: Доп. услуги (без иконок «?») -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 2"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title">Дополнительные услуги</h3>
+            <p class="slide-text">Отметьте, что хотите включить (стоимость не плюсуется в базовую):</p>
+
+            <!-- "Старт" -->
+            <template x-if="selectedFranchiseType === 'start'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.start" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <!-- "Стандарт" -->
+            <template x-if="selectedFranchiseType === 'standard'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.standard" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <!-- "Бизнес" -->
+            <template x-if="selectedFranchiseType === 'business'">
+              <div class="services-list">
+                <template x-for="(srv, idx) in additionalServices.business" :key="idx">
+                  <label class="service-item">
+                    <input 
+                      type="checkbox"
+                      x-model="srv.selected"
+                    />
+                    <span x-text="srv.name"></span> —
+                    <strong x-text="formatPrice(srv.price)"></strong> ₽
+                  </label>
+                </template>
+              </div>
+            </template>
+
+            <button class="btn-next" @click="nextSlide">Далее</button>
+          </div>
+
+          <!-- Слайд 3: Итоговая стоимость и выбранные услуги -->
+          <div
+            class="franchise-calc__slide"
+            x-show="currentSlide === 3"
+            x-transition:enter="transition transform ease-out duration-500"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition transform ease-in duration-500"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 -translate-x-full"
+          >
+            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
+
+            <div class="final-cost-block">
+              <p>
+                <strong>Базовая стоимость:</strong>
+                <span x-text="formatPrice(currentFranchiseData.baseCost)"></span> ₽
+              </p>
+              <p>Выбранные услуги (оплата отдельно):</p>
+              <ul class="services-chosen">
+                <template x-for="(service, idx) in chosenServices" :key="idx">
+                  <li>
+                    <span x-text="service.name"></span> —
+                    <span x-text="formatPrice(service.price)"></span> ₽
+                  </li>
+                </template>
+              </ul>
+              <p class="note">*Доп. услуги не складываются с базовой стоимостью</p>
+            </div>
+
+            <button class="btn-primary" @click="submitFinalRequest">Оставить заявку на звонок</button>
+          </div>
+        </div>
+
+        </section>
+
+          
+        
+        
+
+
     </main>
 
-    <footer class="footer">
-  <div class="container">
-    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
-    <p>Телефон: +7 (987) 827-67-34</p>
-    <a href="#top" class="back-to-top">Наверх</a>
-  </div>
-</footer>
-
+    @@include('partials/footer.html')
 
     <!-- JS -->
     <script type="module" src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<!-- JS: Логика фиксации логотипа при скролле -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroBanner = document.getElementById("heroBanner");
+    const heroLogo   = document.getElementById("heroLogo");
+  
+    if (!heroBanner || !heroLogo) return;
+  
+    // Насколько пикселей логотип опустится в конечной точке
+    // (чем больше, тем ниже лого окажется).
+    const finalOffset = 50;
+  
+    // Запоминаем начальные данные
+    let bannerTop    = heroBanner.offsetTop;
+    let bannerHeight = heroBanner.offsetHeight;
+  
+    // Функция, которая вызывается при скролле
+    function handleScroll() {
+      // Текущая прокрутка
+      const scrollY = window.scrollY || window.pageYOffset;
+  
+      // Если пользователь ещё не дошёл до баннера
+      if (scrollY < bannerTop) {
+        heroLogo.style.transform = "translateY(0)";
+        return;
+      }
+  
+      // Если пользователь прокрутил дальше конца баннера
+      if (scrollY >= (bannerTop + bannerHeight)) {
+        // ставим логотип в конечную позицию
+        heroLogo.style.transform = `translateY(${finalOffset}px)`;
+        return;
+      }
+  
+      // Иначе мы "внутри" баннера
+      // Считаем долю прокрутки (0..1)
+      const ratio = (scrollY - bannerTop) / bannerHeight;
+      // Интерполируем
+      const currentY = ratio * finalOffset;
+      heroLogo.style.transform = `translateY(${currentY}px)`;
+    }
+  
+    // Слушаем прокрутку
+    window.addEventListener("scroll", handleScroll);
+  
+    // При загрузке или resize пересчитываем размеры
+    function recalc() {
+      bannerTop    = heroBanner.offsetTop;
+      bannerHeight = heroBanner.offsetHeight;
+      handleScroll();
+    }
+    window.addEventListener("resize", recalc);
+  
+    // Первоначальный вызов
+    recalc();
+  });
+  </script>
+
 <script>
   AOS.init();
 </script>
 
   </body>
+   <!-- кнопка "начать свой бизнес (скролл)" -->
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const autoScrollBtn = document.getElementById("autoScrollBtn");
+      if (!autoScrollBtn) return;
+    
+      let scrollInterval = null;
+      let isScrolling = false; // флаг: идёт ли автопрокрутка
+    
+      // Функция запуска автоматической прокрутки
+      function startAutoScroll() {
+        // Большее intervalDelay и меньший scrollStep -> медленнее
+        const scrollStep = 2;       // пикселей за "шаг"
+        const intervalDelay = 20;   // каждые 20 мс
+    
+        // Включаем интервал прокрутки
+        scrollInterval = setInterval(() => {
+          window.scrollBy(0, scrollStep);
+    
+          // Если достигли низа страницы — останавливаем
+          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            stopAutoScroll();
+          }
+        }, intervalDelay);
+    
+        // Вешаем «слушатели пользовательских действий», чтобы остановить, 
+        // если пользователь сам скроллит / двигает колесо / жмёт клавиши
+        document.addEventListener("wheel", handleUserScroll, { once: true });
+        document.addEventListener("touchstart", handleUserScroll, { once: true });
+        document.addEventListener("keydown", handleUserScroll, { once: true });
+    
+        isScrolling = true;
+      }
+    
+      // Функция остановки прокрутки
+      function stopAutoScroll() {
+        clearInterval(scrollInterval);
+        isScrolling = false;
+        // Снимаем слушатели
+        document.removeEventListener("wheel", handleUserScroll, { once: true });
+        document.removeEventListener("touchstart", handleUserScroll, { once: true });
+        document.removeEventListener("keydown", handleUserScroll, { once: true });
+      }
+    
+      // Служебная: при любом "ручном" действии — останавливаем
+      function handleUserScroll() {
+        stopAutoScroll();
+      }
+    
+      // Клик по кнопке
+      autoScrollBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (!isScrolling) {
+          startAutoScroll();
+        } else {
+          stopAutoScroll();
+        }
+      });
+    });
+    </script>
+    
   <script>
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -328,4 +623,287 @@
     handleScroll();
   });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById("financialChart").getContext("2d");
+
+    // Данные выручки по годам (модельные данные)
+    const revenueData = {
+      2022: [45000, 40000, 55000, 70000, 65000, 80000, 60000, 75000, 90000, 110000, 100000, 95000],
+      2023: [60000, 55000, 75000, 85000, 82000, 90000, 75000, 88000, 105000, 130000, 125000, 120000],
+      2024: [85000, 80000, 95000, 115000, 110000, 130000, 100000, 125000, 160000, 200000, 190000, 180000]
+    };
+
+    const months = [
+      "Янв", "Фев", "Мар", "Апр", "Май", "Июн",
+      "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"
+    ];
+
+    let chart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: "Выручка, ₽",
+            data: revenueData[2024],
+            backgroundColor: "#ff6600",
+            borderRadius: 5,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: (value) => value.toLocaleString("ru-RU") + " ₽"
+            }
+          }
+        }
+      }
+    });
+
+    // Функция переключения года
+    function updateChart(year) {
+      chart.data.datasets[0].data = revenueData[year];
+      chart.update();
+    }
+
+    // Слушатель событий переключателя года
+    document.querySelectorAll('input[name="yearToggle"]').forEach((input) => {
+      input.addEventListener("change", function () {
+        updateChart(this.value);
+      });
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+/**
+ * Улучшенный калькулятор франшизы (версия 2)
+ * - Показ формы контактов
+ * - 3 слайда с анимацией "перелистывания"
+ * - Переключатель (toggle) с уникальными классами
+ */
+ function franchiseCalculatorV2() {
+  return {
+    // (A) Видимость калькулятора
+    calcVisible: false,
+    contactName: '',
+    contactPhone: '',
+
+    // (B) Слайдов всего 3
+    currentSlide: 1,
+    totalSlides: 3,
+
+    // (C) Тип франшизы (radio toggle)
+    selectedFranchiseType: 'start',
+
+    // (D) Данные по франшизам
+    franchises: {
+      start: {
+        title: 'Франшиза: Роялти на 3 года (Старт)',
+        description: 'Оплата в виде процента от прибыли в течение 3 лет. Оптимально для снижения стартовых затрат и долгосрочной поддержки.',
+        approximatePaybackPeriod: '9–12 месяцев',
+        estimatedMonthlyNetProfit: 80000,
+        baseCost: 150000
+      },
+      standard: {
+        title: 'Франшиза: Оплата за старт + роялти (Стандарт)',
+        description: 'Фиксированная оплата за старт и роялти в течение 1 года. Быстрый запуск с поддержкой франчайзера.',
+        approximatePaybackPeriod: '8–10 месяцев',
+        estimatedMonthlyNetProfit: 120000,
+        baseCost: 300000
+      },
+      business: {
+        title: 'Франшиза: Единоразовая оплата (Бизнес)',
+        description: 'Полная оплата разовым платежом, без ежемесячных взносов. Максимальный контроль над бизнесом.',
+        approximatePaybackPeriod: '10–12 месяцев',
+        estimatedMonthlyNetProfit: 150000,
+        baseCost: 500000
+      }
+    },
+
+    // (E) Доп. услуги (не плюсуются к baseCost)
+    additionalServices: {
+      start: [
+        { name: 'Подбор персонала', price: 30000, selected: false },
+        { name: 'Оптимизация расходов', price: 20000, selected: false },
+        { name: 'Подбор помещений', price: 25000, selected: false },
+        { name: 'Настройка Яндекс.Директ', price: 15000, selected: false },
+        { name: 'Маркетинговое сопровождение', price: 25000, selected: false }
+      ],
+      standard: [
+        { name: 'Настройка Яндекс.Директ', price: 15000, selected: false },
+        { name: 'Маркетинговое сопровождение', price: 25000, selected: false }
+      ],
+      business: [
+        { name: 'Маркетинговое сопровождение', price: 30000, selected: false }
+      ]
+    },
+
+    /**
+     * (1) Начало расчёта (проверка контактных полей)
+     */
+    startCalculation() {
+      if (!this.contactName.trim() || !this.contactPhone.trim()) {
+        alert('Пожалуйста, введите имя и телефон.');
+        return;
+      }
+      // Если нужно, тут можно отправить контактные данные на сервер
+      this.calcVisible = true;
+    },
+
+    /**
+     * (2) Доступ к данным текущего типа франшизы
+     */
+    get currentFranchiseData() {
+      return this.franchises[this.selectedFranchiseType];
+    },
+
+    /**
+     * (3) Следующий слайд
+     */
+    nextSlide() {
+      if (this.currentSlide < this.totalSlides) {
+        this.currentSlide++;
+      }
+    },
+
+    /**
+     * (4) Список выбраных услуг
+     */
+    get chosenServices() {
+      return this.additionalServices[this.selectedFranchiseType].filter(item => item.selected);
+    },
+
+    /**
+     * (5) Формат рублёвых значений
+     */
+    formatPrice(value) {
+      return new Intl.NumberFormat('ru-RU').format(value);
+    },
+
+    /**
+     * (6) Завершение (на 3-м слайде)
+     */
+    submitFinalRequest() {
+      // Отправить данные, показать всплывающее окно...
+      alert('Заявка отправлена! Ожидайте звонка менеджера.');
+    }
+  };
+}
+
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroBanner      = document.getElementById("heroBanner");
+    const advantagesBlock = document.getElementById("advantagesBlock");
+    const heroLogo        = document.getElementById("heroLogo");
+  
+    if (!heroBanner || !advantagesBlock || !heroLogo) {
+      return; // если каких-то элементов нет, не продолжаем
+    }
+  
+    // ===== ПАРАМЕТРЫ ДЛЯ НАСТРОЙКИ =====
+    // Можно tweak-нуть, если нужно «дочинить» позицию
+    // (например, хотите остановить лого чуть выше / ниже середины).
+    const extraOffsetPx = 0; // (+) сдвинет точку остановки ниже, (-) выше
+  
+    // Easing-функция (чтобы движение было чуть плавнее, чем линейное)
+    // Можно заменить на другую – например easeOutQuad / easeInOutCubic и т.п.
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+  
+    // Глобальные переменные для расчёта
+    let bannerBottom = 0;      // y-координата низа баннера
+    let advTop       = 0;      // y-координата верха Advantages
+    let finalStopY   = advTop + 200;      // абсолютная y-координата, где центр логотипа должен встать
+    let logoStartY   = 0;      // начальная y-координата центра лого
+    let maxTranslate = 0;      // на сколько px надо сдвинуть лого
+    let startScroll  = 0;      // скролл, с которого начинаем двигать (верх баннера)
+    let endScroll    = 0;      // скролл, на котором закончим движение (точка середины)
+  
+    // Функция, считающая все ключевые точки, вызывается на старте + resize
+    function recalcPositions() {
+      const bannerRect = heroBanner.getBoundingClientRect();
+      const advRect    = advantagesBlock.getBoundingClientRect();
+      const logoRect   = heroLogo.getBoundingClientRect();
+  
+      // Абсолютные координаты (добавляем текущую прокрутку)
+      const scrollY = window.scrollY || window.pageYOffset;
+  
+      bannerBottom = scrollY + bannerRect.top + bannerRect.height;
+      advTop       = scrollY + advRect.top;
+  
+      // Середина между нижней границей баннера и верхней границей Advantages
+      const mid = (bannerBottom + advTop) / 2;
+      // Добавим небольшой ручной сдвиг, если надо (extraOffsetPx)
+      finalStopY = mid + extraOffsetPx;
+  
+      // Центр логотипа при старте (абсолютная координата)
+      logoStartY = (scrollY + logoRect.top) + (logoRect.height / 2);
+  
+      // Насколько нужно сдвинуть центр логотипа
+      // (Если финальная точка ниже начального центра, получим положительный offset)
+      maxTranslate = finalStopY - logoStartY;
+  
+      // Начало движения: верх баннера
+      startScroll = scrollY + bannerRect.top;
+      // Окончание движения: когда скролл достиг middle
+      endScroll   = finalStopY - (logoRect.height / 2);
+      // endScroll – это та точка прокрутки, при которой лого окажется в mid
+      // (учитываем что лого смещается «своим центром»)
+    }
+  
+    // Функция, которая будет «каждый кадр» плавно двигать лого
+    function onScrollRaf() {
+      const currentScroll = window.scrollY || window.pageYOffset;
+  
+      // Если мы вообще «выше» баннера – лого не двигаем
+      if (currentScroll <= startScroll) {
+        heroLogo.style.transform = `translateY(0px)`;
+      }
+      // Если мы «прошли» конечную точку (середину) – держим финальное положение
+      else if (currentScroll >= endScroll) {
+        heroLogo.style.transform = `translateY(${maxTranslate}px)`;
+      }
+      else {
+        // Скролл между startScroll и endScroll
+        // Найдём прогресс от 0 до 1
+        const scrollFraction = (currentScroll - startScroll) / (endScroll - startScroll);
+  
+        // Применим easing
+        const eased = easeOutCubic(scrollFraction);
+  
+        // Интерполируем текущее смещение
+        const currentTranslate = maxTranslate * eased;
+        heroLogo.style.transform = `translateY(${currentTranslate}px)`;
+      }
+  
+      // После этого снова подписываемся на следующий кадр
+      requestAnimationFrame(onScrollRaf);
+    }
+  
+    // Инициализация
+    recalcPositions();
+    // Запускаем цикл (кадр за кадром) слежения:
+    requestAnimationFrame(onScrollRaf);
+  
+    // Пересчитываем при ресайзе (чтобы на мобильных/повороте экрана всё было корректно)
+    window.addEventListener("resize", () => {
+      recalcPositions();
+    });
+  });
+  </script>
+  
+
 </html>

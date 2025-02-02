@@ -25,8 +25,8 @@ body {
 }
 
 /* =====================================
-      2) КОНТЕЙНЕР ДЛЯ ВЕРСТКИ
-      ===================================== */
+         2) КОНТЕЙНЕР ДЛЯ ВЕРСТКИ
+         ===================================== */
 .container-upgrade {
   max-width: 1440px;
   margin: 0 auto;
@@ -36,8 +36,8 @@ body {
 }
 
 /* =====================================
-      3) ХЕДЕР (полупрозрачный, фиксированный)
-      ===================================== */
+         3) ХЕДЕР (полупрозрачный, фиксированный)
+         ===================================== */
 .header-upgrade {
   position: fixed;
   top: 0;
@@ -140,8 +140,8 @@ body {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 /* =====================================
-      4) МОБИЛЬНОЕ МЕНЮ (ШТОРКА СПРАВА)
-      ===================================== */
+         4) МОБИЛЬНОЕ МЕНЮ (ШТОРКА СПРАВА)
+         ===================================== */
 .main-menu {
   position: fixed;
   top: 0;
@@ -184,14 +184,14 @@ body {
 }
 
 /* =====================================
-      5) АДАПТИВНОСТЬ (МЕДИАЗАПРОСЫ)
-      ===================================== */
+         5) АДАПТИВНОСТЬ (МЕДИАЗАПРОСЫ)
+         ===================================== */
 
 /* 
-      При ширине <= 1024px:
-      - Прячем десктопное меню (.header-upgrade__nav-desktop),
-      - Показываем бургер (.icon-menu-mobile).
-   */
+         При ширине <= 1024px:
+         - Прячем десктопное меню (.header-upgrade__nav-desktop),
+         - Показываем бургер (.icon-menu-mobile).
+      */
 @media (max-width: 1024px) {
   .header-upgrade__nav-desktop {
     display: none;
@@ -285,16 +285,16 @@ body {
 }
 
 /* =====================================
-      6) БАННЕР (HERO)
-      ===================================== */
+         6) БАННЕР (HERO)
+         ===================================== */
 
 /*
-      hero-banner:      блок с фоном,
-      hero-content:     обёртка с заголовком, подзаголовком, кнопками,
-      cta-scroll:       объединяет кнопку «Начать свой бизнес» и стрелку,
-      cta-button:       сама кнопка,
-      scroll-icon:      иконка (стрелка).
-   */
+         hero-banner:      блок с фоном,
+         hero-content:     обёртка с заголовком, подзаголовком, кнопками,
+         cta-scroll:       объединяет кнопку «Начать свой бизнес» и стрелку,
+         cta-button:       сама кнопка,
+         scroll-icon:      иконка (стрелка).
+      */
 .hero-banner {
   position: relative;
   background: black;
@@ -728,8 +728,8 @@ body {
 }
 
 /* =========================================
-   Страница "О Франшизе" 
-   =========================================*/
+      Страница "О Франшизе" 
+      =========================================*/
 
 .franchise-page h2 {
   font-size: 2rem;
@@ -773,8 +773,8 @@ body {
 }
 
 /* =========================================
-   Слайдер (фиксированная высота, автопрокрут)
-   =========================================*/
+      Слайдер (фиксированная высота, автопрокрут)
+      =========================================*/
 .glass-card {
   position: relative;
   margin-bottom: 30px;
@@ -801,8 +801,8 @@ body {
 }
 
 /* ================================
-     СТИЛИ СЕКЦИЙ НА СТРАНИЦЕ
-     ================================ */
+        СТИЛИ СЕКЦИЙ НА СТРАНИЦЕ
+        ================================ */
 
 /* Заголовок страницы */
 .main-franchise .page-header {
@@ -849,8 +849,8 @@ body {
 }
 
 /* ================================
-     СЛАЙДЕР (arrow + dots)
-     ================================ */
+        СЛАЙДЕР (arrow + dots)
+        ================================ */
 .slider-section {
   margin-top: 40px;
   text-align: center;
@@ -937,8 +937,8 @@ body {
 }
 
 /* ================================
-     CTA-БЛОК
-     ================================ */
+        CTA-БЛОК
+        ================================ */
 .cta-bottom {
   background-color: rgba(23, 77, 160, 0.07); /* легкий голубоватый фон */
   text-align: center;
@@ -970,8 +970,8 @@ body {
 }
 
 /* ================================
-     АДАПТИВ (пример)
-     ================================ */
+        АДАПТИВ (пример)
+        ================================ */
 @media (max-width: 768px) {
   .franchise-info-block {
     gap: 10px;
@@ -1065,161 +1065,112 @@ body {
 }
 
 /********************************************
- * 1. БЛОК-СЕКЦИЯ КАЛЬКУЛЯТОРА
- ********************************************/
-.franchise-calc-section {
-  margin-bottom: 50px;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #fafafa;
-  border: 1px solid #e2e2e2;
-  position: relative;
-}
-
-/* Скрывать до инициализации Alpine */
+    * 1. БЛОК-СЕКЦИЯ КАЛЬКУЛЯТОРА
+    ********************************************/
+/* Правило для x-cloak – скрывает элементы до инициализации AlpineJS */
 [x-cloak] {
   display: none !important;
 }
 
-/* Главный заголовок над формой и слайдами */
-.franchise-calc__main-title {
-  text-align: center;
-  font-size: 26px;
-  color: #000;
-  margin-bottom: 30px;
-}
-
-/********************************************
- * 2. ФОРМА КОНТАКТНЫХ ДАННЫХ
- ********************************************/
-.franchise-calc__contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.form-subtitle {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #000;
-}
-.form-label {
-  display: flex;
-  flex-direction: column;
-  color: #000;
-  font-weight: 500;
-}
-.form-label span {
-  color: #c00; /* красная звёздочка */
-  margin-left: 5px;
-}
-.form-input {
-  margin-top: 6px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-.form-input:focus {
-  border-color: #007bff;
-}
-
-.policy-note {
-  color: #666;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-/********************************************
- * 3. КНОПКИ (общие стили)
- ********************************************/
-.btn-primary {
-  background-color: #ed7804; /* оранжевый */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 14px 24px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-}
-.btn-primary:hover {
-  background-color: #e76f00;
-  transform: translateY(-2px);
-}
-
-.btn-next {
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 12px 18px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-  margin-top: 20px;
-}
-.btn-next:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-}
-
-/********************************************
- * 4. ВНУТРЕННИЙ БЛОК СЛАЙДОВ
- ********************************************/
-.franchise-calc__inner {
-  margin-top: 10px;
-}
-
-/* Каждый "слайд" */
-.franchise-calc__slide {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+/* ================================
+   Стили для блока калькулятора франшизы
+   ================================ */
+#franchise-calc {
+  background-color: #fafafa;
   padding: 20px;
-  margin-bottom: 20px;
-  position: relative;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: #333;
 }
 
-/********************************************
- * 5. ПЕРЕКЛЮЧАТЕЛЬ (TOGGLE) - УНИКАЛЬНЫЕ КЛАССЫ
- ********************************************/
-.calc-switch-container {
-  display: flex;
-  justify-content: center;
+#franchise-calc h2 {
+  text-align: center;
   margin-bottom: 20px;
 }
+
+/* Общие стили для блока калькулятора */
+.calculator-block {
+  margin: 0 10px;
+}
+
+/* Стили для элементов формы калькулятора */
+#franchise-calc label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Стили для отображения выбранного формата магазина */
+.store-layout {
+  background-color: #ed7804;
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* Стили для toggle-переключателей */
+.toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.toggle input[type="radio"] {
+  display: none;
+}
+
+.toggle label {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle input[type="radio"]:checked + label {
+  background-color: #ed7804;
+  color: #fff;
+  border-color: #ed7804;
+}
+
+/* Кастомный переключатель для формата сотрудничества */
 .calc-switch {
+  position: relative;
   display: flex;
   background: #e0e0e0;
   border-radius: 30px;
   padding: 5px;
-  position: relative;
   max-width: 500px;
-  width: 100%;
+  margin: 20px auto;
 }
 
-/* Прячем радиокнопки */
 .calc-switch input[type="radio"] {
   display: none;
 }
 
-/* Лейблы */
 .calc-switch label {
   flex: 1;
   text-align: center;
-  padding: 10px 15px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 600;
-  color: #000;
   cursor: pointer;
-  position: relative;
   z-index: 1;
-  transition: color 0.2s ease;
+  transition: color 0.2s;
 }
 
-/* Подвижный фон (ползунок) */
 .calc-switch-bg {
   position: absolute;
   top: 5px;
@@ -1231,138 +1182,111 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Сдвиг ползунка по выбранному radio */
 input[value="start"]:checked ~ .calc-switch-bg {
   left: 5px;
 }
+
 input[value="standard"]:checked ~ .calc-switch-bg {
   left: calc(33.3% + 5px);
 }
+
 input[value="business"]:checked ~ .calc-switch-bg {
   left: calc(66.6% + 5px);
 }
 
-/* Активный цвет для выбранного label */
-input[value="start"]:checked + label[for="calcStart_v2"],
-input[value="standard"]:checked + label[for="calcStandard_v2"],
-input[value="business"]:checked + label[for="calcBusiness_v2"] {
+.calc-switch input[type="radio"]:checked + label {
   color: #fff;
 }
 
-/********************************************
- * 6. СТИЛИ СОДЕРЖИМОГО СЛАЙДОВ
- ********************************************/
-.slide-title {
+/* Стили для блока расчёта стоимости */
+.cost-display {
+  text-align: center;
+  margin: 20px 0;
   font-size: 18px;
-  margin-bottom: 10px;
-  color: #000;
-}
-.slide-text {
-  margin-bottom: 15px;
-  line-height: 1.5;
-  color: #333;
-}
-.slide-info {
-  margin-bottom: 10px;
-  font-size: 15px;
-  color: #333;
 }
 
-/********************************************
- * 7. СПИСОК УСЛУГ
- ********************************************/
-.services-list {
-  margin-top: 15px;
-}
-.service-item {
-  display: flex;
-  align-items: center;
-  margin: 8px 0;
-  font-size: 14px;
-  color: #333;
-}
-.service-item input[type="checkbox"] {
-  margin-right: 8px;
-  width: 18px;
-  height: 18px;
-}
-
-/********************************************
- * 8. ИТОГОВАЯ СТОИМОСТЬ
- ********************************************/
-.final-cost-block {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 6px;
-  border: 1px solid #eee;
-  color: #000;
-}
-.final-cost-block p {
-  margin-bottom: 10px;
-  color: #333;
-}
-.services-chosen {
-  margin: 0;
-  padding-left: 18px;
-  list-style: disc;
-}
-.note {
+.cost-display .note {
   font-size: 13px;
   color: #777;
+  margin-top: 5px;
 }
 
-/********************************************
- * 9. АДАПТИВНАЯ ВЕРСТКА
- ********************************************/
-@media (max-width: 768px) {
-  .franchise-calc__main-title {
-    font-size: 22px;
+/* Стили для формы заявки */
+.contact-form {
+  margin: 20px 0;
+}
+
+.contact-form h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.contact-form label {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+
+.contact-form input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Стили для кнопок */
+.button-group,
+.contact-form button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #ed7804;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #e76f00;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 480px) {
+  #franchise-calc {
+    padding: 15px;
+    margin: 10px;
+  }
+  .btn-primary,
+  .btn-secondary {
+    font-size: 14px;
+    padding: 10px 16px;
   }
   .calc-switch label {
     font-size: 14px;
     padding: 8px;
   }
-  .calc-switch-bg {
-    /* Чуть уменьшим высоту */
-    height: calc(100% - 8px);
-    top: 4px;
-    border-radius: 20px;
-  }
-  .form-input {
-    font-size: 15px;
-  }
-  .btn-primary,
-  .btn-next {
-    font-size: 14px;
-    padding: 10px 16px;
-  }
-  .franchise-calc__slide {
-    margin-bottom: 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .franchise-calc__main-title {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  .calc-switch {
-    border-radius: 20px;
-    padding: 3px;
-  }
-  .calc-switch-bg {
-    border-radius: 20px;
-    width: calc(33.3% - 6px);
-  }
-  .slide-title {
-    font-size: 16px;
-  }
-  .slide-text,
-  .slide-info {
-    font-size: 14px;
-  }
-  .service-item {
-    font-size: 13px;
+  input[type="range"] {
+    margin-bottom: 10px;
   }
 }
 
