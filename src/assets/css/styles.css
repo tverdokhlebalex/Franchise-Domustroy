@@ -1090,12 +1090,10 @@ body {
   margin-bottom: 20px;
 }
 
-/* Общие стили для блока калькулятора */
 .calculator-block {
   margin: 0 10px;
 }
 
-/* Стили для элементов формы калькулятора */
 #franchise-calc label {
   display: block;
   margin-bottom: 5px;
@@ -1107,7 +1105,7 @@ input[type="range"] {
   margin-bottom: 15px;
 }
 
-/* Стили для отображения выбранного формата магазина */
+/* Стили для визуального отображения выбранного формата магазина */
 .store-layout {
   background-color: #ed7804;
   color: #fff;
@@ -1117,35 +1115,7 @@ input[type="range"] {
   margin-bottom: 15px;
 }
 
-/* Стили для toggle-переключателей */
-.toggle {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.toggle input[type="radio"] {
-  display: none;
-}
-
-.toggle label {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #fff;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.toggle input[type="radio"]:checked + label {
-  background-color: #ed7804;
-  color: #fff;
-  border-color: #ed7804;
-}
-
-/* Кастомный переключатель для формата сотрудничества */
+/* Стили для кастомных переключателей (calc-switch) – применяются и к формату сотрудничества, и к типу оборудования */
 .calc-switch {
   position: relative;
   display: flex;
@@ -1171,15 +1141,29 @@ input[type="range"] {
   transition: color 0.2s;
 }
 
+/* Подвижный фон для переключателя */
 .calc-switch-bg {
   position: absolute;
   top: 5px;
   left: 5px;
-  width: calc(33.3% - 10px);
+  width: calc(50% - 10px); /* Для оборудования – два варианта */
   height: calc(100% - 10px);
   background: #ed7804;
   border-radius: 25px;
   transition: all 0.3s ease;
+}
+
+/* Если переключатель используется для формата сотрудничества (3 варианта) */
+.calc-switch:not(.equipment-switch) .calc-switch-bg {
+  width: calc(33.3% - 10px);
+}
+
+input[value="new"]:checked ~ .calc-switch-bg {
+  left: 5px;
+}
+
+input[value="used"]:checked ~ .calc-switch-bg {
+  left: calc(50% + 5px);
 }
 
 input[value="start"]:checked ~ .calc-switch-bg {
@@ -1209,6 +1193,13 @@ input[value="business"]:checked ~ .calc-switch-bg {
   font-size: 13px;
   color: #777;
   margin-top: 5px;
+}
+
+/* Стили для расшифровки калькуляции */
+.breakdown {
+  margin-top: 15px;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 /* Стили для формы заявки */

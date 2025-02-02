@@ -466,136 +466,147 @@
           <!-- Шаг 1: Выбор параметров магазина -->
           <div x-show="step === 1" x-transition>
             <h2>Выбор параметров магазина</h2>
-            <!-- Формат магазина -->
-            <label>
-              Формат магазина:
-              <span x-text="storeFormats[storeFormatIndex].label"></span>
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="2"
-              step="1"
-              x-model="storeFormatIndex"
-            />
-            <div class="store-layout">
-              <span x-text="storeFormats[storeFormatIndex].avg + ' м²'"></span>
-            </div>
-            <!-- Выбор типа оборудования -->
-            <label>Тип оборудования:</label>
-            <div class="toggle">
+            <div class="calculator-block">
+              <!-- Формат магазина -->
+              <label>
+                Формат магазина:
+                <span x-text="storeFormats[storeFormatIndex].label"></span>
+              </label>
               <input
-                type="radio"
-                id="equip-new"
-                name="equipment"
-                value="new"
-                x-model="equipmentType"
+                type="range"
+                min="0"
+                max="2"
+                step="1"
+                x-model="storeFormatIndex"
               />
-              <label for="equip-new">Новое</label>
+              <div class="store-layout">
+                <span
+                  x-text="storeFormats[storeFormatIndex].avg + ' м²'"
+                ></span>
+              </div>
+              <!-- Переключатель типа оборудования (по стилю как у форматов сотрудничества) -->
+              <label>Тип оборудования:</label>
+              <div class="calc-switch equipment-switch">
+                <input
+                  type="radio"
+                  id="equip-new"
+                  name="equipment"
+                  value="new"
+                  x-model="equipmentType"
+                />
+                <label for="equip-new">Новое</label>
+                <input
+                  type="radio"
+                  id="equip-used"
+                  name="equipment"
+                  value="used"
+                  x-model="equipmentType"
+                />
+                <label for="equip-used">Б/у</label>
+                <div class="calc-switch-bg"></div>
+              </div>
+              <!-- Товарная наполненность -->
+              <label title="Сумма вложений в товарный ассортимент (руб/кв.м)">
+                Товарная наполненность:
+                <span x-text="productContent"></span> руб/кв.м
+              </label>
               <input
-                type="radio"
-                id="equip-used"
-                name="equipment"
-                value="used"
-                x-model="equipmentType"
+                type="range"
+                min="3500"
+                max="60000"
+                step="500"
+                x-model="productContent"
               />
-              <label for="equip-used">Б/у</label>
-            </div>
-            <!-- Товарная наполненность -->
-            <label title="Сумма вложений в товарный ассортимент (руб/кв.м)">
-              Товарная наполненность:
-              <span x-text="productContent"></span> руб/кв.м
-            </label>
-            <input
-              type="range"
-              min="3500"
-              max="60000"
-              step="500"
-              x-model="productContent"
-            />
-            <!-- Ставка за аренду -->
-            <label>
-              Ставка за аренду: <span x-text="rentRate"></span> руб/кв.м
-            </label>
-            <input
-              type="range"
-              min="350"
-              max="3000"
-              step="50"
-              x-model="rentRate"
-            />
-            <div style="text-align: center">
-              <button class="btn-primary" @click="goToStep2()">Далее</button>
+              <!-- Ставка за аренду -->
+              <label>
+                Ставка за аренду: <span x-text="rentRate"></span> руб/кв.м
+              </label>
+              <input
+                type="range"
+                min="350"
+                max="3000"
+                step="50"
+                x-model="rentRate"
+              />
+              <div class="button-group" style="text-align: center">
+                <button class="btn-primary" @click="goToStep2()">Далее</button>
+              </div>
             </div>
           </div>
 
           <!-- Шаг 2: Выбор формата сотрудничества и расчёт стоимости -->
           <div x-show="step === 2" x-transition>
             <h2>Формат сотрудничества и расчёт стоимости</h2>
-            <!-- Переключатель формата сотрудничества -->
-            <div class="calc-switch">
-              <input
-                type="radio"
-                id="coop-start"
-                name="coop"
-                value="start"
-                x-model="cooperationFormat"
-              />
-              <label for="coop-start">Старт</label>
-              <input
-                type="radio"
-                id="coop-standard"
-                name="coop"
-                value="standard"
-                x-model="cooperationFormat"
-              />
-              <label for="coop-standard">Стандарт</label>
-              <input
-                type="radio"
-                id="coop-business"
-                name="coop"
-                value="business"
-                x-model="cooperationFormat"
-              />
-              <label for="coop-business">Бизнес</label>
-              <div class="calc-switch-bg"></div>
-            </div>
-            <!-- Расчёт стоимости -->
-            <div class="cost-display">
-              <p>
-                Базовая стоимость франшизы:
-                <strong x-text="formattedCost"></strong> ₽
-              </p>
-              <p class="note">
-                * Доп. расходы (налоги, хоз. нужды) не включены
-              </p>
-            </div>
-            <!-- Форма заявки -->
-            <div
-              class="contact-form"
-              style="max-width: 400px; margin: 20px auto"
-            >
-              <h3>Оставьте заявку</h3>
-              <label
-                >Ваше имя:
-                <input type="text" x-model="contactName" placeholder="Иван" />
-              </label>
-              <label
-                >Контактный телефон:
+            <div class="calculator-block">
+              <!-- Переключатель формата сотрудничества -->
+              <div class="calc-switch">
                 <input
-                  type="text"
-                  x-model="contactPhone"
-                  placeholder="+7 (999) 999-99-99"
+                  type="radio"
+                  id="coop-start"
+                  name="coop"
+                  value="start"
+                  x-model="cooperationFormat"
                 />
-              </label>
-              <button
-                class="btn-primary"
-                @click="submitRequest()"
-                :disabled="!contactName || !contactPhone"
+                <label for="coop-start">Старт</label>
+                <input
+                  type="radio"
+                  id="coop-standard"
+                  name="coop"
+                  value="standard"
+                  x-model="cooperationFormat"
+                />
+                <label for="coop-standard">Стандарт</label>
+                <input
+                  type="radio"
+                  id="coop-business"
+                  name="coop"
+                  value="business"
+                  x-model="cooperationFormat"
+                />
+                <label for="coop-business">Бизнес</label>
+                <div class="calc-switch-bg"></div>
+              </div>
+              <!-- Итоговая стоимость франшизы -->
+              <div class="cost-display">
+                <p>
+                  Итоговая стоимость франшизы:
+                  <strong x-text="formattedCost"></strong> ₽
+                </p>
+                <p class="note">
+                  * Дополнительные расходы и условия указаны ниже
+                </p>
+              </div>
+              <!-- Расшифровка расчёта (прозрачность) -->
+              <div class="breakdown" x-html="breakdown"></div>
+              <!-- Форма заявки -->
+              <div
+                class="contact-form"
+                style="max-width: 400px; margin: 20px auto"
               >
-                Оставить заявку
-              </button>
-              <button class="btn-secondary" @click="step = 1">Назад</button>
+                <h3>Оставьте заявку</h3>
+                <label
+                  >Ваше имя:
+                  <input type="text" x-model="contactName" placeholder="Иван" />
+                </label>
+                <label
+                  >Контактный телефон:
+                  <input
+                    type="text"
+                    x-model="contactPhone"
+                    placeholder="+7 (999) 999-99-99"
+                  />
+                </label>
+                <div class="button-group">
+                  <button
+                    class="btn-primary"
+                    @click="submitRequest()"
+                    :disabled="!contactName || !contactPhone"
+                  >
+                    Оставить заявку
+                  </button>
+                  <button class="btn-secondary" @click="step = 1">Назад</button>
+                </div>
+              </div>
             </div>
           </div>
         </section>

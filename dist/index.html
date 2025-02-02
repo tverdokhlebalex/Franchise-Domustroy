@@ -241,229 +241,88 @@
 
       <!-- Далее другие секции... -->
 
-      <!-- =======================
-     Калькулятор Франшизы
-     ======================= -->
-
-        <section 
-        id="franchise-calc"
-        class="franchise-calc-section"
-        x-data="franchiseCalculatorV2()"
-        x-cloak
-        >
-        <!-- Заголовок большой над всем калькулятором -->
-        <h2 class="franchise-calc__main-title">Расчёт стоимости франшизы</h2>
-
-        <!-- (1) Форма контактных данных -->
-        <div 
-          class="franchise-calc__contact-form"
-          x-show="!calcVisible"
-          x-transition
-        >
-          <h3 class="form-subtitle">Шаг 1: Введите контактные данные</h3>
-          <p>Чтобы начать расчёт, пожалуйста, укажите имя и телефон.</p>
-
-          <label class="form-label">
-            Ваше имя <span>*</span>
-            <input 
-              type="text"
-              class="form-input"
-              x-model="contactName"
-              placeholder="Иван"
-            />
-          </label>
-
-          <label class="form-label">
-            Телефон <span>*</span>
-            <input 
-              type="text" 
-              class="form-input"
-              x-model="contactPhone"
-              placeholder="+7 (999) 999-99-99"
-            />
-          </label>
-
-          <p class="policy-note">
-            Нажимая на кнопку «Рассчитать», вы соглашаетесь на обработку своих персональных данных.
-          </p>
-
-          <button 
-            class="btn-primary"
-            @click="startCalculation"
-          >
-            Рассчитать
-          </button>
-        </div>
-
-        <!-- (2) Основные слайды калькулятора -->
-        <div
-          class="franchise-calc__inner"
-          x-show="calcVisible"
-          x-transition
-        >
-          <!-- Переключатель типа франшизы -->
-          <div class="calc-switch-container">
-            <div class="calc-switch">
-              <!-- Радиокнопки + лейблы -->
-              <input 
-                type="radio" 
-                id="calcStart_v2" 
-                name="calcSwitchOption" 
-                value="start"
-                x-model="selectedFranchiseType"
-              />
-              <label for="calcStart_v2">Старт</label>
-
-              <input 
-                type="radio" 
-                id="calcStandard_v2" 
-                name="calcSwitchOption"
-                value="standard"
-                x-model="selectedFranchiseType"
-              />
-              <label for="calcStandard_v2">Стандарт</label>
-
-              <input 
-                type="radio" 
-                id="calcBusiness_v2" 
-                name="calcSwitchOption"
-                value="business"
-                x-model="selectedFranchiseType"
-              />
-              <label for="calcBusiness_v2">Бизнес</label>
-
-              <!-- Подвижный ползунок -->
-              <div class="calc-switch-bg"></div>
-            </div>
-          </div>
-
-          <!-- Слайд 1: информация о франшизе -->
-          <div
-            class="franchise-calc__slide"
-            x-show="currentSlide === 1"
-            x-transition:enter="transition transform ease-out duration-500"
-            x-transition:enter-start="opacity-0 translate-x-full"
-            x-transition:enter-end="opacity-100 translate-x-0"
-            x-transition:leave="transition transform ease-in duration-500"
-            x-transition:leave-start="opacity-100 translate-x-0"
-            x-transition:leave-end="opacity-0 -translate-x-full"
-          >
-            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
-            <p class="slide-text" x-text="currentFranchiseData.description"></p>
-
-            <div class="slide-info">
-              <strong>Примерные сроки окупаемости:</strong>
-              <span x-text="currentFranchiseData.approximatePaybackPeriod"></span>
-            </div>
-
-            <div class="slide-info">
-              <strong>Примерная ежемесячная чистая прибыль:</strong>
-              <span x-text="formatPrice(currentFranchiseData.estimatedMonthlyNetProfit)"></span> ₽
-            </div>
-
-            <button class="btn-next" @click="nextSlide">Далее</button>
-          </div>
-
-          <!-- Слайд 2: Доп. услуги (без иконок «?») -->
-          <div
-            class="franchise-calc__slide"
-            x-show="currentSlide === 2"
-            x-transition:enter="transition transform ease-out duration-500"
-            x-transition:enter-start="opacity-0 translate-x-full"
-            x-transition:enter-end="opacity-100 translate-x-0"
-            x-transition:leave="transition transform ease-in duration-500"
-            x-transition:leave-start="opacity-100 translate-x-0"
-            x-transition:leave-end="opacity-0 -translate-x-full"
-          >
-            <h3 class="slide-title">Дополнительные услуги</h3>
-            <p class="slide-text">Отметьте, что хотите включить (стоимость не плюсуется в базовую):</p>
-
-            <!-- "Старт" -->
-            <template x-if="selectedFranchiseType === 'start'">
-              <div class="services-list">
-                <template x-for="(srv, idx) in additionalServices.start" :key="idx">
-                  <label class="service-item">
-                    <input 
-                      type="checkbox"
-                      x-model="srv.selected"
-                    />
-                    <span x-text="srv.name"></span> —
-                    <strong x-text="formatPrice(srv.price)"></strong> ₽
-                  </label>
-                </template>
+        <!-- Калькулятор Франшизы -->
+        <section id="franchise-calc" x-data="franchiseCalculator()" x-cloak>
+          <!-- Шаг 1: Выбор параметров магазина -->
+          <div x-show="step === 1" x-transition>
+            <h2>Выбор параметров магазина</h2>
+            <div class="calculator-block">
+              <!-- Формат магазина -->
+              <label>
+                Формат магазина: <span x-text="storeFormats[storeFormatIndex].label"></span>
+              </label>
+              <input type="range" min="0" max="2" step="1" x-model="storeFormatIndex">
+              <div class="store-layout">
+                <span x-text="storeFormats[storeFormatIndex].avg + ' м²'"></span>
               </div>
-            </template>
-
-            <!-- "Стандарт" -->
-            <template x-if="selectedFranchiseType === 'standard'">
-              <div class="services-list">
-                <template x-for="(srv, idx) in additionalServices.standard" :key="idx">
-                  <label class="service-item">
-                    <input 
-                      type="checkbox"
-                      x-model="srv.selected"
-                    />
-                    <span x-text="srv.name"></span> —
-                    <strong x-text="formatPrice(srv.price)"></strong> ₽
-                  </label>
-                </template>
+              <!-- Выбор типа оборудования -->
+              <label>Тип оборудования:</label>
+              <div class="toggle">
+                <input type="radio" id="equip-new" name="equipment" value="new" x-model="equipmentType">
+                <label for="equip-new">Новое</label>
+                <input type="radio" id="equip-used" name="equipment" value="used" x-model="equipmentType">
+                <label for="equip-used">Б/у</label>
               </div>
-            </template>
-
-            <!-- "Бизнес" -->
-            <template x-if="selectedFranchiseType === 'business'">
-              <div class="services-list">
-                <template x-for="(srv, idx) in additionalServices.business" :key="idx">
-                  <label class="service-item">
-                    <input 
-                      type="checkbox"
-                      x-model="srv.selected"
-                    />
-                    <span x-text="srv.name"></span> —
-                    <strong x-text="formatPrice(srv.price)"></strong> ₽
-                  </label>
-                </template>
+              <!-- Товарная наполненность -->
+              <label title="Сумма вложений в товарный ассортимент (руб/кв.м)">
+                Товарная наполненность: <span x-text="productContent"></span> руб/кв.м
+              </label>
+              <input type="range" min="3500" max="60000" step="500" x-model="productContent">
+              <!-- Ставка за аренду -->
+              <label>
+                Ставка за аренду: <span x-text="rentRate"></span> руб/кв.м
+              </label>
+              <input type="range" min="350" max="3000" step="50" x-model="rentRate">
+              <div class="button-group" style="text-align:center;">
+                <button class="btn-primary" @click="goToStep2()">Далее</button>
               </div>
-            </template>
-
-            <button class="btn-next" @click="nextSlide">Далее</button>
-          </div>
-
-          <!-- Слайд 3: Итоговая стоимость и выбранные услуги -->
-          <div
-            class="franchise-calc__slide"
-            x-show="currentSlide === 3"
-            x-transition:enter="transition transform ease-out duration-500"
-            x-transition:enter-start="opacity-0 translate-x-full"
-            x-transition:enter-end="opacity-100 translate-x-0"
-            x-transition:leave="transition transform ease-in duration-500"
-            x-transition:leave-start="opacity-100 translate-x-0"
-            x-transition:leave-end="opacity-0 -translate-x-full"
-          >
-            <h3 class="slide-title" x-text="currentFranchiseData.title"></h3>
-
-            <div class="final-cost-block">
-              <p>
-                <strong>Базовая стоимость:</strong>
-                <span x-text="formatPrice(currentFranchiseData.baseCost)"></span> ₽
-              </p>
-              <p>Выбранные услуги (оплата отдельно):</p>
-              <ul class="services-chosen">
-                <template x-for="(service, idx) in chosenServices" :key="idx">
-                  <li>
-                    <span x-text="service.name"></span> —
-                    <span x-text="formatPrice(service.price)"></span> ₽
-                  </li>
-                </template>
-              </ul>
-              <p class="note">*Доп. услуги не складываются с базовой стоимостью</p>
             </div>
-
-            <button class="btn-primary" @click="submitFinalRequest">Оставить заявку на звонок</button>
           </div>
-        </div>
-
+          
+          <!-- Шаг 2: Выбор формата сотрудничества и расчёт стоимости -->
+          <div x-show="step === 2" x-transition>
+            <h2>Формат сотрудничества и расчёт стоимости</h2>
+            <div class="calculator-block">
+              <!-- Переключатель формата сотрудничества -->
+              <div class="calc-switch">
+                <input type="radio" id="coop-start" name="coop" value="start" x-model="cooperationFormat">
+                <label for="coop-start">Старт</label>
+                <input type="radio" id="coop-standard" name="coop" value="standard" x-model="cooperationFormat">
+                <label for="coop-standard">Стандарт</label>
+                <input type="radio" id="coop-business" name="coop" value="business" x-model="cooperationFormat">
+                <label for="coop-business">Бизнес</label>
+                <div class="calc-switch-bg"></div>
+              </div>
+              <!-- Итоговая стоимость франшизы -->
+              <div class="cost-display">
+                <p>
+                  Итоговая стоимость франшизы: 
+                  <strong x-text="formattedCost"></strong> ₽
+                </p>
+                <p class="note">* Дополнительные расходы и условия указаны ниже</p>
+              </div>
+              <!-- Расшифровка расчёта -->
+              <div class="breakdown" x-html="breakdown"></div>
+              <!-- Форма заявки -->
+              <div class="contact-form" style="max-width:400px; margin:20px auto;">
+                <h3>Оставьте заявку</h3>
+                <label>Ваше имя:
+                  <input type="text" x-model="contactName" placeholder="Иван">
+                </label>
+                <label>Контактный телефон:
+                  <input type="text" x-model="contactPhone" placeholder="+7 (999) 999-99-99">
+                </label>
+                <div class="button-group">
+                  <button class="btn-primary" @click="submitRequest()" :disabled="!contactName || !contactPhone">
+                    Оставить заявку
+                  </button>
+                  <button class="btn-secondary" @click="step = 1">Назад</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
+
 
           
         
