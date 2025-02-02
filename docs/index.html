@@ -463,6 +463,38 @@
         </section>
         <!-- Калькулятор Франшизы -->
         <section id="franchise-calc" x-data="franchiseCalculator()" x-cloak>
+          <!-- Шаг 0: Ввод контактных данных -->
+          <div x-show="step === 0" x-transition>
+            <h2>Калькулятор расчета стоимости</h2>
+            <div class="contact-info-block">
+              <p>
+                Для начала расчета, пожалуйста, введите ваше имя и контактный
+                телефон.
+              </p>
+              <label>
+                Ваше имя:
+                <input type="text" x-model="contactName" placeholder="Иван" />
+              </label>
+              <label>
+                Контактный телефон:
+                <input
+                  type="text"
+                  x-model="contactPhone"
+                  placeholder="+7 (999) 999-99-99"
+                />
+              </label>
+              <div class="button-group" style="text-align: center">
+                <button
+                  class="btn-primary"
+                  @click="proceedToCalculation()"
+                  :disabled="!contactName || !contactPhone"
+                >
+                  Перейти к расчету
+                </button>
+              </div>
+            </div>
+          </div>
+
           <!-- Шаг 1: Выбор параметров магазина -->
           <div x-show="step === 1" x-transition>
             <h2>Выбор параметров магазина</h2>
@@ -484,7 +516,7 @@
                   x-text="storeFormats[storeFormatIndex].avg + ' м²'"
                 ></span>
               </div>
-              <!-- Переключатель типа оборудования (по стилю как у форматов сотрудничества) -->
+              <!-- Переключатель типа оборудования -->
               <label>Тип оборудования:</label>
               <div class="calc-switch equipment-switch">
                 <input
@@ -534,9 +566,9 @@
             </div>
           </div>
 
-          <!-- Шаг 2: Выбор формата сотрудничества и расчёт стоимости -->
+          <!-- Шаг 2: Итоговый расчет стоимости -->
           <div x-show="step === 2" x-transition>
-            <h2>Формат сотрудничества и расчёт стоимости</h2>
+            <h2>Итоговый расчет стоимости</h2>
             <div class="calculator-block">
               <!-- Переключатель формата сотрудничества -->
               <div class="calc-switch">
@@ -576,36 +608,14 @@
                   * Дополнительные расходы и условия указаны ниже
                 </p>
               </div>
-              <!-- Расшифровка расчёта (прозрачность) -->
+              <!-- Расшифровка калькуляции -->
               <div class="breakdown" x-html="breakdown"></div>
-              <!-- Форма заявки -->
-              <div
-                class="contact-form"
-                style="max-width: 400px; margin: 20px auto"
-              >
-                <h3>Оставьте заявку</h3>
-                <label
-                  >Ваше имя:
-                  <input type="text" x-model="contactName" placeholder="Иван" />
-                </label>
-                <label
-                  >Контактный телефон:
-                  <input
-                    type="text"
-                    x-model="contactPhone"
-                    placeholder="+7 (999) 999-99-99"
-                  />
-                </label>
-                <div class="button-group">
-                  <button
-                    class="btn-primary"
-                    @click="submitRequest()"
-                    :disabled="!contactName || !contactPhone"
-                  >
-                    Оставить заявку
-                  </button>
-                  <button class="btn-secondary" @click="step = 1">Назад</button>
-                </div>
+              <!-- Кнопка отправки заявки -->
+              <div class="button-group" style="text-align: center">
+                <button class="btn-primary" @click="submitRequest()">
+                  Оставьте заявку
+                </button>
+                <button class="btn-secondary" @click="step = 1">Назад</button>
               </div>
             </div>
           </div>

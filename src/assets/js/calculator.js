@@ -1,7 +1,9 @@
+// Привязываем функцию калькулятора к глобальному объекту window,
+// чтобы AlpineJS мог её найти через x-data="franchiseCalculator()".
 window.franchiseCalculator = function () {
   return {
-    // Шаг: 1 – выбор параметров, 2 – выбор формата сотрудничества и расчёт стоимости
-    step: 1,
+    // Начальный шаг: 0 – ввод контактных данных; затем 1 – выбор параметров; 2 – итоговый расчет.
+    step: 0,
 
     // Параметры магазина
     storeFormatIndex: 0,
@@ -24,20 +26,20 @@ window.franchiseCalculator = function () {
     contactName: "",
     contactPhone: "",
 
-    // Вычисляемая площадь магазина (среднее значение выбранного диапазона)
+    // Геттер для площади магазина (среднее значение выбранного диапазона)
     get area() {
       return this.storeFormats[this.storeFormatIndex].avg;
     },
     // Стоимость оборудования = площадь × (ставка оборудования)
-    // Для нового оборудования: 4500 руб/кв.м, для б/у: 2500 руб/кв.м
+    // Для нового оборудования: 4500 руб/кв.м, для б/у: 2500 руб/кв.м.
     get equipmentCost() {
       return this.area * (this.equipmentType === "new" ? 4500 : 2500);
     },
-    // Инвестиции в ассортимент = вложения (руб/кв.м) × площадь
+    // Вложения в ассортимент = вложения (руб/кв.м) × площадь
     get productInvestment() {
       return this.productContent * this.area;
     },
-    // Базовая стоимость (оборудование + вложения)
+    // Базовая стоимость = оборудование + вложения
     get baseCost() {
       return this.equipmentCost + this.productInvestment;
     },
@@ -45,7 +47,7 @@ window.franchiseCalculator = function () {
     get rentExpensePerMonth() {
       return this.rentRate * this.area;
     },
-    // Итоговая стоимость франшизы зависит от формата сотрудничества:
+    // Итоговая стоимость франшизы:
     // Для "Старт": итог = базовая стоимость.
     // Для "Стандарт": итог = базовая стоимость + стартовый взнос (300000 руб).
     // Для "Бизнес": итог = базовая стоимость + единоразовая выплата (500000 руб).
@@ -63,11 +65,11 @@ window.franchiseCalculator = function () {
     get formattedCost() {
       return this.formatPrice(this.finalCost);
     },
-    // Метод для форматирования чисел (разделители)
+    // Метод для форматирования числовых значений (разделители)
     formatPrice(value) {
       return new Intl.NumberFormat("ru-RU").format(Math.round(value));
     },
-    // Расшифровка расчёта для прозрачности
+    // Расшифровка калькуляции для прозрачности
     get breakdown() {
       let result = `<p>Стоимость оборудования: ${this.formatPrice(
         this.equipmentCost
@@ -82,7 +84,7 @@ window.franchiseCalculator = function () {
                         this.rentExpensePerMonth
                       )} ₽/мес</p>`;
       if (this.cooperationFormat === "start") {
-        result += `<p>Роялти: 5% от прибыли (примерно 4000 ₽/мес)</p>`;
+        result += `<p>Роялти: 5% от прибыли (примерно 142000 ₽/мес)</p>`;
       } else if (this.cooperationFormat === "standard") {
         result += `<p>Стартовый взнос: ${this.formatPrice(300000)} ₽</p>
                      <p>Роялти: 3% от прибыли (примерно 5000 ₽/мес)</p>
@@ -92,17 +94,22 @@ window.franchiseCalculator = function () {
       }
       return result;
     },
-    // Переход ко второму шагу
+    // Переход с шага 0 (контактные данные) к шагу 1 (параметры магазина)
+    proceedToCalculation() {
+      if (!this.contactName.trim() || !this.contactPhone.trim()) {
+        alert("Пожалуйста, заполните имя и контактный телефон.");
+        return;
+      }
+      this.step = 1;
+    },
+    // Переход ко второму шагу (параметры -> итог)
     goToStep2() {
       this.step = 2;
     },
     // Отправка заявки
     submitRequest() {
-      if (!this.contactName.trim() || !this.contactPhone.trim()) {
-        alert("Пожалуйста, заполните имя и телефон.");
-        return;
-      }
       alert("Заявка отправлена! Наш менеджер свяжется с Вами.");
+      // Опционально: очистка контактных данных
       this.contactName = "";
       this.contactPhone = "";
     },

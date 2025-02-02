@@ -1074,6 +1074,7 @@ body {
 
 /* ================================
    Стили для блока калькулятора франшизы
+   (ширина увеличена до 1000px)
    ================================ */
 #franchise-calc {
   background-color: #fafafa;
@@ -1081,7 +1082,7 @@ body {
   border: 1px solid #e2e2e2;
   border-radius: 8px;
   margin: 20px auto;
-  max-width: 800px;
+  max-width: 1000px;
   color: #333;
 }
 
@@ -1115,7 +1116,8 @@ input[type="range"] {
   margin-bottom: 15px;
 }
 
-/* Стили для кастомных переключателей (calc-switch) – применяются и к формату сотрудничества, и к типу оборудования */
+/* Стили для кастомных переключателей (calc-switch)
+   Используются для переключателя формата сотрудничества и типа оборудования */
 .calc-switch {
   position: relative;
   display: flex;
@@ -1141,12 +1143,13 @@ input[type="range"] {
   transition: color 0.2s;
 }
 
-/* Подвижный фон для переключателя */
+/* Подвижный фон переключателя */
 .calc-switch-bg {
   position: absolute;
   top: 5px;
   left: 5px;
-  width: calc(50% - 10px); /* Для оборудования – два варианта */
+  /* Для переключателя типа оборудования (2 варианта) по умолчанию */
+  width: calc(50% - 10px);
   height: calc(100% - 10px);
   background: #ed7804;
   border-radius: 25px;
@@ -1158,22 +1161,21 @@ input[type="range"] {
   width: calc(33.3% - 10px);
 }
 
+/* Для типа оборудования – два варианта */
 input[value="new"]:checked ~ .calc-switch-bg {
   left: 5px;
 }
-
 input[value="used"]:checked ~ .calc-switch-bg {
   left: calc(50% + 5px);
 }
 
+/* Для формата сотрудничества */
 input[value="start"]:checked ~ .calc-switch-bg {
   left: 5px;
 }
-
 input[value="standard"]:checked ~ .calc-switch-bg {
   left: calc(33.3% + 5px);
 }
-
 input[value="business"]:checked ~ .calc-switch-bg {
   left: calc(66.6% + 5px);
 }
@@ -1200,9 +1202,44 @@ input[value="business"]:checked ~ .calc-switch-bg {
   margin-top: 15px;
   font-size: 15px;
   line-height: 1.4;
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 4px;
 }
 
-/* Стили для формы заявки */
+/* Стили для блока запроса контактных данных (шаг 0) */
+.contact-info-block {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-block p {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.contact-info-block label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.contact-info-block input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Стили для формы заявки (на шаге 2) остаются как и ранее */
 .contact-form {
   margin: 20px 0;
 }
@@ -1278,6 +1315,10 @@ input[value="business"]:checked ~ .calc-switch-bg {
   }
   input[type="range"] {
     margin-bottom: 10px;
+  }
+  .contact-info-block {
+    max-width: 90%;
+    padding: 15px;
   }
 }
 
