@@ -126,16 +126,13 @@ window.franchiseCalculator = function () {
       };
 
       // Отправляем данные на серверный скрипт (telegram.php)
-      fetch(
-        "https://franchise-domustroy-backend.onrender.com/api/telegram.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      )
+      fetch("https://franchise-domustroy-backend.onrender.com/telegram.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
         .then((response) => response.json())
         .then((result) => {
           if (result.success) {
