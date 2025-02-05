@@ -108,10 +108,45 @@ window.franchiseCalculator = function () {
     },
     // Отправка заявки
     submitRequest() {
-      alert("Заявка отправлена! Наш менеджер свяжется с Вами.");
-      // Опционально: очистка контактных данных
-      this.contactName = "";
-      this.contactPhone = "";
+      if (!this.contactName.trim() || !this.contactPhone.trim()) {
+        alert("Пожалуйста, заполните имя и телефон.");
+        return;
+      }
+      // Подготовка данных для отправки
+      const data = {
+        name: this.contactName,
+        phone: this.contactPhone,
+        area: this.area,
+        equipmentCost: this.equipmentCost,
+        productInvestment: this.productInvestment,
+        baseCost: this.baseCost,
+        rentExpensePerMonth: this.rentExpensePerMonth,
+        cooperationFormat: this.cooperationFormat,
+        finalCost: this.finalCost,
+      };
+
+      // Отправляем данные на серверный скрипт (telegram.php)
+      fetch("https://franchise-domustroy-backend.onrender.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.success) {
+            alert("Заявка отправлена! Наш менеджер свяжется с Вами.");
+            this.contactName = "";
+            this.contactPhone = "";
+          } else {
+            alert("Ошибка при отправке заявки: " + result.error);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Ошибка при отправке заявки.");
+        });
     },
   };
 };
