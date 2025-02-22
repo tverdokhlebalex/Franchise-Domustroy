@@ -296,20 +296,18 @@ body {
             scroll-icon:      иконка (стрелка).
          */
 .hero-banner {
-  position: relative;
+  position: relative; /* чтобы абсолютные элементы позиционировались внутри этого блока */
   background: black;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden; /* чтобы лого не вылезало */
+  overflow: hidden; /* чтобы логотип не «вылезал» */
 }
 
 .hero-content {
+  position: relative; /* остаётся в нормальном потоке */
+  padding-top: 300px; /* подберите значение, чтобы текст не перекрывал логотип */
+  text-align: center;
   max-width: 700px;
-  margin: 0 20px; /* небольшой отступ по бокам */
-  position: relative; /* чтобы контент был в потоке */
+  margin: 0 auto;
 }
 
 .hero-title {
@@ -380,13 +378,15 @@ body {
 }
 /* ==== Логотип (пока в потоке) ==== */
 #heroLogo {
-  margin: 0 auto 1rem auto;
-  width: 600px; /* подберите нужную ширину */
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 600px; /* или подберите сами */
   max-width: 90%;
   height: auto;
-  z-index: 999;
-  position: relative;
-  transform: translateZ(0);
+  z-index: 9;
+  transition: transform 0.3s ease; /* если хотите плавное изменение при анимации */
 }
 
 /* Класс для зафиксированного логотипа */

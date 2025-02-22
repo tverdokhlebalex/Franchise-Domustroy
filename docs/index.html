@@ -704,41 +704,38 @@
     </script>
     <!-- Скрипт анимации логотипа при скролле -->
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", function () {
+        gsap.registerPlugin(ScrollTrigger);
+
         const heroBanner = document.getElementById("heroBanner");
         const heroLogo = document.getElementById("heroLogo");
 
         if (!heroBanner || !heroLogo) return;
 
-        const finalOffset = 50;
-        let bannerTop = heroBanner.offsetTop;
-        let bannerHeight = heroBanner.offsetHeight;
+        // Получаем высоту баннера и логотипа
+        const bannerHeight = heroBanner.offsetHeight;
+        const logoHeight = heroLogo.offsetHeight;
 
-        function handleScroll() {
-          const scrollY = window.scrollY || window.pageYOffset;
-          if (scrollY < bannerTop) {
-            heroLogo.style.transform = "translateY(0)";
-            return;
-          }
-          if (scrollY >= bannerTop + bannerHeight) {
-            heroLogo.style.transform = `translateY(${finalOffset}px)`;
-            return;
-          }
-          const ratio = (scrollY - bannerTop) / bannerHeight;
-          const currentY = ratio * finalOffset;
-          heroLogo.style.transform = `translateY(${currentY}px)`;
-        }
+        // Насколько далеко можно сдвигать логотип (до нижней границы баннера)
+        const maxTranslate = bannerHeight - logoHeight;
 
-        window.addEventListener("scroll", handleScroll);
-        function recalc() {
-          bannerTop = heroBanner.offsetTop;
-          bannerHeight = heroBanner.offsetHeight;
-          handleScroll();
-        }
-        window.addEventListener("resize", recalc);
-        recalc();
+        // Настраиваем GSAP-анимацию
+        gsap.to(heroLogo, {
+          // Трансформация по оси Y от 0 до maxTranslate
+          y: maxTranslate,
+          // ScrollTrigger — плагин, который связывает анимацию со скроллом
+          scrollTrigger: {
+            trigger: heroBanner, // Элемент, с которым связана анимация
+            start: "top top", // Когда верх heroBanner совпадает с верхом вьюпорта
+            end: "bottom top", // Когда низ heroBanner совпадает с верхом вьюпорта
+            scrub: true, // Связывает анимацию с прокруткой (плавный скролл)
+          },
+          // По умолчанию GSAP сам будет интерполировать
+          // между y: 0 (в начале) и y: maxTranslate (в конце)
+        });
       });
     </script>
+
     <!-- Скрипт автопрокрутки при клике на кнопку "Начать свой бизнес" -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
