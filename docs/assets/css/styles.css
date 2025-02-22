@@ -1239,6 +1239,18 @@ input[value="business"]:checked ~ .calc-switch-bg {
   font-size: 16px;
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+  display: none;
+}
+
+[x-show="phoneError"] {
+  display: block;
+}
+
 /* Стили для формы заявки (на шаге 2) остаются как и ранее */
 .contact-form {
   margin: 20px 0;
