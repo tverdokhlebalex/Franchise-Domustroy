@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Вход – ДомУстрой</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <header x-data="{ openMobileMenu: false }" class="header-upgrade">
+  <div class="container-upgrade">
+    <div class="header-upgrade__wrapper">
+      <!-- Лого слева -->
+      <img
+        src="assets/images/logo-domustroi.svg"
+        alt="Логотип ДомУстрой"
+        class="header_logo"
+      />
+
+      <!-- Навигация по центру только на десктопе -->
+      <nav class="header-upgrade__nav-desktop">
+        <ul class="menu-desktop">
+          <!-- Пример: если мы на index.html, ставим active -->
+          <li><a href="index.html" class="">Главная</a></li>
+          <!-- Пример: если мы на franchise.html, ставим active -->
+          <li><a href="franchise.html" class="">О франшизе</a></li>
+          <!-- Калькулятор может вести на отдельную страницу ИЛИ на #calc-block главной -->
+          <li><a href="index.html#calc-block">Калькулятор</a></li>
+        </ul>
+      </nav>
+
+      <!-- Блок справа (phone + burger) -->
+      <div class="header-upgrade__right">
+        <a class="phone" href="tel:+78003334130" rel="nofollow">
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92V20a2 2 0 0 1-2.18 2
+                 A19.86 19.86 0 0 1 2 4.18
+                 2 2 0 0 1 4 2h3.09
+                 a2 2 0 0 1 2 1.72 
+                 13.31 13.31 0 0 0 .7 2.88
+                 2 2 0 0 1-.45 2.11L8.09 9.91
+                 a16 16 0 0 0 6.37 6.37
+                 l1.2-1.2 a2 2 0 0 1 2.11-.45
+                 13.31 13.31 0 0 0 2.88.7
+                 2 2 0 0 1 1.72 2z"
+            />
+          </svg>
+        </a>
+
+        <!-- Бургер -->
+        <div
+          class="icon-menu-mobile"
+          @click="openMobileMenu = !openMobileMenu"
+          :class="{ 'active': openMobileMenu }"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Выезжающая шторка справа -->
+    <div class="main-menu" :class="{ 'opened': openMobileMenu }">
+      <button class="close-menu" @click="openMobileMenu = false">×</button>
+      <ul class="mobile-nav">
+        <li>
+          <a href="index.html" @click="openMobileMenu = false">Главная</a>
+        </li>
+        <li>
+          <a href="franchise.html" @click="openMobileMenu = false"
+            >О франшизе</a
+          >
+        </li>
+        <li>
+          <a href="index.html#calc-block" @click="openMobileMenu = false"
+            >Калькулятор</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Получаем текущий URL страницы без домена
+      const currentPage =
+        window.location.pathname.split("/").pop() || "index.html";
+      const currentHash = window.location.hash;
+
+      // Функция для установки активного класса
+      function setActiveLink(selector) {
+        document.querySelectorAll(selector).forEach((link) => {
+          const linkHref = link.getAttribute("href");
+
+          // Логика для калькулятора
+          if (linkHref.includes("#calc-block")) {
+            if (currentPage === "index.html" && currentHash === "#calc-block") {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          }
+          // Логика для остальных ссылок
+          else if (linkHref === currentPage && !currentHash) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+
+      // Устанавливаем активный класс для desktop и mobile меню
+      setActiveLink(".menu-desktop a");
+      setActiveLink(".mobile-nav a");
+
+      // Устанавливаем класс при клике на калькулятор
+      document
+        .querySelectorAll('a[href="index.html#calc-block"]')
+        .forEach((link) => {
+          link.addEventListener("click", function () {
+            document
+              .querySelectorAll(".menu-desktop a, .mobile-nav a")
+              .forEach((item) => {
+                item.classList.remove("active");
+              });
+            link.classList.add("active");
+          });
+        });
+    });
+  </script>
+</header>
+
+
+    <main>
+      <section class="container">
+        <h1>Авторизация</h1>
+        <!-- Пример простой формы входа (без реальной валидации) -->
+        <form>
+          <label>Логин</label><br />
+          <input type="text" /><br /><br />
+
+          <label>Пароль</label><br />
+          <input type="password" /><br /><br />
+
+          <button class="btn">Войти</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+  <div class="container footer__container">
+    <!-- Левая часть: Логотип и описание -->
+    <div class="footer__about">
+      <a href="index.html" class="footer__logo">ДомУстрой</a>
+      <p class="footer__description">
+        Сеть магазинов товаров для дома и строительства.
+      </p>
+    </div>
+
+    <!-- Правая часть: Контактная информация -->
+    <div class="footer__contacts">
+      <h4>Контакты</h4>
+      <p>Телефон: <a href="tel:+79878276734">+7 (987) 827-67-34</a></p>
+      <p>Email: <a href="mailto:info@domustroy.ru">info@domustroy.ru</a></p>
+      <p>Адрес: г. Саратов, ул. ​Проспект Строителей, 30</p>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <p>© 2025 “ДомУстрой”. Все права защищены.</p>
+    <a href="#top" class="back-to-top">Наверх ↑</a>
+  </div>
+</footer>
+
+  </body>
+</html>

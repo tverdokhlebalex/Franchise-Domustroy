@@ -1247,6 +1247,7 @@ input[value="business"]:checked ~ .calc-switch-bg {
   display: none;
 }
 
+/* Удаляем display: none, так как x-show сам управляет видимостью */
 [x-show="phoneError"] {
   display: block;
 }

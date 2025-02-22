@@ -333,38 +333,40 @@
         <!-- Калькулятор Франшизы -->
         <section id="franchise-calc" x-data="franchiseCalculator()" x-cloak>
           <!-- Шаг 0: Ввод контактных данных -->
-          <div x-show="step === 0" x-transition>
-            <h2>Калькулятор расчета стоимости</h2>
-            <div class="contact-info-block">
-              <p>
-                Для начала расчета, пожалуйста, введите ваше имя и контактный
-                телефон.
-              </p>
-              <label>
-                Ваше имя:
-                <input type="text" x-model="contactName" placeholder="Иван" />
-              </label>
-              <label>
-                Контактный телефон:
-                <input
-                  type="text"
-                  x-model="contactPhone"
-                  placeholder="+7 (999) 999-99-99"
-                  @input="formatPhoneNumber"
-                  @blur="validatePhone"
-                />
-              </label>
-              <p class="error-message" x-show="phoneError">
-                Введите корректный номер телефона
-              </p>
-              <div class="button-group" style="text-align: center">
-                <button
-                  class="btn-primary"
-                  @click="proceedToCalculation()"
-                  :disabled="!contactName || !contactPhone || phoneError"
-                >
-                  Перейти к расчету
-                </button>
+          <div x-data="contactForm">
+            <div x-show="step === 0" x-transition>
+              <h2>Калькулятор расчета стоимости</h2>
+              <div class="contact-info-block">
+                <p>
+                  Для начала расчета, пожалуйста, введите ваше имя и контактный
+                  телефон.
+                </p>
+                <label>
+                  Ваше имя:
+                  <input type="text" x-model="contactName" placeholder="Иван" />
+                </label>
+                <label>
+                  Контактный телефон:
+                  <input
+                    type="text"
+                    x-model="contactPhone"
+                    placeholder="+7 (999) 999-99-99"
+                    @input="formatPhoneNumber"
+                    @blur="validatePhone"
+                  />
+                </label>
+                <p class="error-message" x-show="phoneError">
+                  Введите корректный номер телефона
+                </p>
+                <div class="button-group" style="text-align: center">
+                  <button
+                    class="btn-primary"
+                    @click="proceedToCalculation()"
+                    :disabled="!contactName || !contactPhone || phoneError"
+                  >
+                    Перейти к расчету
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -505,6 +507,46 @@
     <!-- Скрипт логики калькулятора -->
     <script type="module" src="assets/js/telegram.js"></script>
     <script src="assets/js/calculator.js"></script>
+    <!-- Скрипт валидации -->
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("contactForm", () => ({
+          step: 0,
+          contactName: "",
+          contactPhone: "",
+          phoneError: false,
+
+          formatPhoneNumber(event) {
+            let value = event.target.value.replace(/\D/g, ""); // Удаляем все, кроме цифр
+
+            if (value.length > 11) {
+              value = value.slice(0, 11); // Ограничиваем длину
+            }
+
+            let formatted = "+7 ";
+            if (value.length > 1) formatted += "(" + value.slice(1, 4);
+            if (value.length > 4) formatted += ") " + value.slice(4, 7);
+            if (value.length > 7) formatted += "-" + value.slice(7, 9);
+            if (value.length > 9) formatted += "-" + value.slice(9, 11);
+
+            this.contactPhone = formatted;
+          },
+
+          validatePhone() {
+            this.phoneError = !/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(
+              this.contactPhone
+            );
+          },
+
+          proceedToCalculation() {
+            if (!this.phoneError && this.contactName) {
+              console.log("Переход к расчету...");
+              this.step = 1; // Переход к следующему шагу
+            }
+          },
+        }));
+      });
+    </script>
     <!-- Скрипт анимации логотипа при скролле -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {

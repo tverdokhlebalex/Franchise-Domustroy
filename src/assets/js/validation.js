@@ -1,5 +1,6 @@
 document.addEventListener("alpine:init", () => {
   Alpine.data("contactForm", () => ({
+    step: 0,
     contactName: "",
     contactPhone: "",
     phoneError: false,
@@ -7,7 +8,9 @@ document.addEventListener("alpine:init", () => {
     formatPhoneNumber(event) {
       let value = event.target.value.replace(/\D/g, ""); // Удаляем все, кроме цифр
 
-      if (value.length > 11) value = value.slice(0, 11); // Ограничиваем длину
+      if (value.length > 11) {
+        value = value.slice(0, 11); // Ограничиваем длину
+      }
 
       let formatted = "+7 ";
       if (value.length > 1) formatted += "(" + value.slice(1, 4);
@@ -27,7 +30,7 @@ document.addEventListener("alpine:init", () => {
     proceedToCalculation() {
       if (!this.phoneError && this.contactName) {
         console.log("Переход к расчету...");
-        // Здесь вызывается код перехода к следующему шагу
+        this.step = 1; // Переход к следующему шагу
       }
     },
   }));
