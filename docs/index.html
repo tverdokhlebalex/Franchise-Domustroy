@@ -4,23 +4,34 @@
     <meta charset="UTF-8" />
     <title>Главная – ДомУстрой</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Стили (сброс и основные стили) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
+
     <!-- AOS для анимаций -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
     />
+
     <!-- Alpine.js (через CDN) -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <!-- GSAP  ScrollTrigger для анимаций логотипа -->
+
+    <!-- GSAP + ScrollTrigger для анимаций логотипа -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
+
   <body>
     <header x-data="{ openMobileMenu: false }" class="header-upgrade">
   <div class="container-upgrade">
@@ -174,9 +185,13 @@
               инструменты маркетинга
             </p>
             <div class="cta-scroll">
-              <a class="cta-button" id="autoScrollBtn" href="javascript:void(0)"
-                >Начать свой бизнес</a
+              <a
+                class="cta-button"
+                id="autoScrollBtn"
+                href="javascript:void(0)"
               >
+                Начать свой бизнес
+              </a>
               <img
                 class="scroll-icon"
                 src="assets/images/scroll.svg"
@@ -190,72 +205,186 @@
         <div class="advantages-section" id="advantagesBlock">
           <div class="container-upgrade">
             <h2 class="section-title">Преимущества</h2>
+
             <div class="advantages-grid">
               <!-- Карточка 1 -->
-              <div class="advantage-card" data-order="1">
-                <h3>Надёжные поставщики</h3>
-                <p>
-                  Высококачественные товары, налаженная логистика и выгодные
-                  цены.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="1"
+                data-aos="fade-up"
+                data-aos-delay="0"
+              >
+                <div class="card-icon">
+                  <!-- Пример иконки (можно заменить на свою) -->
+                  <img
+                    src="assets/images/ico-supplier.svg"
+                    alt="иконка поставщиков"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Надёжные поставщики</h3>
+                  <p>
+                    Высококачественные товары, налаженная логистика и выгодные
+                    цены.
+                  </p>
+                </div>
                 <div class="card-number">01</div>
               </div>
+
               <!-- Карточка 2 -->
-              <div class="advantage-card" data-order="2">
-                <h3>Собственные IT-решения</h3>
-                <p>Максимальная автоматизация процессов и удобная аналитика.</p>
+              <div
+                class="advantage-card"
+                data-order="2"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <div class="card-icon">
+                  <img src="assets/images/ico-it.svg" alt="иконка IT-решений" />
+                </div>
+                <div class="card-content">
+                  <h3>Собственные IT-решения</h3>
+                  <p>
+                    Максимальная автоматизация процессов и удобная аналитика.
+                  </p>
+                </div>
                 <div class="card-number">02</div>
               </div>
+
               <!-- Карточка 3 -->
-              <div class="advantage-card" data-order="3">
-                <h3>Маркетинговая поддержка</h3>
-                <p>
-                  Рекламные материалы и консультации по продвижению для
-                  партнёров.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="3"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-marketing.svg"
+                    alt="иконка маркетинга"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Маркетинговая поддержка</h3>
+                  <p>
+                    Рекламные материалы и консультации по продвижению для
+                    партнёров.
+                  </p>
+                </div>
                 <div class="card-number">03</div>
               </div>
+
               <!-- Карточка 4 -->
-              <div class="advantage-card" data-order="4">
-                <h3>Обучение</h3>
-                <p>
-                  Школа франчайзи-партнёров и всесторонняя подготовка персонала.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="4"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-education.svg"
+                    alt="иконка обучения"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Обучение</h3>
+                  <p>
+                    Школа франчайзи-партнёров и всесторонняя подготовка
+                    персонала.
+                  </p>
+                </div>
                 <div class="card-number">04</div>
               </div>
+
               <!-- Карточка 5 -->
-              <div class="advantage-card" data-order="5">
-                <h3>Прозрачные условия</h3>
-                <p>
-                  Честная финансовая модель и открытая отчётность для партнёров.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="5"
+                data-aos="fade-up"
+                data-aos-delay="400"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-transparency.svg"
+                    alt="иконка прозрачности"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Прозрачные условия</h3>
+                  <p>
+                    Честная финансовая модель и открытая отчётность для
+                    партнёров.
+                  </p>
+                </div>
                 <div class="card-number">05</div>
               </div>
+
               <!-- Карточка 6 -->
-              <div class="advantage-card" data-order="6">
-                <h3>Индивидуальное сопровождение</h3>
-                <p>
-                  Персональный менеджер, маркетолог и бизнес-тренер на всех
-                  этапах.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="6"
+                data-aos="fade-up"
+                data-aos-delay="500"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-support.svg"
+                    alt="иконка сопровождения"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Индивидуальное сопровождение</h3>
+                  <p>
+                    Персональный менеджер, маркетолог и бизнес-тренер на всех
+                    этапах.
+                  </p>
+                </div>
                 <div class="card-number">06</div>
               </div>
+
               <!-- Карточка 7 -->
-              <div class="advantage-card" data-order="7">
-                <h3>Минимальные риски</h3>
-                <p>
-                  Экспертная поддержка, бизнес-анализ и помощь в принятии
-                  решений.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="7"
+                data-aos="fade-up"
+                data-aos-delay="600"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-lowrisk.svg"
+                    alt="иконка минимальных рисков"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Минимальные риски</h3>
+                  <p>
+                    Экспертная поддержка, бизнес-анализ и помощь в принятии
+                    решений.
+                  </p>
+                </div>
                 <div class="card-number">07</div>
               </div>
+
               <!-- Карточка 8 -->
-              <div class="advantage-card" data-order="8">
-                <h3>Расширенный ассортимент</h3>
-                <p>
-                  Широкий выбор товаров для дома и строительства, регулярно
-                  обновляемый под тренды рынка.
-                </p>
+              <div
+                class="advantage-card"
+                data-order="8"
+                data-aos="fade-up"
+                data-aos-delay="700"
+              >
+                <div class="card-icon">
+                  <img
+                    src="assets/images/ico-assort.svg"
+                    alt="иконка ассортимента"
+                  />
+                </div>
+                <div class="card-content">
+                  <h3>Расширенный ассортимент</h3>
+                  <p>
+                    Широкий выбор товаров для дома и строительства, регулярно
+                    обновляемый под тренды рынка.
+                  </p>
+                </div>
                 <div class="card-number">08</div>
               </div>
             </div>
@@ -360,6 +489,7 @@
                   </li>
                 </ul>
               </div>
+
               <!-- Правая колонка -->
               <div class="work-card">
                 <h5
@@ -413,6 +543,7 @@
                   </li>
                 </ul>
               </div>
+
               <!-- Изображение -->
               <div
                 class="work__image"
@@ -462,6 +593,7 @@
             </div>
           </div>
         </section>
+
         <!-- Калькулятор Франшизы -->
         <section id="franchise-calc" x-data="franchiseCalculator()" x-cloak>
           <!-- Шаг 0: Ввод контактных данных -->
@@ -524,6 +656,7 @@
                   x-text="storeFormats[storeFormatIndex].avg + ' м²'"
                 ></span>
               </div>
+
               <!-- Переключатель типа оборудования -->
               <label>Тип оборудования:</label>
               <div class="calc-switch equipment-switch">
@@ -535,6 +668,7 @@
                   x-model="equipmentType"
                 />
                 <label for="equip-new">Новое</label>
+
                 <input
                   type="radio"
                   id="equip-used"
@@ -543,8 +677,10 @@
                   x-model="equipmentType"
                 />
                 <label for="equip-used">Б/у</label>
+
                 <div class="calc-switch-bg"></div>
               </div>
+
               <!-- Товарная наполненность -->
               <label title="Сумма вложений в товарный ассортимент (руб/кв.м)">
                 Товарная наполненность:
@@ -557,9 +693,11 @@
                 step="500"
                 x-model="productContent"
               />
+
               <!-- Ставка за аренду -->
               <label>
-                Ставка за аренду: <span x-text="rentRate"></span> руб/кв.м
+                Ставка за аренду:
+                <span x-text="rentRate"></span> руб/кв.м
               </label>
               <input
                 type="range"
@@ -568,6 +706,7 @@
                 step="50"
                 x-model="rentRate"
               />
+
               <div class="button-group" style="text-align: center">
                 <button class="btn-primary" @click="goToStep2()">Далее</button>
               </div>
@@ -588,6 +727,7 @@
                   x-model="cooperationFormat"
                 />
                 <label for="coop-start">Старт</label>
+
                 <input
                   type="radio"
                   id="coop-standard"
@@ -596,6 +736,7 @@
                   x-model="cooperationFormat"
                 />
                 <label for="coop-standard">Стандарт</label>
+
                 <input
                   type="radio"
                   id="coop-business"
@@ -604,8 +745,10 @@
                   x-model="cooperationFormat"
                 />
                 <label for="coop-business">Бизнес</label>
+
                 <div class="calc-switch-bg"></div>
               </div>
+
               <!-- Итоговая стоимость франшизы -->
               <div class="cost-display">
                 <p>
@@ -616,8 +759,10 @@
                   * Дополнительные расходы и условия указаны ниже
                 </p>
               </div>
+
               <!-- Расшифровка калькуляции -->
               <div class="breakdown" x-html="breakdown"></div>
+
               <!-- Кнопка отправки заявки -->
               <div class="button-group" style="text-align: center">
                 <button class="btn-primary" @click="submitRequest()">
@@ -660,10 +805,12 @@
     <!-- Основные скрипты -->
     <script type="module" src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
     <!-- Скрипт логики калькулятора -->
     <script type="module" src="assets/js/telegram.js"></script>
     <script src="assets/js/calculator.js"></script>
-    <!-- Скрипт валидации -->
+
+    <!-- Скрипт валидации (Alpine) -->
     <script>
       document.addEventListener("alpine:init", () => {
         Alpine.data("contactForm", () => ({
@@ -673,8 +820,7 @@
           phoneError: false,
 
           formatPhoneNumber(event) {
-            let value = event.target.value.replace(/\D/g, ""); // Удаляем все, кроме цифр
-
+            let value = event.target.value.replace(/\D/g, "");
             if (value.length > 11) {
               value = value.slice(0, 11); // Ограничиваем длину
             }
@@ -697,13 +843,14 @@
           proceedToCalculation() {
             if (!this.phoneError && this.contactName) {
               console.log("Переход к расчету...");
-              this.step = 1; // Переход к следующему шагу
+              this.step = 1;
             }
           },
         }));
       });
     </script>
-    <!-- Скрипт анимации логотипа при скролле -->
+
+    <!-- Скрипт анимации логотипа при скролле (GSAP + ScrollTrigger) -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         gsap.registerPlugin(ScrollTrigger);
@@ -716,11 +863,13 @@
 
         const bannerHeight = heroBanner.offsetHeight;
         const logoHeight = heroLogo.offsetHeight;
+
         // Определяем начальную позицию логотипа относительно баннера
         const logoInitialTop =
           heroLogo.getBoundingClientRect().top -
           heroBanner.getBoundingClientRect().top;
-        // Максимальное смещение так, чтобы нижняя граница логотипа не выходила за пределы баннера
+
+        // Максимальное смещение
         const maxTranslate = bannerHeight - (logoInitialTop + logoHeight);
 
         gsap.to(heroLogo, {
@@ -757,6 +906,7 @@
         function startAutoScroll() {
           const scrollStep = 2;
           const intervalDelay = 20;
+
           scrollInterval = setInterval(() => {
             window.scrollBy(0, scrollStep);
             if (
@@ -766,6 +916,7 @@
               stopAutoScroll();
             }
           }, intervalDelay);
+
           document.addEventListener("wheel", handleUserScroll, { once: true });
           document.addEventListener("touchstart", handleUserScroll, {
             once: true,
@@ -773,12 +924,14 @@
           document.addEventListener("keydown", handleUserScroll, {
             once: true,
           });
+
           isScrolling = true;
         }
 
         function stopAutoScroll() {
           clearInterval(scrollInterval);
           isScrolling = false;
+
           document.removeEventListener("wheel", handleUserScroll, {
             once: true,
           });
@@ -804,6 +957,7 @@
         });
       });
     </script>
+
     <!-- Скрипт для анимации элементов с data-animate -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -825,6 +979,8 @@
         handleScroll();
       });
     </script>
+
+    <!-- Инициализация AOS -->
     <script>
       AOS.init();
     </script>
