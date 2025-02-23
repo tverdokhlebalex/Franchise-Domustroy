@@ -30,17 +30,18 @@
         <div class="hero-banner" id="heroBanner">
           <div class="hero-content">
             <h1 class="hero-title">Франшиза</h1>
-            <img
-              id="heroLogo"
-              src="assets/images/logo-domustroi.svg"
-              alt="Логотип ДомУстрой"
-              class="hero-logo-inline"
-            />
+            <div class="hero-logo-wrapper">
+              <img
+                id="heroLogo"
+                src="assets/images/logo-domustroi.svg"
+                alt="Логотип ДомУстрой"
+                class="hero-logo-inline"
+              />
+            </div>
             <p class="hero-subtitle">
-              Полное сопровождение • Надежные поставщики • Современные
+              Полное сопровождение • Надёжные поставщики • Современные
               инструменты маркетинга
             </p>
-            <!-- Кнопка + стрелка -->
             <div class="cta-scroll">
               <a class="cta-button" id="autoScrollBtn" href="javascript:void(0)"
                 >Начать свой бизнес</a
@@ -554,29 +555,37 @@
 
         const heroBanner = document.getElementById("heroBanner");
         const heroLogo = document.getElementById("heroLogo");
+        const heroSubtitle = document.querySelector(".hero-subtitle");
 
         if (!heroBanner || !heroLogo) return;
 
-        // Получаем высоту баннера и логотипа
         const bannerHeight = heroBanner.offsetHeight;
         const logoHeight = heroLogo.offsetHeight;
+        // Определяем начальную позицию логотипа относительно баннера
+        const logoInitialTop =
+          heroLogo.getBoundingClientRect().top -
+          heroBanner.getBoundingClientRect().top;
+        // Максимальное смещение так, чтобы нижняя граница логотипа не выходила за пределы баннера
+        const maxTranslate = bannerHeight - (logoInitialTop + logoHeight);
 
-        // Насколько далеко можно сдвигать логотип (до нижней границы баннера)
-        const maxTranslate = bannerHeight - logoHeight;
-
-        // Настраиваем GSAP-анимацию
         gsap.to(heroLogo, {
-          // Трансформация по оси Y от 0 до maxTranslate
           y: maxTranslate,
-          // ScrollTrigger — плагин, который связывает анимацию со скроллом
           scrollTrigger: {
-            trigger: heroBanner, // Элемент, с которым связана анимация
-            start: "top top", // Когда верх heroBanner совпадает с верхом вьюпорта
-            end: "bottom top", // Когда низ heroBanner совпадает с верхом вьюпорта
-            scrub: true, // Связывает анимацию с прокруткой (плавный скролл)
+            trigger: heroBanner,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
           },
-          // По умолчанию GSAP сам будет интерполировать
-          // между y: 0 (в начале) и y: maxTranslate (в конце)
+        });
+
+        gsap.to(heroSubtitle, {
+          opacity: 0,
+          scrollTrigger: {
+            trigger: heroBanner,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
         });
       });
     </script>

@@ -289,22 +289,18 @@ body {
             ===================================== */
 
 /*
-            hero-banner:      блок с фоном,
-            hero-content:     обёртка с заголовком, подзаголовком, кнопками,
-            cta-scroll:       объединяет кнопку «Начать свой бизнес» и стрелку,
-            cta-button:       сама кнопка,
-            scroll-icon:      иконка (стрелка).
-         */
+
+/* Основной контейнер */
 .hero-banner {
-  position: relative; /* чтобы абсолютные элементы позиционировались внутри этого блока */
+  position: relative;
   background: black;
   min-height: 100vh;
-  overflow: hidden; /* чтобы логотип не «вылезал» */
+  overflow: hidden;
 }
 
 .hero-content {
-  position: relative; /* остаётся в нормальном потоке */
-  padding-top: 300px; /* подберите значение, чтобы текст не перекрывал логотип */
+  position: relative;
+  padding-top: 150px; /* уменьшен отступ для подъёма контента */
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
@@ -315,27 +311,39 @@ body {
   color: #fff;
   margin-bottom: 1rem;
 }
+
+/* Контейнер для логотипа, сохраняющий исходное пространство */
+.hero-logo-wrapper {
+  position: relative;
+  height: 200px; /* установите высоту, соответствующую размеру логотипа */
+  margin-bottom: 1rem;
+}
+
+#heroLogo {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 600px;
+  max-width: 90%;
+  height: auto;
+  z-index: 9;
+  transition: transform 0.3s ease;
+}
+
 .hero-subtitle {
   font-size: 1.2rem;
   color: #ddd;
   margin-bottom: 2rem;
 }
 
-.hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #ddd; /* чуть более светлый, чтобы отличался от h1 */
-}
-
-/* Блок с кнопкой и стрелкой */
 .cta-scroll {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* между кнопкой и стрелкой */
+  gap: 20px;
 }
 
-/* Кнопка «Начать свой бизнес» (оранжевая) */
 .cta-button {
   background-color: rgb(255, 126, 33);
   color: #fff;
@@ -346,21 +354,17 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Анимация кнопок */
-
 .cta-button:hover {
   transform: translateY(-3px);
   background-color: rgba(255, 126, 33, 0.8);
 }
 
-/* Стрелка (иконка) */
 .scroll-icon {
   width: 32px;
   height: 32px;
   animation: scroll-bounce 1.5s infinite;
 }
 
-/* Анимация более заметной «амплитуды» */
 @keyframes scroll-bounce {
   0%,
   20%,
@@ -376,31 +380,7 @@ body {
     transform: translateY(6px);
   }
 }
-/* ==== Логотип (пока в потоке) ==== */
-#heroLogo {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 600px; /* или подберите сами */
-  max-width: 90%;
-  height: auto;
-  z-index: 9;
-  transition: transform 0.3s ease; /* если хотите плавное изменение при анимации */
-}
 
-/* Класс для зафиксированного логотипа */
-
-.advantages-section {
-  background: #fff;
-  padding: 60px 0;
-  color: #333;
-}
-#advantagesBlock {
-  z-index: 1;
-  position: relative;
-}
-/* Адаптив баннера */
 @media (max-width: 768px) {
   .hero-content h1 {
     font-size: 2rem;
