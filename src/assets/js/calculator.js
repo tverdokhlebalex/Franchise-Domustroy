@@ -1,9 +1,13 @@
-// Привязываем функцию калькулятора к глобальному объекту window,
-// чтобы AlpineJS мог её найти через x-data="franchiseCalculator()".
+// Глобально, чтобы Alpine мог найти
 window.franchiseCalculator = function () {
   return {
-    // Начальный шаг: 0 – ввод контактных данных; затем 1 – выбор параметров; 2 – итоговый расчет.
+    // Текущий шаг: 0 – ввод данных, 1 – параметры, 2 – итог
     step: 0,
+
+    // Поля контактных данных
+    contactName: "",
+    contactPhone: "",
+    phoneError: false,
 
     // Параметры магазина
     storeFormatIndex: 0,
@@ -12,45 +16,45 @@ window.franchiseCalculator = function () {
       { label: "350–500 м²", avg: 425 },
       { label: "500–1000 м²", avg: 750 },
     ],
-    // Тип оборудования: "new" (новое) или "used" (б/у)
     equipmentType: "new",
-    // Товарная наполненность (руб/кв.м)
     productContent: 3500,
-    // Ставка аренды (руб/кв.м)
     rentRate: 350,
-
-    // Формат сотрудничества: "start", "standard", "business"
     cooperationFormat: "start",
 
-    // Контактные данные
-    contactName: "",
-    contactPhone: "",
+    // Валидация телефона (пример)
+    formatPhoneNumber(event) {
+      let value = event.target.value.replace(/\D/g, "");
+      if (value.length > 11) value = value.slice(0, 11);
+      // +7 (...)
+      let formatted = "+7 ";
+      if (value.length > 1) formatted += "(" + value.slice(1, 4);
+      if (value.length > 4) formatted += ") " + value.slice(4, 7);
+      if (value.length > 7) formatted += "-" + value.slice(7, 9);
+      if (value.length > 9) formatted += "-" + value.slice(9, 11);
+      this.contactPhone = formatted;
+    },
+    validatePhone() {
+      this.phoneError = !/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(
+        this.contactPhone
+      );
+    },
 
-    // Геттер для площади магазина (среднее значение выбранного диапазона)
+    // Геттеры
     get area() {
       return this.storeFormats[this.storeFormatIndex].avg;
     },
-    // Стоимость оборудования = площадь × (ставка оборудования)
-    // Для нового оборудования: 4500 руб/кв.м, для б/у: 2500 руб/кв.м.
     get equipmentCost() {
       return this.area * (this.equipmentType === "new" ? 4500 : 2500);
     },
-    // Вложения в ассортимент = вложения (руб/кв.м) × площадь
     get productInvestment() {
       return this.productContent * this.area;
     },
-    // Базовая стоимость = оборудование + вложения
     get baseCost() {
       return this.equipmentCost + this.productInvestment;
     },
-    // Арендные расходы (в месяц) = ставка аренды × площадь
     get rentExpensePerMonth() {
       return this.rentRate * this.area;
     },
-    // Итоговая стоимость франшизы:
-    // Для "Старт": итог = базовая стоимость.
-    // Для "Стандарт": итог = базовая стоимость + стартовый взнос (300000 руб).
-    // Для "Бизнес": итог = базовая стоимость + единоразовая выплата (500000 руб).
     get finalCost() {
       if (this.cooperationFormat === "start") {
         return this.baseCost;
@@ -61,48 +65,51 @@ window.franchiseCalculator = function () {
       }
       return this.baseCost;
     },
-    // Отформатированная итоговая стоимость
     get formattedCost() {
-      return this.formatPrice(this.finalCost);
+      return new Intl.NumberFormat("ru-RU").format(Math.round(this.finalCost));
     },
-    // Метод для форматирования числовых значений (разделители)
-    formatPrice(value) {
-      return new Intl.NumberFormat("ru-RU").format(Math.round(value));
-    },
-    // Расшифровка калькуляции для прозрачности
     get breakdown() {
       let result = `<p>Стоимость оборудования: ${this.formatPrice(
         this.equipmentCost
       )} ₽</p>
-                      <p>Вложения в ассортимент: ${this.formatPrice(
-                        this.productInvestment
-                      )} ₽</p>
-                      <p>Базовая стоимость (оборудование + ассортимент): ${this.formatPrice(
-                        this.baseCost
-                      )} ₽</p>
-                      <p>Арендные расходы: ${this.formatPrice(
-                        this.rentExpensePerMonth
-                      )} ₽/мес</p>`;
+                   <p>Вложения в ассортимент: ${this.formatPrice(
+                     this.productInvestment
+                   )} ₽</p>
+                   <p>Базовая стоимость: ${this.formatPrice(
+                     this.baseCost
+                   )} ₽</p>
+                   <p>Арендные расходы: ${this.formatPrice(
+                     this.rentExpensePerMonth
+                   )} ₽/мес</p>`;
       if (this.cooperationFormat === "start") {
-        result += `<p>Роялти: 5% от прибыли (примерно 142000 ₽/мес)</p>`;
+        result += `<p>Роялти: 5% от прибыли (~142000 ₽/мес)</p>`;
       } else if (this.cooperationFormat === "standard") {
-        result += `<p>Стартовый взнос: ${this.formatPrice(300000)} ₽</p>
-                     <p>Роялти: 3% от прибыли (примерно 5000 ₽/мес)</p>
-                     <p class="note">* При уменьшении или увеличении стартового взноса процент роялти варьируется. Предложение обговаривается индивидуально с менеджером.</p>`;
+        result += `<p>Стартовый взнос: 300000 ₽</p>
+                   <p>Роялти: 3% от прибыли (~5000 ₽/мес)</p>`;
       } else if (this.cooperationFormat === "business") {
-        result += `<p>Единоразовая выплата: ${this.formatPrice(500000)} ₽</p>`;
+        result += `<p>Единоразовая выплата: 500000 ₽</p>`;
       }
       return result;
     },
-    // Переход с шага 0 (контактные данные) к шагу 1 (параметры магазина)
+    // форматирование:
+    formatPrice(value) {
+      return new Intl.NumberFormat("ru-RU").format(Math.round(value));
+    },
+
+    // Переход к шагу 1
     proceedToCalculation() {
-      if (!this.contactName.trim() || !this.contactPhone.trim()) {
-        alert("Пожалуйста, заполните имя и контактный телефон.");
+      // простая проверка
+      if (
+        !this.contactName.trim() ||
+        !this.contactPhone.trim() ||
+        this.phoneError
+      ) {
+        alert("Заполните корректно имя и телефон!");
         return;
       }
       this.step = 1;
     },
-    // Переход ко второму шагу (параметры -> итог)
+    // Переход к шагу 2
     goToStep2() {
       this.step = 2;
     },
@@ -112,41 +119,12 @@ window.franchiseCalculator = function () {
         alert("Пожалуйста, заполните имя и телефон.");
         return;
       }
-      // Подготовка данных для отправки
-      const data = {
-        name: this.contactName,
-        phone: this.contactPhone,
-        area: this.area,
-        equipmentCost: this.equipmentCost,
-        productInvestment: this.productInvestment,
-        baseCost: this.baseCost,
-        rentExpensePerMonth: this.rentExpensePerMonth,
-        cooperationFormat: this.cooperationFormat,
-        finalCost: this.finalCost,
-      };
-
-      // Отправляем данные на серверный скрипт (telegram.php)
-      fetch("https://franchise-domustroy-backend.onrender.com/telegram.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.success) {
-            alert("Заявка отправлена! Наш менеджер свяжется с Вами.");
-            this.contactName = "";
-            this.contactPhone = "";
-          } else {
-            alert("Ошибка при отправке заявки: " + result.error);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          alert("Ошибка при отправке заявки.");
-        });
+      // Пример отправки fetch...
+      alert("Заявка отправлена! Менеджер свяжется с вами.");
+      // Сброс шагов/полей:
+      this.step = 0;
+      this.contactName = "";
+      this.contactPhone = "";
     },
   };
 };

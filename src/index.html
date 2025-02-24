@@ -511,129 +511,132 @@
 
         <!-- Калькулятор Франшизы -->
         <section id="franchise-calc" x-data="franchiseCalculator()" x-cloak>
-          <!-- Шаг 0: Ввод контактных данных -->
-          <div x-data="contactForm">
-            <div x-show="step === 0" x-transition>
-              <h2>Калькулятор расчета стоимости</h2>
-              <div class="contact-info-block">
-                <p>
-                  Для начала расчета, пожалуйста, введите ваше имя и контактный
-                  телефон.
-                </p>
-                <label>
-                  Ваше имя:
-                  <input type="text" x-model="contactName" placeholder="Иван" />
-                </label>
-                <label>
-                  Контактный телефон:
-                  <input
-                    type="text"
-                    x-model="contactPhone"
-                    placeholder="+7 (999) 999-99-99"
-                    @input="formatPhoneNumber"
-                    @blur="validatePhone"
-                  />
-                </label>
+          <div class="calc-container">
+            <!-- Шаг 0: Ввод контактных данных -->
+            <div class="calc-step card-style" x-show="step === 0" x-transition>
+              <h2 class="calc-title">Калькулятор расчёта стоимости</h2>
+              <div class="calc-intro">
+                <p>Для начала — введите ваше имя и контактный телефон.</p>
+              </div>
+
+              <div class="form-group">
+                <label>Ваше имя:</label>
+                <input type="text" x-model="contactName" placeholder="Иван" />
+              </div>
+              <div class="form-group">
+                <label>Контактный телефон:</label>
+                <input
+                  type="text"
+                  x-model="contactPhone"
+                  placeholder="+7 (999) 999-99-99"
+                  @input="formatPhoneNumber"
+                  @blur="validatePhone"
+                />
                 <p class="error-message" x-show="phoneError">
-                  Введите корректный номер телефона
+                  Номер телефона введён некорректно
                 </p>
-                <div class="button-group" style="text-align: center">
-                  <button
-                    class="btn-primary"
-                    @click="proceedToCalculation()"
-                    :disabled="!contactName || !contactPhone || phoneError"
-                  >
-                    Перейти к расчету
-                  </button>
+              </div>
+              <button
+                class="btn-primary"
+                @click="proceedToCalculation"
+                :disabled="!contactName || !contactPhone || phoneError"
+              >
+                Перейти к параметрам
+              </button>
+            </div>
+
+            <!-- Шаг 1: Выбор параметров магазина -->
+            <div class="calc-step card-style" x-show="step === 1" x-transition>
+              <h2 class="calc-title">Выбор параметров магазина</h2>
+
+              <!-- Формат магазина (slider + вывод) -->
+              <div class="form-group">
+                <label>Формат магазина:</label>
+                <div
+                  class="format-output"
+                  x-text="storeFormats[storeFormatIndex].label"
+                ></div>
+                <input
+                  class="range-slider"
+                  type="range"
+                  min="0"
+                  max="2"
+                  step="1"
+                  x-model="storeFormatIndex"
+                />
+                <div class="store-layout">
+                  <span
+                    x-text="storeFormats[storeFormatIndex].avg + ' м²'"
+                  ></span>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Шаг 1: Выбор параметров магазина -->
-          <div x-show="step === 1" x-transition>
-            <h2>Выбор параметров магазина</h2>
-            <div class="calculator-block">
-              <!-- Формат магазина -->
-              <label>
-                Формат магазина:
-                <span x-text="storeFormats[storeFormatIndex].label"></span>
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="2"
-                step="1"
-                x-model="storeFormatIndex"
-              />
-              <div class="store-layout">
-                <span
-                  x-text="storeFormats[storeFormatIndex].avg + ' м²'"
-                ></span>
+              <!-- Тип оборудования (radio buttons с анимацией) -->
+              <div class="form-group">
+                <label>Тип оборудования:</label>
+                <div class="calc-switch equipment-switch">
+                  <input
+                    type="radio"
+                    id="equip-new"
+                    name="equipment"
+                    value="new"
+                    x-model="equipmentType"
+                  />
+                  <label for="equip-new">Новое</label>
+
+                  <input
+                    type="radio"
+                    id="equip-used"
+                    name="equipment"
+                    value="used"
+                    x-model="equipmentType"
+                  />
+                  <label for="equip-used">Б/у</label>
+
+                  <div class="calc-switch-bg"></div>
+                </div>
               </div>
 
-              <!-- Переключатель типа оборудования -->
-              <label>Тип оборудования:</label>
-              <div class="calc-switch equipment-switch">
+              <!-- Товарная наполненность (slider) -->
+              <div class="form-group">
+                <label>Товарная наполненность (руб/м²):</label>
+                <div class="range-output" x-text="productContent"></div>
                 <input
-                  type="radio"
-                  id="equip-new"
-                  name="equipment"
-                  value="new"
-                  x-model="equipmentType"
+                  class="range-slider"
+                  type="range"
+                  min="3500"
+                  max="60000"
+                  step="500"
+                  x-model="productContent"
                 />
-                <label for="equip-new">Новое</label>
-
-                <input
-                  type="radio"
-                  id="equip-used"
-                  name="equipment"
-                  value="used"
-                  x-model="equipmentType"
-                />
-                <label for="equip-used">Б/у</label>
-
-                <div class="calc-switch-bg"></div>
               </div>
 
-              <!-- Товарная наполненность -->
-              <label title="Сумма вложений в товарный ассортимент (руб/кв.м)">
-                Товарная наполненность:
-                <span x-text="productContent"></span> руб/кв.м
-              </label>
-              <input
-                type="range"
-                min="3500"
-                max="60000"
-                step="500"
-                x-model="productContent"
-              />
+              <!-- Ставка аренды (slider) -->
+              <div class="form-group">
+                <label>Ставка аренды (руб/м²):</label>
+                <div class="range-output" x-text="rentRate"></div>
+                <input
+                  class="range-slider"
+                  type="range"
+                  min="350"
+                  max="3000"
+                  step="50"
+                  x-model="rentRate"
+                />
+              </div>
 
-              <!-- Ставка за аренду -->
-              <label>
-                Ставка за аренду:
-                <span x-text="rentRate"></span> руб/кв.м
-              </label>
-              <input
-                type="range"
-                min="350"
-                max="3000"
-                step="50"
-                x-model="rentRate"
-              />
-
-              <div class="button-group" style="text-align: center">
-                <button class="btn-primary" @click="goToStep2()">Далее</button>
+              <div class="buttons-row">
+                <button class="btn-primary" @click="goToStep2">Далее</button>
+                <button class="btn-secondary" @click="step = 0">Назад</button>
               </div>
             </div>
-          </div>
 
-          <!-- Шаг 2: Итоговый расчет стоимости -->
-          <div x-show="step === 2" x-transition>
-            <h2>Итоговый расчет стоимости</h2>
-            <div class="calculator-block">
-              <!-- Переключатель формата сотрудничества -->
-              <div class="calc-switch">
+            <!-- Шаг 2: Итоговый расчет -->
+            <div class="calc-step card-style" x-show="step === 2" x-transition>
+              <h2 class="calc-title">Итоговый расчет стоимости</h2>
+
+              <!-- Формат сотрудничества (3 radio) -->
+              <div class="calc-switch triple-switch">
                 <input
                   type="radio"
                   id="coop-start"
@@ -664,24 +667,22 @@
                 <div class="calc-switch-bg"></div>
               </div>
 
-              <!-- Итоговая стоимость франшизы -->
               <div class="cost-display">
                 <p>
                   Итоговая стоимость франшизы:
                   <strong x-text="formattedCost"></strong> ₽
                 </p>
                 <p class="note">
-                  * Дополнительные расходы и условия указаны ниже
+                  * Указанные суммы могут варьироваться в зависимости от региона
+                  и условий аренды
                 </p>
               </div>
 
-              <!-- Расшифровка калькуляции -->
               <div class="breakdown" x-html="breakdown"></div>
 
-              <!-- Кнопка отправки заявки -->
-              <div class="button-group" style="text-align: center">
-                <button class="btn-primary" @click="submitRequest()">
-                  Оставьте заявку
+              <div class="buttons-row">
+                <button class="btn-primary" @click="submitRequest">
+                  Отправить заявку
                 </button>
                 <button class="btn-secondary" @click="step = 1">Назад</button>
               </div>

@@ -1116,94 +1116,202 @@ h6 {
       * 1. БЛОК-СЕКЦИЯ КАЛЬКУЛЯТОРА
       ********************************************/
 /* [x-cloak] – скрывает элементы до инициализации AlpineJS */
+/* Скрытие, пока Alpine не инициализирует */
 [x-cloak] {
   display: none !important;
 }
 
+/* Контейнер калькулятора */
 #franchise-calc {
-  background-color: #fafafa;
-  padding: 20px;
-  border: 1px solid #e2e2e2;
-  border-radius: 8px;
-  margin: 20px auto;
-  max-width: 1000px;
-  color: #333;
+  padding: 40px 20px;
+  background: var(--main-orange);
+  color: #fff;
 }
 
-#franchise-calc h2 {
+.calc-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Сами «карточки» шагов */
+.calc-step {
+  background: #fff;
+  color: #333;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: fade-up 0.5s ease; /* дополнительная анимация */
+}
+
+/* Анимация появления */
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Заголовок шага */
+.calc-title {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
-.calculator-block {
-  margin: 0 10px;
-}
-
-#franchise-calc label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-input[type="range"] {
-  width: 100%;
+/* Описание / вводная */
+.calc-intro {
+  text-align: center;
   margin-bottom: 15px;
 }
 
-/* Стили для визуального отображения выбранного формата магазина */
+/* Общие стили для групп форм */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-weight: 600;
+  color: #333;
+}
+.form-group input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Стиль ошибки */
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -5px;
+}
+
+/* Кнопки */
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 10px 5px 0 0;
+  transition: background-color 0.3s ease;
+}
+.btn-primary {
+  background-color: #ed7804;
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: #e76f00;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+.btn-secondary:hover {
+  background-color: #555a60;
+}
+
+/* Дополнительная обёртка кнопок */
+.buttons-row {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Ползунки (range-slider) */
+.range-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  outline: none;
+  margin-top: 5px;
+}
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #ed7804;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+.range-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: #ed7804;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Вывод значений ползунков */
+.range-output,
+.format-output {
+  font-weight: 600;
+  color: #555;
+}
+
+/* Блок для store-layout */
 .store-layout {
+  margin-top: 8px;
   background-color: #ed7804;
   color: #fff;
   text-align: center;
-  padding: 8px;
-  border-radius: 4px;
-  margin-bottom: 15px;
+  border-radius: 6px;
+  padding: 6px;
+  font-weight: 600;
 }
 
-/* Кастомные переключатели (calc-switch) */
+/* Переключатели (radio) */
 .calc-switch {
   position: relative;
   display: flex;
+  justify-content: space-around;
   background: #e0e0e0;
   border-radius: 30px;
   padding: 5px;
-  max-width: 500px;
-  margin: 20px auto;
+  margin-top: 10px;
 }
-
 .calc-switch input[type="radio"] {
   display: none;
 }
-
 .calc-switch label {
   flex: 1;
   text-align: center;
-  padding: 10px;
-  font-size: 16px;
+  padding: 10px 0;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  z-index: 1;
   transition: color 0.2s;
+  color: #666;
+  z-index: 1;
 }
-
+/* Подвижный фон */
 .calc-switch-bg {
   position: absolute;
   top: 5px;
   left: 5px;
-  /* По умолчанию для 2 вариантов */
   width: calc(50% - 10px);
   height: calc(100% - 10px);
   background: #ed7804;
   border-radius: 25px;
   transition: all 0.3s ease;
 }
-
-/* Если переключатель для формата сотрудничества (3 варианта) */
-.calc-switch:not(.equipment-switch) .calc-switch-bg {
-  width: calc(33.3% - 10px);
-}
-
-/* 2 варианта */
+/* Для 2 вариантов (новое/б/у) */
 input[value="new"]:checked ~ .calc-switch-bg {
   left: 5px;
 }
@@ -1211,166 +1319,66 @@ input[value="used"]:checked ~ .calc-switch-bg {
   left: calc(50% + 5px);
 }
 
-/* 3 варианта */
+/* Для 3-х вариантов (start/standard/business) */
+.calc-switch.triple-switch .calc-switch-bg {
+  width: calc(33.33% - 10px);
+}
 input[value="start"]:checked ~ .calc-switch-bg {
   left: 5px;
 }
 input[value="standard"]:checked ~ .calc-switch-bg {
-  left: calc(33.3% + 5px);
+  left: calc(33.33% + 5px);
 }
 input[value="business"]:checked ~ .calc-switch-bg {
-  left: calc(66.6% + 5px);
+  left: calc(66.66% + 5px);
 }
-
 .calc-switch input[type="radio"]:checked + label {
   color: #fff;
 }
 
-/* Блок расчёта стоимости */
+/* Стоимость */
 .cost-display {
   text-align: center;
   margin: 20px 0;
-  font-size: 18px;
+  font-size: 1rem;
 }
 .cost-display .note {
-  font-size: 13px;
-  color: #777;
-  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 4px;
 }
 
-/* Расшифровка калькуляции */
+/* Расшифровка */
 .breakdown {
-  margin-top: 15px;
-  font-size: 15px;
-  line-height: 1.4;
   background: #f1f1f1;
-  padding: 15px;
-  border-radius: 4px;
-}
-
-/* Блок запроса контактных данных (шаг 0) */
-.contact-info-block {
-  background: #fff;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  max-width: 600px;
-  margin: 20px auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.contact-info-block p {
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 16px;
   color: #333;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  line-height: 1.4;
+  font-size: 0.95rem;
 }
 
-.contact-info-block label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.contact-info-block input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: center;
-  display: none;
-}
-
-[x-show="phoneError"] {
-  display: block;
-}
-
-/* Шаг 2 – форма заявки */
-.contact-form {
-  margin: 20px 0;
-}
-
-.contact-form h3 {
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.contact-form label {
-  margin-bottom: 10px;
-  font-weight: normal;
-}
-
-.contact-form input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-/* Кнопки */
-.button-group,
-.contact-form button {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.btn-primary,
-.btn-secondary {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 5px;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: #ed7804;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #e76f00;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-}
-
-@media (max-width: 480px) {
-  #franchise-calc {
+@media (max-width: 576px) {
+  .calc-step {
+    margin-bottom: 20px;
     padding: 15px;
-    margin: 10px;
+  }
+  .calc-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
   }
   .btn-primary,
   .btn-secondary {
-    font-size: 14px;
-    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin: 6px 2px;
   }
-  .calc-switch label {
-    font-size: 14px;
-    padding: 8px;
+  .range-slider {
+    margin-top: 3px;
   }
-  input[type="range"] {
-    margin-bottom: 10px;
-  }
-  .contact-info-block {
-    max-width: 90%;
-    padding: 15px;
+  .store-layout {
+    padding: 4px;
+    font-size: 0.9rem;
   }
 }
 
