@@ -396,7 +396,6 @@
         </div>
         <!-- /.advantages-section -->
 
-        <!-- Как работает бизнес франчайзи -->
         <section class="franchise-how-it-works">
           <div class="container-upgrade">
             <h2 class="section-title">Как работает бизнес франчайзи?</h2>
@@ -409,7 +408,7 @@
                   data-aos-duration="700"
                   data-aos-delay="0"
                 >
-                  МЫ ПРЕДОСТАВЛЯЕМ ВАМ:
+                  МЫ ПРЕДОСТАВЛЯЕМ:
                 </h5>
                 <ul class="work-card__list">
                   <li
@@ -418,9 +417,6 @@
                     data-aos-delay="0"
                   >
                     <span>Товары по сниженным ценам</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -428,9 +424,6 @@
                     data-aos-delay="100"
                   >
                     <span>Настроенную экосистему (1С+CRM Битрикс)</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -438,9 +431,6 @@
                     data-aos-delay="200"
                   >
                     <span>Аналитику продаж и рекомендации</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -448,9 +438,6 @@
                     data-aos-delay="300"
                   >
                     <span>Подбор и обучение персонала</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -458,9 +445,6 @@
                     data-aos-delay="400"
                   >
                     <span>Маркетинговую поддержку</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -468,9 +452,6 @@
                     data-aos-delay="500"
                   >
                     <span>Автоматизацию аналитики</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -478,9 +459,6 @@
                     data-aos-delay="600"
                   >
                     <span>Техническую поддержку</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -488,9 +466,6 @@
                     data-aos-delay="700"
                   >
                     <span>Рекламные материалы для продвижения</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                 </ul>
               </div>
@@ -512,9 +487,6 @@
                     data-aos-delay="0"
                   >
                     <span>Выбор и оформление помещения</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -522,9 +494,6 @@
                     data-aos-delay="100"
                   >
                     <span>Контроль продаж и клиентского сервиса</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -532,9 +501,6 @@
                     data-aos-delay="200"
                   >
                     <span>Управление персоналом</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                   <li
                     data-aos="fade-up"
@@ -542,9 +508,6 @@
                     data-aos-delay="300"
                   >
                     <span>Выполнение маркетинговых акций</span>
-                    <svg class="check-icon">
-                      <use xlink:href="assets/images/sprite.svg"></use>
-                    </svg>
                   </li>
                 </ul>
               </div>
@@ -566,6 +529,8 @@
                 </figure>
               </div>
             </div>
+
+            <!-- Кнопка заказать звонок -->
             <div
               class="call-button-block"
               style="text-align: center; margin-top: 40px"
@@ -576,6 +541,7 @@
             </div>
           </div>
         </section>
+
         <!-- Модальное окно (скрыто по умолчанию) -->
         <div class="modal-overlay" id="callModal" style="display: none">
           <div class="modal-content">
@@ -597,21 +563,66 @@
                 id="callPhone"
                 name="callPhone"
                 required
-                placeholder="+7 (999) 999-99-99"
+                placeholder="+7 (___) ___-__-__"
               />
 
-              <!-- Быстрые ссылки для связи -->
+              <!-- Быстрые ссылки для связи (иконки + подписи) -->
               <div class="quick-links">
                 <p>Или свяжитесь через:</p>
-                <a href="https://t.me/username" target="_blank" class="tg-link"
-                  >Telegram</a
+
+                <!-- Telegram -->
+                <a
+                  href="https://t.me/username"
+                  target="_blank"
+                  class="link-block"
                 >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#0088cc"
+                    viewBox="0 0 512 512"
+                    width="36"
+                    height="36"
+                  >
+                    <!-- Пример иконки Telegram -->
+                    <path
+                      d="M481.3 31.2C491.2 35.5 497.9 45.1 496.1 55.2L456 439.2C454.9 
+                         447.4 449.1 454.5 441.2 457.7 437 459.3 432.6 459.8 428.6 
+                         458.4L349 431.8 307.8 472.8C302.1 478.7 294.9 481.7 287.8 
+                         480.2 280.7 478.8 274.7 473.1 272.3 466.1L228.4 324.1 
+                         370.1 176.9C374.3 172.2 377.1 166.1 377.1 159.6 377.1 
+                         153.1 374.3 147 370.1 142.3 365.5 137 358.9 134.4 
+                         352 134.4 345.1 134.4 338.5 137 333.9 142.3L177.2 
+                         299.7 47.92 259.9C39.5 257.3 33.1 251.1 31.22 
+                         242.9 29.34 234.7 32.12 226.4 38.38 220.8L462.4 
+                         12.82C472.3 8.447 481.3 11.02 481.3 31.2z"
+                    ></path>
+                  </svg>
+                  <span>Telegram</span>
+                </a>
+
+                <!-- WhatsApp -->
                 <a
                   href="https://wa.me/79991112233"
                   target="_blank"
-                  class="wa-link"
-                  >WhatsApp</a
+                  class="link-block"
                 >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#25D366"
+                    viewBox="0 0 448 512"
+                    width="36"
+                    height="36"
+                  >
+                    <!-- Пример иконки WhatsApp -->
+                    <path
+                      d="M380.9 97.1C339.3 55.5 286.5 32 229.9 32 108 
+                         32 8 132 8 254.1c0 39.7 10.1 78.4 29.4 112l-19.6 
+                         71.6 73.5-19.3c32.2 17.7 68.6 27.1 105.7 27.1h.1C349.6 
+                         445.5 448 345.4 448 224.1c0-56.6-23.5-109.4-67.1-127z"
+                    ></path>
+                  </svg>
+                  <span>WhatsApp</span>
+                </a>
               </div>
 
               <button type="submit" class="btn-primary">Отправить</button>
@@ -1039,59 +1050,67 @@
         const openCallModalBtn = document.getElementById("openCallModal");
         const closeCallModalBtn = document.getElementById("closeCallModal");
         const callModal = document.getElementById("callModal");
+        const callPhoneInput = document.getElementById("callPhone");
 
-        // Открыть модалку
+        // Открываем модалку
         openCallModalBtn.addEventListener("click", () => {
           callModal.style.display = "flex";
         });
 
-        // Закрыть модалку (по крестику)
-        const closeBtn = document.getElementById("closeCallModal");
-        closeBtn.addEventListener("click", () => {
+        // Закрываем по крестику
+        closeCallModalBtn.addEventListener("click", () => {
           callModal.style.display = "none";
         });
 
-        // При клике в пустую область вокруг формы тоже закрываем (необязательно)
+        // Закрываем по клику на фон
         callModal.addEventListener("click", (e) => {
           if (e.target === callModal) {
             callModal.style.display = "none";
           }
         });
 
-        // Обработка формы (AJAX или submit на сервер)
-        const callRequestForm = document.getElementById("callRequestForm");
-        callRequestForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
+        // Валидация телефона: только цифры, +7 префикс автоматически
+        callPhoneInput.addEventListener("input", function () {
+          let val = this.value.replace(/\D/g, ""); // удаляем все, кроме цифр
 
-          const formData = new FormData(callRequestForm);
-          const callName = formData.get("callName");
-          const callPhone = formData.get("callPhone");
-
-          // TODO: Вызов серверного API (fetch / axios)
-          // Пример через fetch:
-          try {
-            const response = await fetch("/api/call-request", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name: callName,
-                phone: callPhone,
-              }),
-            });
-            if (!response.ok) {
-              throw new Error("Ошибка при отправке заявки");
-            }
-            // Закрыть модалку, почистить поля и т. д.
-            alert("Ваша заявка отправлена! Скоро свяжемся.");
-            callModal.style.display = "none";
-            callRequestForm.reset();
-          } catch (error) {
-            console.error(error);
-            alert("Не удалось отправить заявку. Попробуйте ещё раз.");
+          // Гарантируем, что строка начинается с 7
+          if (!val.startsWith("7")) {
+            val = "7" + val;
           }
+          if (val.length > 11) {
+            val = val.slice(0, 11);
+          }
+
+          // Форматируем: +7 (xxx) xxx-xx-xx
+          let formatted = "+7 ";
+          if (val.length > 1) {
+            formatted += "(" + val.slice(1, 4);
+          }
+          if (val.length >= 5) {
+            formatted += ") " + val.slice(4, 7);
+          }
+          if (val.length >= 8) {
+            formatted += "-" + val.slice(7, 9);
+          }
+          if (val.length >= 10) {
+            formatted += "-" + val.slice(9, 11);
+          }
+
+          this.value = formatted;
+        });
+
+        // Пример отправки формы
+        const callRequestForm = document.getElementById("callRequestForm");
+        callRequestForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // Ваш логика отправки ...
+          alert("Заявка отправлена!");
+          callModal.style.display = "none";
+          callRequestForm.reset();
         });
       });
     </script>
+
     <!-- Инициализация AOS -->
     <script>
       AOS.init();
