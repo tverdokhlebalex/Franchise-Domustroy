@@ -526,7 +526,7 @@ h6 {
 .work__row {
   display: grid;
   grid-template-columns: 1fr 1fr auto; /* Левая колонка, правая колонка, изображение */
-  gap: 25px;
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -661,6 +661,9 @@ h6 {
   cursor: pointer;
 }
 
+.link-block_img {
+  width: 20px;
+}
 /* Стили формы */
 #callRequestForm {
   display: flex;
@@ -726,118 +729,66 @@ h6 {
   background-color: #eb6e00;
 }
 
-/* Финансовые показатели */
+/* Финансовые показатели (стилизованный фон + отступы) */
 .financial-performance {
+  background-color: var(--main-orange);
   padding: 60px 0;
-  background-color: #f9f9f9;
 }
 
-.chart-container {
-  width: 100%;
-  max-width: 800px;
-  height: 400px;
-  margin: 0 auto;
-}
-
-/* Toggle-кнопки для выбора года */
-.toggle-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.toggle {
-  display: flex;
-  background: #e0e0e0;
-  border-radius: 30px;
-  padding: 5px;
-  position: relative;
-  max-width: 500px;
-  width: 100%;
-}
-
-.toggle input {
-  display: none;
-}
-
-.toggle label {
-  flex: 1;
+/* Заголовок внутри .financial-performance */
+.financial-performance .section-title {
   text-align: center;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
-  position: relative;
-  z-index: 1;
+  margin-bottom: 40px;
+  /* цвет уже указан inline в примере: color: #fff, 
+     можно прописать здесь вместо inline */
 }
 
-.toggle-bg {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: calc(33.33% - 10px);
-  height: calc(100% - 10px);
-  background: #ff6600;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-}
-
-#year2022:checked ~ .toggle-bg {
-  left: 5px;
-}
-
-#year2023:checked ~ .toggle-bg {
-  left: calc(33.33% + 5px);
-}
-
-#year2024:checked ~ .toggle-bg {
-  left: calc(66.66% + 5px);
-}
-
-.toggle input:checked + label {
-  color: #fff;
-}
-
-/* Основные цифры и окупаемость */
+/* Контейнер карточек */
 .financial-stats {
   display: flex;
   justify-content: space-around;
-  margin-top: 30px;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 20px; /* Пробелы между карточками */
+  margin-top: 30px;
 }
 
+/* Карточка */
 .stat-item {
-  text-align: center;
+  background: #fff;
+  color: #333; /* текст тёмный на белом фоне */
   flex: 1 1 200px;
   min-width: 200px;
-  background: #fff;
+  max-width: 300px; /* Можно ограничить ширину */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
+/* Заголовок в карточке */
 .stat-item h4 {
   margin-bottom: 10px;
-  font-size: 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #333;
 }
 
+/* Основная цифра/значение */
 .stat-item p {
-  font-size: 20px;
+  font-size: 1.4rem; /* чуть увеличим, чтобы выделить */
   font-weight: bold;
   color: #444;
 }
 
 /* Мобильная адаптация */
 @media (max-width: 768px) {
-  .toggle {
-    max-width: 100%;
+  .financial-stats {
+    flex-direction: column;
+    align-items: center; /* центрируем карточки */
   }
 
-  .chart-container {
-    height: 300px;
+  .stat-item {
+    max-width: 90%;
   }
 }
 
