@@ -1,3 +1,32 @@
+@font-face {
+  font-family: "Wadik";
+  src: url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.eot");
+  src: url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.woff2")
+      format("woff2"),
+    url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.woff")
+      format("woff"),
+    url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.ttf")
+      format("truetype"),
+    url("https://db.onlinewebfonts.com/t/9441f369bcfd9c9003633ec28211795e.svg#Wadik")
+      format("svg");
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.eot");
+  src: url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.woff2")
+      format("woff2"),
+    url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.woff")
+      format("woff"),
+    url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.ttf")
+      format("truetype"),
+    url("https://db.onlinewebfonts.com/t/041a069e9ea3324a0b0c767aef875f17.svg#Fira Sans")
+      format("svg");
+}
 /* =====================================
    1) БАЗОВЫЕ СТИЛИ / СБРОС
    ===================================== */
@@ -98,7 +127,7 @@ h6 {
 /* Активная ссылка */
 .menu-desktop li a.active,
 .mobile-nav li a.active {
-  border-bottom: 2px solid #ff7e21;
+  border-bottom: 2px solid #f45729;
 }
 
 .menu-desktop li a {
@@ -394,9 +423,9 @@ h6 {
     font-size: 1rem;
   }
 }
-
+/* ПРЕИМУЩЕСТВА */
 .advantages-section {
-  background-color: #f8f9fa; /* светло-серый / почти белый */
+  background-color: #f8f9fa; /* светлый фон */
   padding: 60px 0;
   color: #333;
   position: relative;
@@ -407,35 +436,52 @@ h6 {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 40px;
-  color: #333; /* заголовок по умолчанию тёмный */
+  color: #333;
 }
 
 .advantages-grid {
-  /* в дальнейшем, для анимации, можно поменять позиционирование */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px; /* между карточками */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* два равных столбца */
+  gap: 20px;
+
+  align-items: stretch;
+  justify-items: center;
+}
+
+/* На мобильных переключаемся в один столбец */
+@media (max-width: 768px) {
+  .advantages-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Карточка */
 .advantage-card {
-  background: var(--main-orange); /* оранжевый фон */
-  color: #fff; /* текст на оранжевом – белый */
+  position: relative; /* для абсолютного позиционирования номера и/или иконки */
+  background: var(--main-orange); /* фон оранжевый */
+  color: #fff; /* текст белый */
   border-radius: 8px;
-  padding: 20px;
-  min-width: 280px; /* чтобы карточки не были слишком узкими */
-  max-width: 500px;
+  padding: 20px 20px 20px 70px; /* слева оставляем отступ под иконку */
+  min-width: 340px;
+  max-width: none;
+  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-  /* для анимации при наведении */
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s; /* анимация при hover */
 }
 
 .advantage-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Блок с иконкой — в левом верхнем углу */
+.card-icon img {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 45px; /* при необходимости можно задать размеры */
+  height: auto;
 }
 
 /* Заголовки и текст внутри карточки */
@@ -451,9 +497,9 @@ h6 {
   color: #fff;
 }
 
-/* Номер карточки */
+/* Номер карточки (внизу справа, полупрозрачный) */
 .card-number {
-  position: absolute; /* будем позиционировать, если хотим в углу */
+  position: absolute;
   bottom: 10px;
   right: 15px;
   font-size: 2.5rem;
@@ -462,28 +508,11 @@ h6 {
   pointer-events: none; /* чтобы не мешала кликам */
 }
 
-/* Для наглядности при малых экранах */
+/* Адаптив дополнительно для очень малых устройств */
 @media (max-width: 576px) {
-  .advantages-grid {
-    gap: 20px;
-  }
-
   .advantage-card {
     max-width: 90%;
-  }
-}
-
-/* ==== Адаптив  ==== */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-  .hero-logo-inline {
-    width: 460px;
-    margin-bottom: 0.8rem;
+    margin: 0 auto;
   }
 }
 
@@ -591,6 +620,83 @@ h6 {
       opacity: 1;
     }
   }
+}
+/* Модальное окно: общая подложка */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* полупрозрачная тень */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Контент модалки */
+.modal-content {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  color: #000;
+}
+
+/* Кнопка закрытия (крестик) */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Стили формы */
+#callRequestForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+#callRequestForm label {
+  font-weight: 500;
+  color: #000;
+}
+
+#callRequestForm input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Блок быстрых ссылок */
+.quick-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.quick-links a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+  transition: opacity 0.3s;
+}
+
+.quick-links a:hover {
+  opacity: 0.75;
 }
 
 /* Финансовые показатели */

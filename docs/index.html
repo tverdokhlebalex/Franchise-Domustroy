@@ -51,7 +51,7 @@
           <!-- Пример: если мы на franchise.html, ставим active -->
           <li><a href="franchise.html" class="">О франшизе</a></li>
           <!-- Калькулятор может вести на отдельную страницу ИЛИ на #calc-block главной -->
-          <li><a href="index.html#calc-block">Калькулятор</a></li>
+          <li><a href="index.html#franchise-calc">Калькулятор</a></li>
         </ul>
       </nav>
 
@@ -108,7 +108,7 @@
           >
         </li>
         <li>
-          <a href="index.html#calc-block" @click="openMobileMenu = false"
+          <a href="index.html#franchise-calc" @click="openMobileMenu = false"
             >Калькулятор</a
           >
         </li>
@@ -215,10 +215,9 @@
                 data-aos-delay="0"
               >
                 <div class="card-icon">
-                  <!-- Пример иконки (можно заменить на свою) -->
                   <img
-                    src="assets/images/ico-supplier.svg"
-                    alt="иконка поставщиков"
+                    src="assets/images/icons/ico-supplier.svg"
+                    alt="Надёжные поставщики"
                   />
                 </div>
                 <div class="card-content">
@@ -239,7 +238,10 @@
                 data-aos-delay="100"
               >
                 <div class="card-icon">
-                  <img src="assets/images/ico-it.svg" alt="иконка IT-решений" />
+                  <img
+                    src="assets/images/icons/ico-it.svg"
+                    alt="Собственные IT-решения"
+                  />
                 </div>
                 <div class="card-content">
                   <h3>Собственные IT-решения</h3>
@@ -259,8 +261,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-marketing.svg"
-                    alt="иконка маркетинга"
+                    src="assets/images/icons/ico-marketing.svg"
+                    alt="Маркетинговая поддержка"
                   />
                 </div>
                 <div class="card-content">
@@ -282,8 +284,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-education.svg"
-                    alt="иконка обучения"
+                    src="assets/images/icons/ico-education.svg"
+                    alt="Обучение"
                   />
                 </div>
                 <div class="card-content">
@@ -305,8 +307,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-transparency.svg"
-                    alt="иконка прозрачности"
+                    src="assets/images/icons/ico-transparency.svg"
+                    alt="Прозрачные условия"
                   />
                 </div>
                 <div class="card-content">
@@ -328,8 +330,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-support.svg"
-                    alt="иконка сопровождения"
+                    src="assets/images/icons/ico-support.svg"
+                    alt="Индивидуальное сопровождение"
                   />
                 </div>
                 <div class="card-content">
@@ -351,8 +353,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-lowrisk.svg"
-                    alt="иконка минимальных рисков"
+                    src="assets/images/icons/ico-lowrisk.svg"
+                    alt="Минимальные риски"
                   />
                 </div>
                 <div class="card-content">
@@ -374,8 +376,8 @@
               >
                 <div class="card-icon">
                   <img
-                    src="assets/images/ico-assort.svg"
-                    alt="иконка ассортимента"
+                    src="assets/images/icons/ico-assort.svg"
+                    alt="Расширенный ассортимент"
                   />
                 </div>
                 <div class="card-content">
@@ -388,8 +390,11 @@
                 <div class="card-number">08</div>
               </div>
             </div>
+            <!-- /.advantages-grid -->
           </div>
+          <!-- /.container-upgrade -->
         </div>
+        <!-- /.advantages-section -->
 
         <!-- Как работает бизнес франчайзи -->
         <section class="franchise-how-it-works">
@@ -561,8 +566,58 @@
                 </figure>
               </div>
             </div>
+            <div
+              class="call-button-block"
+              style="text-align: center; margin-top: 40px"
+            >
+              <button class="btn-primary" id="openCallModal">
+                Заказать звонок
+              </button>
+            </div>
           </div>
         </section>
+        <!-- Модальное окно (скрыто по умолчанию) -->
+        <div class="modal-overlay" id="callModal" style="display: none">
+          <div class="modal-content">
+            <button class="close-modal" id="closeCallModal">&times;</button>
+            <h2>Оставьте заявку на звонок</h2>
+            <form id="callRequestForm">
+              <label for="callName">Ваше имя:</label>
+              <input
+                type="text"
+                id="callName"
+                name="callName"
+                required
+                placeholder="Иван"
+              />
+
+              <label for="callPhone">Ваш телефон:</label>
+              <input
+                type="text"
+                id="callPhone"
+                name="callPhone"
+                required
+                placeholder="+7 (999) 999-99-99"
+              />
+
+              <!-- Быстрые ссылки для связи -->
+              <div class="quick-links">
+                <p>Или свяжитесь через:</p>
+                <a href="https://t.me/username" target="_blank" class="tg-link"
+                  >Telegram</a
+                >
+                <a
+                  href="https://wa.me/79991112233"
+                  target="_blank"
+                  class="wa-link"
+                  >WhatsApp</a
+                >
+              </div>
+
+              <button type="submit" class="btn-primary">Отправить</button>
+            </form>
+          </div>
+        </div>
 
         <!-- Финансовые показатели (без графика окупаемости) -->
         <section
@@ -583,7 +638,7 @@
                 <p>~3 800 тыс. ₽</p>
               </div>
               <div class="stat-item">
-                <h4>Средняя прибыль (Q4 2024)</h4>
+                <h4>Средняя прибыль</h4>
                 <p>~350 тыс. ₽</p>
               </div>
               <div class="stat-item">
@@ -979,7 +1034,64 @@
         handleScroll();
       });
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const openCallModalBtn = document.getElementById("openCallModal");
+        const closeCallModalBtn = document.getElementById("closeCallModal");
+        const callModal = document.getElementById("callModal");
 
+        // Открыть модалку
+        openCallModalBtn.addEventListener("click", () => {
+          callModal.style.display = "flex";
+        });
+
+        // Закрыть модалку (по крестику)
+        const closeBtn = document.getElementById("closeCallModal");
+        closeBtn.addEventListener("click", () => {
+          callModal.style.display = "none";
+        });
+
+        // При клике в пустую область вокруг формы тоже закрываем (необязательно)
+        callModal.addEventListener("click", (e) => {
+          if (e.target === callModal) {
+            callModal.style.display = "none";
+          }
+        });
+
+        // Обработка формы (AJAX или submit на сервер)
+        const callRequestForm = document.getElementById("callRequestForm");
+        callRequestForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(callRequestForm);
+          const callName = formData.get("callName");
+          const callPhone = formData.get("callPhone");
+
+          // TODO: Вызов серверного API (fetch / axios)
+          // Пример через fetch:
+          try {
+            const response = await fetch("/api/call-request", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: callName,
+                phone: callPhone,
+              }),
+            });
+            if (!response.ok) {
+              throw new Error("Ошибка при отправке заявки");
+            }
+            // Закрыть модалку, почистить поля и т. д.
+            alert("Ваша заявка отправлена! Скоро свяжемся.");
+            callModal.style.display = "none";
+            callRequestForm.reset();
+          } catch (error) {
+            console.error(error);
+            alert("Не удалось отправить заявку. Попробуйте ещё раз.");
+          }
+        });
+      });
+    </script>
     <!-- Инициализация AOS -->
     <script>
       AOS.init();
